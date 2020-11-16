@@ -1,6 +1,6 @@
 import { Navigation } from 'react-native-navigation';
 import { registerScreens } from '@/screens';
-import { screenComponent } from '@/util/navigation';
+import { screenComponent, mainStackId } from '@/util/navigation';
 import Bugsnag from '@bugsnag/react-native';
 
 Bugsnag.start();
@@ -11,6 +11,7 @@ Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
         root: {
             stack: {
+                id: mainStackId,
                 children: [screenComponent('App')],
             },
         },

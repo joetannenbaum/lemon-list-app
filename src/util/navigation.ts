@@ -1,4 +1,4 @@
-import { Options } from 'react-native-navigation';
+import { Options, Navigation } from 'react-native-navigation';
 
 export const mainStackId = 'MainGroceryListStack';
 export const screenPrefix = 'groceryList';
@@ -14,3 +14,18 @@ export const screenComponent = (
         ...params,
     },
 });
+
+export const setStackRootWithoutAnimating = (name: string) => {
+    Navigation.setStackRoot(
+        mainStackId,
+        screenComponent(name, {
+            options: {
+                animations: {
+                    setStackRoot: {
+                        enabled: false,
+                    },
+                },
+            },
+        }),
+    );
+};

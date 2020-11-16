@@ -9,7 +9,7 @@ import { useAccountInterceptors } from './interceptors';
 import Bugsnag from '@bugsnag/react-native';
 
 const params: AxiosRequestConfig = {
-    baseURL: Config.API_URL,
+    baseURL: `${Config.API_URL}/api`,
     responseType: 'json',
     headers: {
         'APP-VERSION': getVersion(),
@@ -78,14 +78,7 @@ axiosRetry(instance, {
     retries: 3,
     retryDelay: (retryCount) => retryCount * 1000,
     retryCondition: (error) => {
-        if (isNetworkOrIdempotentRequestError(error)) {
-            return true;
-        }
-
-        // This is a special case where the first request (usually tabs)
-        // goes out after upgrading app and it's a 404 for some reason,
-        // just retry a couple of times and it works
-        return error.response?.status === 404;
+        return isNetworkOrIdempotentRequestError(error);
     },
 });
 

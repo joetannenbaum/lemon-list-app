@@ -20,8 +20,6 @@ const accessTokenNotFound = (error: AxiosError) =>
 export const useAccountInterceptors = (axiosInstance: AxiosInstance): void => {
     axiosInstance.interceptors.request.use((config) => {
         return getAccessTokenFromKeychain().then((token) => {
-            console.log(token);
-
             if (!token) {
                 return Promise.resolve(config);
             }
