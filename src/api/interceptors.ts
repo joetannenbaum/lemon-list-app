@@ -4,7 +4,9 @@ import {
     saveRefreshTokenInKeychain,
     saveAccessTokenInKeychain,
 } from '@/util/keychain';
-import { AxiosInstance, AxiosError } from 'axios';
+import Axios, { AxiosInstance, AxiosError } from 'axios';
+import logger from '@/util/logger';
+import Config from 'react-native-config';
 
 const accessTokenExpired = (error: AxiosError) =>
     error?.response?.status === 401;
@@ -38,26 +40,26 @@ export const useAccountInterceptors = (axiosInstance: AxiosInstance): void => {
             if (accessTokenExpired(error)) {
                 console.log('TOKEN EXPIRED!!!');
 
-                // return getRefreshTokenFromKeychain()
-                //     .then((refreshToken) =>
-                //         axios.get(
-                //             `${Config.API_URL}/jwt-refresh/${refreshToken}`,
-                //         ),
-                //     )
-                //     .then((response) => {
-                //         return Promise.all([
-                //             saveAccessTokenInKeychain(response.data.token),
-                //             saveRefreshTokenInKeychain(
-                //                 response.data.refreshToken,
-                //             ),
-                //         ]);
-                //     })
-                //     .then(() => axiosInstance.request(error.config))
-                //     .catch((refreshError) => {
-                //         logger.red(refreshError.toString());
-                //         // They haven't used the app in a very long time, alert them to re-login
-                //         logger.red('MUST RE-LOGIN, REFRESH TOKEN EXPIRED');
-                //     });
+                return getRefreshTokenFromKeychain()
+                    .then((refreshToken) =>
+                        Axios.get(
+                            `${Config.API_URL}/jwt-refresh/${refreshToken}`,
+                        ),
+                    )
+                    .then((response) => {
+                        return Promise.all([
+                            saveAccessTokenInKeychain(response.data.token),
+                            saveRefreshTokenInKeychain(
+                                response.data.refreshToken,
+                            ),
+                        ]);
+                    })
+                    .then(() => axiosInstance.request(error.config))
+                    .catch((refreshError) => {
+                        logger.red(refreshError.toString());
+                        // They haven't used the app in a very long time, alert them to re-login
+                        logger.red('MUST RE-LOGIN, REFRESH TOKEN EXPIRED');
+                    });
             }
 
             if (accessTokenNotFound(error)) {
