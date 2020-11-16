@@ -17,7 +17,6 @@ import {
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Auth0 from 'react-native-auth0';
 import Config from 'react-native-config';
 import Bugsnag from '@bugsnag/react-native';
 

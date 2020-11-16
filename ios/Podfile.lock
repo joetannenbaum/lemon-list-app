@@ -1,6 +1,4 @@
 PODS:
-  - A0Auth0 (2.6.0):
-    - React
   - boost-for-react-native (1.63.0)
   - BugsnagReactNative (7.5.2):
     - React
@@ -313,7 +311,6 @@ PODS:
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
-  - A0Auth0 (from `../node_modules/react-native-auth0/ios`)
   - "BugsnagReactNative (from `../node_modules/@bugsnag/react-native`)"
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -382,8 +379,6 @@ SPEC REPOS:
     - YogaKit
 
 EXTERNAL SOURCES:
-  A0Auth0:
-    :path: "../node_modules/react-native-auth0/ios"
   BugsnagReactNative:
     :path: "../node_modules/@bugsnag/react-native"
   DoubleConversion:
@@ -446,7 +441,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  A0Auth0: 2919855112dbfadfea2c55418fa6114f274ee6de
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BugsnagReactNative: 3cd02fe1b483dcbbfe41cc3bdef9056afca1e2ef
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
