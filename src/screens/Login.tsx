@@ -1,12 +1,11 @@
 import React from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import SafeAreaView from 'react-native-safe-area-view';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { View, Button } from 'react-native';
 import * as Yup from 'yup';
 import EmailField from '@/components/form/EmailField';
 import PasswordField from '@/components/form/PasswordField';
-import api from '@/api';
 import SubmitButton from '@/components/form/SubmitButton';
 import logger from '@/util/logger';
 import { requestAccessToken } from '@/api/token';
@@ -15,8 +14,13 @@ import { setStackRootWithoutAnimating } from '@/util/navigation';
 
 interface Props extends ScreenProps {}
 
+interface FormValues {
+    email: string;
+    password: string;
+}
+
 const Register: Screen<Props> = (props) => {
-    const initialFormValues = {
+    const initialFormValues: FormValues = {
         email: '',
         password: '',
     };
@@ -26,7 +30,10 @@ const Register: Screen<Props> = (props) => {
         password: Yup.string().required('Required'),
     });
 
-    const handleSubmit = (values, form) => {
+    const handleSubmit = (
+        values: FormValues,
+        form: FormikHelpers<FormValues>,
+    ) => {
         requestAccessToken(values.email, values.password)
             .then((res) => {
                 setStackRootWithoutAnimating('Home');

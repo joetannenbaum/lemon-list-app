@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import SafeAreaView from 'react-native-safe-area-view';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { View, Button } from 'react-native';
 import * as Yup from 'yup';
 import TextField from '@/components/form/TextField';
@@ -16,8 +16,15 @@ import { setStackRootWithoutAnimating } from '@/util/navigation';
 
 interface Props extends ScreenProps {}
 
+interface FormValues {
+    name: string;
+    email: string;
+    password: string;
+    passwordConfirmation: string;
+}
+
 const Register: Screen<Props> = (props) => {
-    const initialFormValues = {
+    const initialFormValues: FormValues = {
         name: '',
         email: '',
         password: '',
@@ -35,7 +42,10 @@ const Register: Screen<Props> = (props) => {
             .oneOf([Yup.ref('password'), ''], 'Passwords must match'),
     });
 
-    const handleSubmit = (values, form) => {
+    const handleSubmit = (
+        values: FormValues,
+        form: FormikHelpers<FormValues>,
+    ) => {
         api.post('/auth/register', values)
             .then((res) => requestAccessToken(values.email, values.password))
             .then((res) => {
