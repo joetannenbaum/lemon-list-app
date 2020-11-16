@@ -9,37 +9,13 @@ import {
     Button,
 } from 'react-native';
 
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import { Header, Colors } from 'react-native/Libraries/NewAppScreen';
 
-import Config from 'react-native-config';
 import Bugsnag from '@bugsnag/react-native';
 
 Bugsnag.start();
 
-const auth0 = new Auth0({
-    domain: Config.AUTH0_DOMAIN,
-    clientId: Config.AUTH0_CLIENT_ID,
-});
-
 const App: () => React$Node = () => {
-    const login = () => {
-        auth0.webAuth
-            .authorize({
-                scope: 'openid profile email',
-                audience: Config.AUTH0_AUDIENCE,
-            })
-            .then((credentials) => {
-                console.log(credentials);
-            })
-            .catch((error) => console.log(error));
-    };
-
     return (
         <>
             <StatusBar barStyle="dark-content" />
@@ -48,7 +24,6 @@ const App: () => React$Node = () => {
                     contentInsetAdjustmentBehavior="automatic"
                     style={styles.scrollView}>
                     <Header />
-                    <Button title="Login" onPress={login} />
                 </ScrollView>
             </SafeAreaView>
         </>
