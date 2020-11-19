@@ -1,30 +1,38 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Formik, FormikHelpers } from 'formik';
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
 import * as Yup from 'yup';
 import SubmitButton from './form/SubmitButton';
 import TextField from './form/TextField';
 import api from '@/api';
 import { useMutation, useQueryCache } from 'react-query';
-import BodyText from './BodyText';
-import { flatMap } from 'lodash';
+import useShoppingList from '@/hooks/useShoppingList';
 
-interface Props {}
+interface Props {
+    listId: number;
+}
 
 interface FormValues {
     name: '';
 }
 
-const CreateListForm: React.FC<Props> = (props) => {
+const CreateItemForm: React.FC<Props> = (props) => {
     const queryCache = useQueryCache();
+
+    const inputRef = useRef(null);
+
+    const list = useShoppingList(props.listId);
 
     const [mutate, { status, data, error }] = useMutation(
         (params) => {
-            return api.post('shopping-lists', params);
+            return api.post(
+                `shopping-list-versions/${list.data?.active_version.id}/items`,
+                params,
+            );
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries('shopping-lists');
+                queryCache.invalidateQueries(['shopping-list', props.listId]);
             },
         },
     );
@@ -59,10 +67,13 @@ const CreateListForm: React.FC<Props> = (props) => {
             {({ handleSubmit, isSubmitting, values }) => (
                 <View>
                     <TextField
+                        onInputRef={(ref) => {
+                            inputRef.current = ref;
+                        }}
                         required={true}
                         name="name"
-                        label="List Name"
-                        placeholder="List Name"
+                        placeholder="Add Item Here"
+                        onSubmitEditing={handleSubmit}
                     />
                     <SubmitButton
                         disabled={values.name === ''}
@@ -76,4 +87,4 @@ const CreateListForm: React.FC<Props> = (props) => {
     );
 };
 
-export default CreateListForm;
+export default CreateItemForm;

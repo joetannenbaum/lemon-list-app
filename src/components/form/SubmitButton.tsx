@@ -15,7 +15,11 @@ const SubmitButton: React.FC<Props> = (props) => {
         }
 
         if (typeof props.children === 'string') {
-            return <BodyText align="center">{props.children}</BodyText>;
+            return (
+                <BodyText size={40} align="center">
+                    {props.children}
+                </BodyText>
+            );
         }
 
         return props.children;

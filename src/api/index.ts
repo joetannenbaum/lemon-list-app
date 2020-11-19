@@ -74,12 +74,12 @@ instance.interceptors.response.use(
     },
 );
 
-axiosRetry(instance, {
-    retries: 3,
-    retryDelay: (retryCount) => retryCount * 1000,
-    retryCondition: (error) => {
-        return isNetworkOrIdempotentRequestError(error);
-    },
-});
+// axiosRetry(instance, {
+//     retries: 3,
+//     retryDelay: (retryCount) => retryCount * 1000,
+//     retryCondition: (error) => {
+//         return isNetworkOrIdempotentRequestError(error);
+//     },
+// });
 
 export default instance;

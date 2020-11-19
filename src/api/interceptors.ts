@@ -40,6 +40,7 @@ export const useAccountInterceptors = (axiosInstance: AxiosInstance): void => {
 
                 return getRefreshTokenFromKeychain()
                     .then((refreshToken) =>
+                        // TODO: Replace with real token refresh!
                         Axios.get(
                             `${Config.API_URL}/jwt-refresh/${refreshToken}`,
                         ),

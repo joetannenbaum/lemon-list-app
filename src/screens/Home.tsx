@@ -4,15 +4,19 @@ import LogoutButton from '@/components/LogoutButton';
 import useMe from '@/hooks/useMe';
 import SafeAreaView from 'react-native-safe-area-view';
 import BodyText from '@/components/BodyText';
-import useLists from '@/hooks/useShoppingLists';
+import useShoppingLists from '@/hooks/useShoppingLists';
 import { View, TouchableOpacity } from 'react-native';
 import CreateListForm from '@/components/CreateListForm';
+import { Navigation } from 'react-native-navigation';
+import { mainStackId, screenComponent } from '@/util/navigation';
+import useItems from '@/hooks/useItems';
 
 interface Props extends ScreenProps {}
 
 const Home: Screen<Props> = (props) => {
     const me = useMe();
-    const lists = useLists();
+    const lists = useShoppingLists();
+    const items = useItems();
 
     return (
         <SafeAreaView>
@@ -27,7 +31,18 @@ const Home: Screen<Props> = (props) => {
             <CreateListForm />
             {lists?.data?.map((list) => {
                 return (
-                    <TouchableOpacity key={`${list.id}`}>
+                    <TouchableOpacity
+                        key={`${list.id}`}
+                        onPress={() => {
+                            Navigation.push(
+                                mainStackId,
+                                screenComponent('ShoppingList', {
+                                    passProps: {
+                                        id: list.id,
+                                    },
+                                }),
+                            );
+                        }}>
                         <BodyText>{list.name}</BodyText>
                     </TouchableOpacity>
                 );
