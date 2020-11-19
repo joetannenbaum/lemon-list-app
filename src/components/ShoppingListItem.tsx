@@ -1,13 +1,16 @@
 import React, { useState, useCallback } from 'react';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import BodyText from './BodyText';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Button } from 'react-native';
 import debounce from 'lodash/debounce';
 import api from '@/api';
 import { useMutation, useQueryCache } from 'react-query';
+import SwipeableItem from 'react-native-swipeable-item';
 
 interface Props {
     item: ShoppingListItemType;
+    drag: () => void;
+    isActive: boolean;
 }
 
 const ShoppingListItem: React.FC<Props> = (props) => {
@@ -51,26 +54,66 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         });
     };
 
-    return (
-        <View
-            style={{
-                padding: 10,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-            }}>
-            <BodyText>{props.item.item.name}</BodyText>
+    const renderDelete = () => {
+        return (
             <View
                 style={{
+                    backgroundColor: 'red',
+                    justifyContent: 'flex-end',
                     flexDirection: 'row',
                 }}>
-                <TouchableOpacity onPress={decreaseQuantity}>
-                    <BodyText>-</BodyText>
-                </TouchableOpacity>
-                <BodyText>{quantity}</BodyText>
-                <TouchableOpacity onPress={increaseQuantity}>
-                    <BodyText>+</BodyText>
-                </TouchableOpacity>
+                <Button
+                    color="white"
+                    title="Delete"
+                    onPress={() => {
+                        console.log('got it baby');
+                    }}
+                />
             </View>
+        );
+    };
+
+    return (
+        <View style={{ flex: 1 }}>
+            <SwipeableItem
+                renderUnderlayLeft={renderDelete}
+                snapPointsLeft={[100]}>
+                <View
+                    style={[
+                        {
+                            padding: 10,
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            backgroundColor: '#fff',
+                        },
+                        props.isActive
+                            ? {
+                                  shadowColor: '#9B9B9B',
+                                  shadowOffset: { width: 3, height: 3 },
+                                  shadowOpacity: 0.25,
+                                  shadowRadius: 10,
+                              }
+                            : null,
+                    ]}>
+                    <TouchableOpacity
+                        style={{ flex: 1 }}
+                        onLongPress={props.drag}>
+                        <BodyText>{props.item.item.name}</BodyText>
+                    </TouchableOpacity>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                        }}>
+                        <TouchableOpacity onPress={decreaseQuantity}>
+                            <BodyText>-</BodyText>
+                        </TouchableOpacity>
+                        <BodyText>{quantity}</BodyText>
+                        <TouchableOpacity onPress={increaseQuantity}>
+                            <BodyText>+</BodyText>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </SwipeableItem>
         </View>
     );
 };

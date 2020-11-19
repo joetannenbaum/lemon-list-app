@@ -9,6 +9,7 @@ import Register from '@/screens/Register';
 import ShoppingList from '@/screens/ShoppingList';
 import { screenName as getScreenName } from '@/util/navigation';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 const queryCache = new QueryCache();
 
@@ -36,7 +37,7 @@ export const registerScreens = () => {
     for (const screenName in screens) {
         Navigation.registerComponent(getScreenName(screenName), () =>
             hoistNonReactStatics(
-                WrappedComponent(screens[screenName]),
+                gestureHandlerRootHOC(WrappedComponent(screens[screenName])),
                 screens[screenName],
             ),
         );
