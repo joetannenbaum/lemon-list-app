@@ -8,6 +8,7 @@ import { useMutation, useQueryCache } from 'react-query';
 import SwipeableItem from 'react-native-swipeable-item';
 
 interface Props {
+    listId: number;
     item: ShoppingListItemType;
     drag: () => void;
     isActive: boolean;
@@ -18,7 +19,7 @@ const ShoppingListItem: React.FC<Props> = (props) => {
 
     const queryCache = useQueryCache();
 
-    const [mutate, { status, data, error }] = useMutation(
+    const [updateItem] = useMutation(
         (params) => {
             return api.put(
                 `shopping-list-versions/${props.item.shopping_list_version_id}/items/${props.item.id}`,
@@ -27,13 +28,26 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         },
         {
             onSuccess() {
-                // queryCache.invalidateQueries(['shopping-list', props.listId]);
+                queryCache.invalidateQueries(['shopping-list', props.listId]);
+            },
+        },
+    );
+
+    const [deleteItem] = useMutation(
+        () => {
+            return api.delete(
+                `shopping-list-versions/${props.item.shopping_list_version_id}/items/${props.item.id}`,
+            );
+        },
+        {
+            onSuccess() {
+                queryCache.invalidateQueries(['shopping-list', props.listId]);
             },
         },
     );
 
     const updateViaApi = (newQuantity: number) => {
-        mutate({
+        updateItem({
             quantity: newQuantity,
         });
     };
@@ -66,7 +80,7 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                     color="white"
                     title="Delete"
                     onPress={() => {
-                        console.log('got it baby');
+                        deleteItem();
                     }}
                 />
             </View>

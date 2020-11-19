@@ -64,6 +64,7 @@ const ShoppingList: Screen<Props> = (props) => {
                 onDragEnd={onDragEnd}
                 renderItem={({ item, drag, isActive }) => (
                     <ShoppingListItem
+                        listId={props.id}
                         item={item}
                         key={item.id.toString()}
                         drag={drag}
