@@ -10,17 +10,25 @@ import CreateListForm from '@/components/CreateListForm';
 import { Navigation } from 'react-native-navigation';
 import { mainStackId, screenComponent } from '@/util/navigation';
 import useItems from '@/hooks/useItems';
+import useStores from '@/hooks/useStores';
+import CreateStoreForm from '@/components/CreateStoreForm';
 
 interface Props extends ScreenProps {}
 
 const Home: Screen<Props> = (props) => {
     const me = useMe();
     const lists = useShoppingLists();
+    const stores = useStores();
     const items = useItems();
 
     return (
         <SafeAreaView>
             <BodyText>Hi, {me?.data?.name}</BodyText>
+
+            <BodyText size={30} bold={true}>
+                Lists
+            </BodyText>
+
             {lists?.data?.length === 0 && (
                 <View>
                     <BodyText>
@@ -28,7 +36,9 @@ const Home: Screen<Props> = (props) => {
                     </BodyText>
                 </View>
             )}
+
             <CreateListForm />
+
             {lists?.data?.map((list) => {
                 return (
                     <TouchableOpacity
@@ -47,7 +57,43 @@ const Home: Screen<Props> = (props) => {
                     </TouchableOpacity>
                 );
             })}
-            <LogoutButton />
+
+            <BodyText size={30} bold={true}>
+                Stores
+            </BodyText>
+
+            {stores?.data?.length === 0 && (
+                <View>
+                    <BodyText>
+                        You don't have any stores! Create one now.
+                    </BodyText>
+                </View>
+            )}
+
+            <CreateStoreForm />
+
+            {stores?.data?.map((store) => {
+                return (
+                    <TouchableOpacity
+                        key={`${store.id}`}
+                        onPress={() => {
+                            Navigation.push(
+                                mainStackId,
+                                screenComponent('Store', {
+                                    passProps: {
+                                        id: store.id,
+                                    },
+                                }),
+                            );
+                        }}>
+                        <BodyText>{store.name}</BodyText>
+                    </TouchableOpacity>
+                );
+            })}
+
+            <View style={{ marginTop: 200 }}>
+                <LogoutButton />
+            </View>
         </SafeAreaView>
     );
 };

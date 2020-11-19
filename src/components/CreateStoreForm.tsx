@@ -13,16 +13,16 @@ interface FormValues {
     name: '';
 }
 
-const CreateListForm: React.FC<Props> = (props) => {
+const CreateStoreForm: React.FC<Props> = (props) => {
     const queryCache = useQueryCache();
 
     const [mutate, { status, data, error }] = useMutation(
         (params) => {
-            return api.post('shopping-lists', params);
+            return api.post('stores', params);
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries('shopping-lists');
+                queryCache.invalidateQueries('stores');
             },
         },
     );
@@ -59,8 +59,8 @@ const CreateListForm: React.FC<Props> = (props) => {
                     <TextField
                         required={true}
                         name="name"
-                        label="List Name"
-                        placeholder="List Name"
+                        label="Store Name"
+                        placeholder="Store Name"
                     />
                     <SubmitButton
                         disabled={values.name === ''}
@@ -74,4 +74,4 @@ const CreateListForm: React.FC<Props> = (props) => {
     );
 };
 
-export default CreateListForm;
+export default CreateStoreForm;
