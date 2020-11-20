@@ -13,7 +13,7 @@ interface Props {
 }
 
 interface FormValues {
-    name: '';
+    name: string;
 }
 
 const CreateItemForm: React.FC<Props> = (props) => {

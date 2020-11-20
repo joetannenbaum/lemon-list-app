@@ -10,7 +10,7 @@ import { useMutation, useQueryCache } from 'react-query';
 interface Props {}
 
 interface FormValues {
-    name: '';
+    name: string;
 }
 
 const CreateStoreForm: React.FC<Props> = (props) => {

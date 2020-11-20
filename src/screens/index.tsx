@@ -3,6 +3,7 @@ import { Navigation } from 'react-native-navigation';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import App from '@/screens/App';
+import EditShoppingListItem from '@/screens/EditShoppingListItem';
 import Home from '@/screens/Home';
 import Login from '@/screens/Login';
 import Register from '@/screens/Register';
@@ -16,6 +17,7 @@ const queryCache = new QueryCache();
 
 const screens = {
     App,
+    EditShoppingListItem,
     Home,
     Login,
     Register,
@@ -34,6 +36,15 @@ const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
         );
     };
 };
+
+export type screenComponentName =
+    | 'App'
+    | 'Home'
+    | 'Login'
+    | 'Register'
+    | 'ShoppingList'
+    | 'Store'
+    | 'EditShoppingListItem';
 
 export const registerScreens = () => {
     for (const screenName in screens) {

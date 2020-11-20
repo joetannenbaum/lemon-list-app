@@ -1,14 +1,20 @@
-import { Options, Navigation } from 'react-native-navigation';
+import {
+    Options,
+    Navigation,
+    LayoutComponent,
+    Layout,
+} from 'react-native-navigation';
+import { screenComponentName } from '@/screens';
 
 export const mainStackId = 'MainGroceryListStack';
 export const screenPrefix = 'groceryList';
 
 export const screenName = (name: string) => `${screenPrefix}.${name}`;
 
-export const screenComponent = (
-    name: string,
-    params: { options?: Options; passProps?: object } = {},
-) => ({
+export const screenComponent = <P = {}>(
+    name: screenComponentName,
+    params: { options?: Options; passProps?: P } = {},
+): Layout<LayoutComponent<P>> => ({
     component: {
         name: screenName(name),
         ...params,

@@ -12,7 +12,7 @@ interface Props {
 }
 
 interface FormValues {
-    name: '';
+    name: string;
 }
 
 const CreateStoreTagForm: React.FC<Props> = (props) => {

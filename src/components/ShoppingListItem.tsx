@@ -3,9 +3,12 @@ import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListIt
 import BodyText from './BodyText';
 import { View, TouchableOpacity, Button } from 'react-native';
 import debounce from 'lodash/debounce';
-import api from '@/api';
-import { useMutation, useQueryCache } from 'react-query';
 import SwipeableItem from 'react-native-swipeable-item';
+import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
+import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
+import { Navigation } from 'react-native-navigation';
+import { screenComponent } from '@/util/navigation';
+import { EditShoppingListItemProps } from '@/screens/EditShoppingListItem';
 
 interface Props {
     listId: number;
@@ -27,33 +30,16 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         setCheckedOff(props.item.checked_off);
     }, [props.item.checked_off]);
 
-    const queryCache = useQueryCache();
-
-    const [updateItem] = useMutation(
-        (params) => {
-            return api.put(
-                `shopping-list-versions/${props.item.shopping_list_version_id}/items/${props.item.id}`,
-                params,
-            );
-        },
-        {
-            onSuccess() {
-                queryCache.invalidateQueries(['shopping-list', props.listId]);
-            },
-        },
+    const [updateItem] = useUpdateShoppingListItem(
+        props.listId,
+        props.item.shopping_list_version_id,
+        props.item.id,
     );
 
-    const [deleteItem] = useMutation(
-        () => {
-            return api.delete(
-                `shopping-list-versions/${props.item.shopping_list_version_id}/items/${props.item.id}`,
-            );
-        },
-        {
-            onSuccess() {
-                queryCache.invalidateQueries(['shopping-list', props.listId]);
-            },
-        },
+    const [deleteItem] = useDeleteShoppingListItem(
+        props.listId,
+        props.item.shopping_list_version_id,
+        props.item.id,
     );
 
     const updateViaApi = (params: object) => updateItem(params);
@@ -104,6 +90,17 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         );
     };
 
+    const showEditModal = () => {
+        Navigation.showModal(
+            screenComponent<EditShoppingListItemProps>('EditShoppingListItem', {
+                passProps: {
+                    listId: props.listId,
+                    item: props.item,
+                },
+            }),
+        );
+    };
+
     return (
         <View style={{ flex: 1 }}>
             <SwipeableItem
@@ -138,6 +135,7 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                         onPress={toggleCheck}></TouchableOpacity>
                     <TouchableOpacity
                         style={{ flex: 1 }}
+                        onPress={showEditModal}
                         onLongPress={props.drag}>
                         <BodyText
                             style={
