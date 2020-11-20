@@ -126,6 +126,15 @@ const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
                             processing={isSubmitting}>
                             Update
                         </SubmitButton>
+                        <View style={{ padding: 20 }}>
+                            <Button
+                                color="grey"
+                                title="Cancel"
+                                onPress={() => {
+                                    Navigation.dismissModal(props.componentId);
+                                }}
+                            />
+                        </View>
                     </View>
                 )}
             </Formik>
