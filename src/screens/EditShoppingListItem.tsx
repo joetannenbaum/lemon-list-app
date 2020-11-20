@@ -37,13 +37,6 @@ const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
         props.item.id,
     );
 
-    // const increaseQuantity = () => changeQuantity(1);
-    // const decreaseQuantity = () => changeQuantity(-1);
-
-    // const changeQuantity = (by: number) => {
-    //     setQuantity((state) => Math.max(1, state + by));
-    // };
-
     const initialFormValues: FormValues = {
         name: props.item.item.name,
         quantity: props.item.quantity,
