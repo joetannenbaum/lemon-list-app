@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Formik, FormikHelpers } from 'formik';
-import { View } from 'react-native';
+import { View, TextInput } from 'react-native';
 import * as Yup from 'yup';
 import SubmitButton from './form/SubmitButton';
 import TextField from './form/TextField';
@@ -19,7 +19,7 @@ interface FormValues {
 const CreateItemForm: React.FC<Props> = (props) => {
     const queryCache = useQueryCache();
 
-    const inputRef = useRef(null);
+    const inputRef = useRef<TextInput>(null);
 
     const list = useShoppingList(props.listId);
 
@@ -52,6 +52,7 @@ const CreateItemForm: React.FC<Props> = (props) => {
             .then((res) => {
                 form.setSubmitting(false);
                 form.resetForm();
+                inputRef.current?.focus();
             })
             .catch((error) => {
                 form.setSubmitting(false);
@@ -67,9 +68,7 @@ const CreateItemForm: React.FC<Props> = (props) => {
             {({ handleSubmit, isSubmitting, values }) => (
                 <View>
                     <TextField
-                        onInputRef={(ref) => {
-                            inputRef.current = ref;
-                        }}
+                        ref={inputRef}
                         required={true}
                         name="name"
                         placeholder="Add Item Here"

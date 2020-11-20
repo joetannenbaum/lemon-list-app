@@ -25,73 +25,88 @@ const Home: Screen<Props> = (props) => {
         <SafeAreaView>
             <BodyText>Hi, {me?.data?.name}</BodyText>
 
-            <BodyText size={30} bold={true}>
-                Lists
-            </BodyText>
+            <View
+                style={{
+                    paddingTop: 50,
+                    paddingBottom: 50,
+                    paddingLeft: 25,
+                    paddingRight: 25,
+                }}>
+                <BodyText size={30} bold={true}>
+                    Lists
+                </BodyText>
 
-            {lists?.data?.length === 0 && (
-                <View>
-                    <BodyText>
-                        You don't have any lists! Create one now.
-                    </BodyText>
-                </View>
-            )}
+                {lists?.data?.length === 0 && (
+                    <View>
+                        <BodyText>
+                            You don't have any lists! Create one now.
+                        </BodyText>
+                    </View>
+                )}
 
-            <CreateListForm />
+                <CreateListForm />
 
-            {lists?.data?.map((list) => {
-                return (
-                    <TouchableOpacity
-                        key={`${list.id}`}
-                        onPress={() => {
-                            Navigation.push(
-                                mainStackId,
-                                screenComponent('ShoppingList', {
-                                    passProps: {
-                                        id: list.id,
-                                    },
-                                }),
-                            );
-                        }}>
-                        <BodyText>{list.name}</BodyText>
-                    </TouchableOpacity>
-                );
-            })}
+                {lists?.data?.map((list) => {
+                    return (
+                        <TouchableOpacity
+                            key={`${list.id}`}
+                            onPress={() => {
+                                Navigation.push(
+                                    mainStackId,
+                                    screenComponent('ShoppingList', {
+                                        passProps: {
+                                            id: list.id,
+                                        },
+                                    }),
+                                );
+                            }}>
+                            <BodyText bold={true}>{list.name}</BodyText>
+                        </TouchableOpacity>
+                    );
+                })}
+            </View>
+            <View
+                style={{
+                    paddingTop: 50,
+                    paddingBottom: 50,
+                    paddingLeft: 25,
+                    paddingRight: 25,
+                }}>
+                <BodyText size={30} bold={true}>
+                    Stores
+                </BodyText>
 
-            <BodyText size={30} bold={true}>
-                Stores
-            </BodyText>
+                {stores?.data?.length === 0 && (
+                    <View>
+                        <BodyText>
+                            You don't have any stores! Create one now.
+                        </BodyText>
+                    </View>
+                )}
 
-            {stores?.data?.length === 0 && (
-                <View>
-                    <BodyText>
-                        You don't have any stores! Create one now.
-                    </BodyText>
-                </View>
-            )}
+                <CreateStoreForm />
 
-            <CreateStoreForm />
+                {stores?.data?.map((store) => {
+                    return (
+                        <TouchableOpacity
+                            key={`${store.id}`}
+                            onPress={() => {
+                                Navigation.push(
+                                    mainStackId,
+                                    screenComponent('Store', {
+                                        passProps: {
+                                            id: store.id,
+                                        },
+                                    }),
+                                );
+                            }}>
+                            <BodyText bold={true}>{store.name}</BodyText>
+                        </TouchableOpacity>
+                    );
+                })}
+            </View>
 
-            {stores?.data?.map((store) => {
-                return (
-                    <TouchableOpacity
-                        key={`${store.id}`}
-                        onPress={() => {
-                            Navigation.push(
-                                mainStackId,
-                                screenComponent('Store', {
-                                    passProps: {
-                                        id: store.id,
-                                    },
-                                }),
-                            );
-                        }}>
-                        <BodyText>{store.name}</BodyText>
-                    </TouchableOpacity>
-                );
-            })}
-
-            <View style={{ marginTop: 200 }}>
+            <View style={{ marginTop: 100 }}>
                 <LogoutButton />
             </View>
         </SafeAreaView>

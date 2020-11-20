@@ -38,6 +38,7 @@ const BaseText: React.FC<BaseTextProps> = (props) => {
         }
 
         if (props.bold) {
+            textStyle.push({ fontWeight: '700' });
             // textStyle.push(styles.bodyTextBold);
         }
 

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import BodyText from './BodyText';
 import { View, TouchableOpacity, Button } from 'react-native';
@@ -16,6 +16,10 @@ interface Props {
 
 const ShoppingListItem: React.FC<Props> = (props) => {
     const [quantity, setQuantity] = useState(props.item.quantity);
+
+    useEffect(() => {
+        setQuantity(props.item.quantity);
+    }, [props.item.quantity]);
 
     const queryCache = useQueryCache();
 
