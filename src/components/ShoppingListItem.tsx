@@ -15,11 +15,17 @@ interface Props {
 }
 
 const ShoppingListItem: React.FC<Props> = (props) => {
+    // This is in state for purposes of optimistic updates
     const [quantity, setQuantity] = useState(props.item.quantity);
+    const [checkedOff, setCheckedOff] = useState(props.item.checked_off);
 
     useEffect(() => {
         setQuantity(props.item.quantity);
     }, [props.item.quantity]);
+
+    useEffect(() => {
+        setCheckedOff(props.item.checked_off);
+    }, [props.item.checked_off]);
 
     const queryCache = useQueryCache();
 
@@ -50,14 +56,10 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         },
     );
 
-    const updateViaApi = (newQuantity: number) => {
-        updateItem({
-            quantity: newQuantity,
-        });
-    };
+    const updateViaApi = (params: object) => updateItem(params);
 
     const debouncedUpdate = useCallback(
-        debounce((newQuantity) => updateViaApi(newQuantity), 750),
+        debounce((params) => updateViaApi(params), 750),
         [],
     );
 
@@ -67,8 +69,19 @@ const ShoppingListItem: React.FC<Props> = (props) => {
     const changeQuantity = (by: number) => {
         setQuantity((state) => {
             const newState = Math.max(1, state + by);
-            debouncedUpdate(newState);
+            debouncedUpdate({
+                quantity: newState,
+            });
             return newState;
+        });
+    };
+
+    const toggleCheck = () => {
+        setCheckedOff((state) => {
+            debouncedUpdate({
+                checked_off: !state,
+            });
+            return !state;
         });
     };
 
@@ -114,9 +127,29 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                             : null,
                     ]}>
                     <TouchableOpacity
+                        style={{
+                            width: 18,
+                            height: 18,
+                            borderColor: 'black',
+                            borderWidth: 1,
+                            marginRight: 5,
+                            backgroundColor: checkedOff ? 'black' : 'white',
+                        }}
+                        onPress={toggleCheck}></TouchableOpacity>
+                    <TouchableOpacity
                         style={{ flex: 1 }}
                         onLongPress={props.drag}>
-                        <BodyText>{props.item.item.name}</BodyText>
+                        <BodyText
+                            style={
+                                checkedOff
+                                    ? {
+                                          textDecorationLine: 'line-through',
+                                          textDecorationStyle: 'solid',
+                                      }
+                                    : null
+                            }>
+                            {props.item.item.name}
+                        </BodyText>
                     </TouchableOpacity>
                     <View
                         style={{

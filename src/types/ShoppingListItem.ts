@@ -8,4 +8,5 @@ export interface ShoppingListItem {
     quantity: number;
     created_at: string;
     updated_at: string;
+    checked_off: boolean;
 }
