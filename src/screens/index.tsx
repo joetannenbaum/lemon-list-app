@@ -7,6 +7,7 @@ import Home from '@/screens/Home';
 import Login from '@/screens/Login';
 import Register from '@/screens/Register';
 import ShoppingList from '@/screens/ShoppingList';
+import Store from '@/screens/Store';
 import { screenName as getScreenName } from '@/util/navigation';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
@@ -19,6 +20,7 @@ const screens = {
     Login,
     Register,
     ShoppingList,
+    Store,
 };
 
 const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
