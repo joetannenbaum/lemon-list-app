@@ -11,6 +11,9 @@ export interface SortableListProps {
         dragging: boolean,
     ) => React.ReactElement<any>;
     onUpdate: (data: any[]) => void;
+    onDragStart?: () => void;
+    onDragEnd?: () => void;
+    disableScroll?: boolean;
 }
 
 const SortableList: React.FC<SortableListProps> = (props) => {
@@ -18,21 +21,45 @@ const SortableList: React.FC<SortableListProps> = (props) => {
 
     const [scrollEnabled, setScrollEnabled] = useState(true);
 
+    const onDragEnd = () => {
+        if (props.onDragEnd) {
+            props.onDragEnd();
+        }
+
+        setScrollEnabled(true);
+    };
+
+    const onDragStart = () => {
+        if (props.onDragStart) {
+            props.onDragStart();
+        }
+
+        setScrollEnabled(false);
+    };
+
+    const renderSortable = () => (
+        <AutoDragSortableView
+            dataSource={props.data}
+            parentWidth={width}
+            childrenWidth={width}
+            childrenHeight={50}
+            onDataChange={props.onUpdate}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            keyExtractor={(item) => item.id}
+            renderItem={(item, index) =>
+                props.renderItem(item, index, !scrollEnabled)
+            }
+        />
+    );
+
+    if (props.disableScroll) {
+        return renderSortable();
+    }
+
     return (
         <ScrollView style={{ flex: 1 }} scrollEnabled={scrollEnabled}>
-            <AutoDragSortableView
-                dataSource={props.data}
-                parentWidth={width}
-                childrenWidth={width}
-                childrenHeight={50}
-                onDataChange={props.onUpdate}
-                onDragStart={() => setScrollEnabled(false)}
-                onDragEnd={() => setScrollEnabled(true)}
-                keyExtractor={(item) => item.id}
-                renderItem={(item, index) =>
-                    props.renderItem(item, index, !scrollEnabled)
-                }
-            />
+            {renderSortable()}
         </ScrollView>
     );
 };

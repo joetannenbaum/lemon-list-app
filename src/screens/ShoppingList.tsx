@@ -7,7 +7,7 @@ import ShoppingListItem from '@/components/ShoppingListItem';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import { useQueryCache, useMutation } from 'react-query';
 import api from '@/api';
-import { View, TouchableOpacity, Dimensions } from 'react-native';
+import { View, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import useStores from '@/hooks/useStores';
 import BodyText from '@/components/BodyText';
 import { StoreTag } from '@/types/StoreTag';
@@ -35,6 +35,7 @@ const ShoppingList: Screen<Props> = (props) => {
     );
 
     const [storeOrder, setStoreOrder] = useState<ItemsByStoreTag[]>([]);
+    const [scrollEnabled, setScrollEnabled] = useState(true);
 
     useEffect(() => {
         const orderedByStore = stores.data
@@ -116,6 +117,14 @@ const ShoppingList: Screen<Props> = (props) => {
         );
     };
 
+    const onDragEnd = () => {
+        setScrollEnabled(true);
+    };
+
+    const onDragStart = () => {
+        setScrollEnabled(false);
+    };
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ padding: 20 }}>
@@ -138,24 +147,32 @@ const ShoppingList: Screen<Props> = (props) => {
             <View style={{ zIndex: 100 }}>
                 <CreateItemForm listId={props.id} />
             </View>
-            {activeStoreId &&
-                storeOrder?.map((section) => (
-                    <View key={section.tag.id.toString()}>
-                        <BodyText bold={true}>{section.tag.name}</BodyText>
-                        <SortableList
-                            data={section.items}
-                            onUpdate={onListUpdate}
-                            renderItem={renderShoppingListItem}
-                        />
-                    </View>
-                ))}
-            {!activeStoreId && (
-                <SortableList
-                    data={listData}
-                    onUpdate={onListUpdate}
-                    renderItem={renderShoppingListItem}
-                />
-            )}
+            <ScrollView style={{ flex: 1 }} scrollEnabled={scrollEnabled}>
+                {activeStoreId &&
+                    storeOrder?.map((section) => (
+                        <View key={section.tag.id.toString()}>
+                            <BodyText bold={true}>{section.tag.name}</BodyText>
+                            <SortableList
+                                data={section.items}
+                                onUpdate={onListUpdate}
+                                renderItem={renderShoppingListItem}
+                                disableScroll={true}
+                                onDragEnd={onDragEnd}
+                                onDragStart={onDragStart}
+                            />
+                        </View>
+                    ))}
+                {!activeStoreId && (
+                    <SortableList
+                        data={listData}
+                        onUpdate={onListUpdate}
+                        renderItem={renderShoppingListItem}
+                        disableScroll={true}
+                        onDragEnd={onDragEnd}
+                        onDragStart={onDragStart}
+                    />
+                )}
+            </ScrollView>
         </SafeAreaView>
     );
 };
