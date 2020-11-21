@@ -23,8 +23,6 @@ interface ItemsByStoreTag {
     items: ShoppingListItemType[];
 }
 
-const { width } = Dimensions.get('window');
-
 const ShoppingList: Screen<Props> = (props) => {
     const list = useShoppingList(props.id);
     const stores = useStores();
