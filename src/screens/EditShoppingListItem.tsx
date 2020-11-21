@@ -11,6 +11,11 @@ import { Navigation } from 'react-native-navigation';
 import { ScreenProps, Screen } from '@/types/navigation';
 import SubmitButton from '@/components/form/SubmitButton';
 import SafeAreaView from 'react-native-safe-area-view';
+import Select from '@/components/form/Select';
+import useStores from '@/hooks/useStores';
+import sortBy from 'lodash/sortBy';
+import useUpdateItem from '@/hooks/useUpdateItem';
+import omit from 'lodash/omit';
 
 export interface EditShoppingListItemProps {
     listId: number;
@@ -20,16 +25,25 @@ export interface EditShoppingListItemProps {
 interface FormValues {
     name: string;
     quantity: number;
+    store_tags:
+        | {
+              [key: number]: number | undefined;
+          }
+        | undefined;
 }
 
 const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
     props,
 ) => {
-    const [updateItem] = useUpdateShoppingListItem(
+    const stores = useStores();
+
+    const [updateShoppingListItem] = useUpdateShoppingListItem(
         props.listId,
         props.item.shopping_list_version_id,
         props.item.id,
     );
+
+    const [updateItem] = useUpdateItem(props.item.item.id);
 
     const [deleteItem] = useDeleteShoppingListItem(
         props.listId,
@@ -40,14 +54,29 @@ const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
     const initialFormValues: FormValues = {
         name: props.item.item.name,
         quantity: props.item.quantity,
+        store_tags: stores.data?.reduce(
+            (prev, current) => ({
+                ...prev,
+                [current.id]: props.item.item.store_tags.find(
+                    (tag) => tag.store_id === current.id,
+                )?.id,
+            }),
+            {},
+        ),
     };
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('Required'),
+        quantity: Yup.number().required('Required').min(1),
     });
 
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
-        updateItem(values).then(() => {
+        Promise.all([
+            updateShoppingListItem(omit(values, 'store_tags')),
+            updateItem({
+                store_tags: Object.values(values.store_tags),
+            }),
+        ]).then(() => {
             Navigation.dismissModal(props.componentId);
         });
     };
@@ -97,7 +126,9 @@ const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
                                 onPress={() => {
                                     setFieldValue(
                                         'quantity',
-                                        --values.quantity,
+                                        values.quantity === 1
+                                            ? 1
+                                            : --values.quantity,
                                     );
                                 }}>
                                 <BodyText>-</BodyText>
@@ -112,6 +143,27 @@ const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
                                 }}>
                                 <BodyText>+</BodyText>
                             </TouchableOpacity>
+                        </View>
+                        <View style={{ padding: 20 }}>
+                            {stores.data
+                                ?.filter((store) => store.tags.length > 0)
+                                .map((store) => (
+                                    <View key={store.id.toString()}>
+                                        <BodyText bold={true}>
+                                            {store.name}
+                                        </BodyText>
+                                        <Select
+                                            name={`store_tags.${store.id}`}
+                                            items={sortBy(
+                                                store.tags,
+                                                'name',
+                                            ).map((tag) => ({
+                                                label: tag.name,
+                                                value: tag.id,
+                                            }))}
+                                        />
+                                    </View>
+                                ))}
                         </View>
                         <View style={{ padding: 20 }}>
                             <Button
