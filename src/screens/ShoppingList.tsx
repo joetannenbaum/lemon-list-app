@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import SafeAreaView from 'react-native-safe-area-view';
 import useShoppingList from '@/hooks/useShoppingList';
@@ -12,6 +12,7 @@ import useStores from '@/hooks/useStores';
 import BodyText from '@/components/BodyText';
 import { StoreTag } from '@/types/StoreTag';
 import SortableList from '@/components/SortableList';
+import { Store } from '@/types/Store';
 
 interface Props extends ScreenProps {
     id: number;
@@ -25,54 +26,57 @@ interface ItemsByStoreTag {
 const { width } = Dimensions.get('window');
 
 const ShoppingList: Screen<Props> = (props) => {
-    const [activeStoreId, setActiveStoreId] = useState<number | null>(null);
-
     const list = useShoppingList(props.id);
     const stores = useStores();
 
     const [listData, setListData] = useState(
         list.data?.active_version?.items || [],
     );
-
-    const [storeOrder, setStoreOrder] = useState<ItemsByStoreTag[]>([]);
+    const [activeStoreId, setActiveStoreId] = useState<number | null>(null);
     const [scrollEnabled, setScrollEnabled] = useState(true);
 
-    useEffect(() => {
-        const orderedByStore = stores.data
-            ?.find((store) => store.id === activeStoreId)
-            ?.tags.map((tag) => {
-                return {
-                    tag,
-                    items: listData.filter((item) =>
-                        item.item.store_tags.find(
-                            (storeTag) => storeTag.id === tag.id,
+    const storeOrder = useMemo<{
+        [key: number]: ItemsByStoreTag;
+    }>(() => {
+        return stores.data?.reduce((prev, current: Store) => {
+            const orderedByStore = current?.tags
+                .map((tag) => {
+                    return {
+                        tag,
+                        items: listData.filter((item) =>
+                            item.item.store_tags.find(
+                                (storeTag) => storeTag.id === tag.id,
+                            ),
                         ),
+                    };
+                })
+                .filter((tag) => tag.items.length > 0);
+
+            const uncategorizedItems = listData.filter(
+                (item) =>
+                    !item.item.store_tags.find(
+                        (storeTag) => storeTag.store_id === current.id,
                     ),
-                };
-            })
-            .filter((tag) => tag.items.length > 0);
+            );
 
-        const uncategorizedItems = listData.filter(
-            (item) =>
-                !item.item.store_tags.find(
-                    (storeTag) => storeTag.store_id === activeStoreId,
-                ),
-        );
+            if (uncategorizedItems.length > 0) {
+                orderedByStore?.unshift({
+                    tag: {
+                        name: 'Uncategorized',
+                        id: -1,
+                        store_id: -1,
+                        order: -1,
+                    },
+                    items: uncategorizedItems,
+                });
+            }
 
-        if (uncategorizedItems.length > 0) {
-            orderedByStore?.unshift({
-                tag: {
-                    name: 'Uncategorized',
-                    id: -1,
-                    store_id: -1,
-                    order: -1,
-                },
-                items: uncategorizedItems,
-            });
-        }
-
-        setStoreOrder(orderedByStore);
-    }, [listData, activeStoreId]);
+            return {
+                ...prev,
+                [current.id]: orderedByStore,
+            };
+        }, {});
+    }, [listData]);
 
     useEffect(() => {
         setListData(list.data?.active_version?.items || []);
@@ -95,8 +99,6 @@ const ShoppingList: Screen<Props> = (props) => {
     );
 
     const onListUpdate = (data) => {
-        setListData(data);
-
         mutate({
             order: data.map((item) => item.id),
         });
@@ -148,21 +150,25 @@ const ShoppingList: Screen<Props> = (props) => {
                 <CreateItemForm listId={props.id} />
             </View>
             <ScrollView style={{ flex: 1 }} scrollEnabled={scrollEnabled}>
-                {activeStoreId &&
-                    storeOrder?.map((section) => (
-                        <View key={section.tag.id.toString()}>
-                            <BodyText bold={true}>{section.tag.name}</BodyText>
-                            <SortableList
-                                data={section.items}
-                                onUpdate={onListUpdate}
-                                renderItem={renderShoppingListItem}
-                                disableScroll={true}
-                                onDragEnd={onDragEnd}
-                                onDragStart={onDragStart}
-                            />
-                        </View>
-                    ))}
-                {!activeStoreId && (
+                {activeStoreId ? (
+                    storeOrder[activeStoreId]?.map(
+                        (section: ItemsByStoreTag) => (
+                            <View key={section.tag.id.toString()}>
+                                <BodyText bold={true}>
+                                    {section.tag.name}
+                                </BodyText>
+                                <SortableList
+                                    data={section.items}
+                                    onUpdate={onListUpdate}
+                                    renderItem={renderShoppingListItem}
+                                    disableScroll={true}
+                                    onDragEnd={onDragEnd}
+                                    onDragStart={onDragStart}
+                                />
+                            </View>
+                        ),
+                    )
+                ) : (
                     <SortableList
                         data={listData}
                         onUpdate={onListUpdate}
