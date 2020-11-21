@@ -4,17 +4,14 @@ import SafeAreaView from 'react-native-safe-area-view';
 import useShoppingList from '@/hooks/useShoppingList';
 import CreateItemForm from '@/components/CreateItemForm';
 import ShoppingListItem from '@/components/ShoppingListItem';
-import DraggableFlatList, {
-    DragEndParams,
-} from 'react-native-draggable-flatlist';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import { useQueryCache, useMutation } from 'react-query';
 import api from '@/api';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Dimensions } from 'react-native';
 import useStores from '@/hooks/useStores';
 import BodyText from '@/components/BodyText';
-import { ScrollView } from 'react-native-gesture-handler';
 import { StoreTag } from '@/types/StoreTag';
+import SortableList from '@/components/SortableList';
 
 interface Props extends ScreenProps {
     id: number;
@@ -24,6 +21,8 @@ interface ItemsByStoreTag {
     tag: StoreTag;
     items: ShoppingListItemType[];
 }
+
+const { width } = Dimensions.get('window');
 
 const ShoppingList: Screen<Props> = (props) => {
     const [activeStoreId, setActiveStoreId] = useState<number | null>(null);
@@ -35,7 +34,7 @@ const ShoppingList: Screen<Props> = (props) => {
         list.data?.active_version?.items || [],
     );
 
-    const [storeOrder, setStoreOrder] = useState<ItemsByStoreTag>([]);
+    const [storeOrder, setStoreOrder] = useState<ItemsByStoreTag[]>([]);
 
     useEffect(() => {
         const orderedByStore = stores.data
@@ -94,7 +93,7 @@ const ShoppingList: Screen<Props> = (props) => {
         },
     );
 
-    const onDragEnd = ({ data }: DragEndParams<ShoppingListItemType>) => {
+    const onListUpdate = (data) => {
         setListData(data);
 
         mutate({
@@ -102,11 +101,27 @@ const ShoppingList: Screen<Props> = (props) => {
         });
     };
 
+    const renderShoppingListItem = (
+        item: ShoppingListItemType,
+        index: number,
+        dragging: boolean,
+    ) => {
+        return (
+            <ShoppingListItem
+                listId={props.id}
+                item={item}
+                key={item.id.toString()}
+                dragging={dragging}
+            />
+        );
+    };
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ padding: 20 }}>
                 {stores.data?.map((store) => (
                     <TouchableOpacity
+                        key={store.id.toString()}
                         onPress={() => {
                             if (store.id === activeStoreId) {
                                 setActiveStoreId(null);
@@ -123,49 +138,24 @@ const ShoppingList: Screen<Props> = (props) => {
             <View style={{ zIndex: 100 }}>
                 <CreateItemForm listId={props.id} />
             </View>
-            <ScrollView style={{ flex: 1 }}>
-                {activeStoreId &&
-                    storeOrder?.map((section) => (
-                        <View key={section.tag.id.toString()}>
-                            <BodyText bold={true}>{section.tag.name}</BodyText>
-                            {section.items.map((item) => (
-                                <ShoppingListItem
-                                    listId={props.id}
-                                    item={item}
-                                    key={item.id.toString()}
-                                    // drag={drag}
-                                    // isActive={isActive}
-                                />
-                            ))}
-                        </View>
-                    ))}
-                {!activeStoreId &&
-                    listData.map((item) => (
-                        <ShoppingListItem
-                            listId={props.id}
-                            item={item}
-                            key={item.id.toString()}
-                            // drag={drag}
-                            // isActive={isActive}
+            {activeStoreId &&
+                storeOrder?.map((section) => (
+                    <View key={section.tag.id.toString()}>
+                        <BodyText bold={true}>{section.tag.name}</BodyText>
+                        <SortableList
+                            data={section.items}
+                            onUpdate={onListUpdate}
+                            renderItem={renderShoppingListItem}
                         />
-                    ))}
-                {/* <DraggableFlatList
-                    scrollEnabled={false}
-                    style={{ flex: 1 }}
+                    </View>
+                ))}
+            {!activeStoreId && (
+                <SortableList
                     data={listData}
-                    keyExtractor={(item) => item.id.toString()}
-                    onDragEnd={onDragEnd}
-                    renderItem={({ item, drag, isActive }) => (
-                        <ShoppingListItem
-                            listId={props.id}
-                            item={item}
-                            key={item.id.toString()}
-                            drag={drag}
-                            isActive={isActive}
-                        />
-                    )}
-                /> */}
-            </ScrollView>
+                    onUpdate={onListUpdate}
+                    renderItem={renderShoppingListItem}
+                />
+            )}
         </SafeAreaView>
     );
 };

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import SafeAreaView from 'react-native-safe-area-view';
 import useStore from '@/hooks/useStore';
-import DraggableFlatList, {
-    DragEndParams,
-} from 'react-native-draggable-flatlist';
+// import DraggableFlatList, {
+//     DragEndParams,
+// } from 'react-native-draggable-flatlist';
 import { useQueryCache, useMutation } from 'react-query';
 import api from '@/api';
 import StoreTag from '@/components/StoreTag';
@@ -16,6 +16,7 @@ interface Props extends ScreenProps {
 }
 
 const Store: Screen<Props> = (props) => {
+    return null;
     const store = useStore(props.id);
 
     const [tagData, setTagData] = useState(store.data?.tags || []);

@@ -1,7 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import BodyText from './BodyText';
-import { View, TouchableOpacity, Button } from 'react-native';
+import {
+    View,
+    TouchableOpacity,
+    Button,
+    Animated,
+    useWindowDimensions,
+} from 'react-native';
 import debounce from 'lodash/debounce';
 import SwipeableItem from 'react-native-swipeable-item';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
@@ -9,15 +15,20 @@ import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
 import { Navigation } from 'react-native-navigation';
 import { screenComponent } from '@/util/navigation';
 import { EditShoppingListItemProps } from '@/screens/EditShoppingListItem';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { RectButton } from 'react-native-gesture-handler';
 
 interface Props {
     listId: number;
     item: ShoppingListItemType;
-    drag: () => void;
-    isActive: boolean;
+    dragging: boolean;
+    // drag: () => void;
+    // isActive: boolean;
 }
 
 const ShoppingListItem: React.FC<Props> = (props) => {
+    const { width } = useWindowDimensions();
+
     // This is in state for purposes of optimistic updates
     const [quantity, setQuantity] = useState(props.item.quantity);
     const [checkedOff, setCheckedOff] = useState(props.item.checked_off);
@@ -71,25 +82,6 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         });
     };
 
-    const renderDelete = () => {
-        return (
-            <View
-                style={{
-                    backgroundColor: 'red',
-                    justifyContent: 'flex-end',
-                    flexDirection: 'row',
-                }}>
-                <Button
-                    color="white"
-                    title="Delete"
-                    onPress={() => {
-                        deleteItem();
-                    }}
-                />
-            </View>
-        );
-    };
-
     const showEditModal = () => {
         Navigation.showModal(
             screenComponent<EditShoppingListItemProps>('EditShoppingListItem', {
@@ -101,11 +93,35 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         );
     };
 
+    const renderRightActions = (
+        progress: Animated.AnimatedInterpolation,
+        dragX: Animated.AnimatedInterpolation,
+    ) => {
+        const trans = dragX.interpolate({
+            inputRange: [0, 50, 100, 101],
+            outputRange: [-20, 0, 0, 1],
+        });
+        return (
+            <View
+                style={{
+                    backgroundColor: 'red',
+                }}>
+                <Button
+                    color="white"
+                    title="Delete"
+                    onPress={() => deleteItem()}
+                />
+            </View>
+        );
+    };
+
+    console.log(props.dragging);
+
     return (
-        <View style={{ flex: 1 }}>
-            <SwipeableItem
-                renderUnderlayLeft={renderDelete}
-                snapPointsLeft={[100]}>
+        <View style={{ width }}>
+            <Swipeable
+                enabled={!props.dragging}
+                renderRightActions={renderRightActions}>
                 <View
                     style={[
                         {
@@ -114,15 +130,10 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                             justifyContent: 'space-between',
                             backgroundColor: '#fff',
                         },
-                        props.isActive
-                            ? {
-                                  shadowColor: '#9B9B9B',
-                                  shadowOffset: { width: 3, height: 3 },
-                                  shadowOpacity: 0.25,
-                                  shadowRadius: 10,
-                              }
-                            : null,
                     ]}>
+                    <View style={{ paddingRight: 15 }}>
+                        <BodyText>:::</BodyText>
+                    </View>
                     <TouchableOpacity
                         style={{
                             width: 18,
@@ -162,7 +173,7 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </SwipeableItem>
+            </Swipeable>
         </View>
     );
 };

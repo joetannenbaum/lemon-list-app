@@ -5930,10 +5930,10 @@ react-native-device-info@7.0.2:
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-7.0.2.tgz#dcfebd8e879e2a1973156597eba4d6777e67945f"
   integrity sha512-3jzEzzX0Zo5rm+fClPFp3OGUnRPjK0w4X6RCNZtuaNbwMG+Vm3BLcU69dv+UfkYMrCo5JSKV6lA2fG25qq2tuA==
 
-react-native-draggable-flatlist@2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/react-native-draggable-flatlist/-/react-native-draggable-flatlist-2.5.0.tgz#8d3f190ce6c8b59a3f6232564aebd62676c11bbc"
-  integrity sha512-j09QNGGejYK+L7qhl9ciCtJyAQnES/xjW2SOOa32Ym9WXOqQm8j2/lsMdiEYZMCJmWCdCbutMh4zF4+25nOkZA==
+react-native-drag-sort@2.3.9:
+  version "2.3.9"
+  resolved "https://registry.yarnpkg.com/react-native-drag-sort/-/react-native-drag-sort-2.3.9.tgz#d63e2a15dc78eb8d4779784705072e0b54ef249e"
+  integrity sha512-TcyWAqVcHOT4LVC4tAdpbbTlNgcPH7O1P2tzxX7krGtdUbOBpoEmKdY3wDhvDWJbeAgL4mCmzvLNkleD2qvtXg==
 
 react-native-gesture-handler@1.8.0:
   version "1.8.0"
