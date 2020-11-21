@@ -16,6 +16,7 @@ import { screenComponent } from '@/util/navigation';
 import { EditShoppingListItemProps } from '@/screens/EditShoppingListItem';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import SortHandle from './SortHandle';
+import Checkbox from './Checkbox';
 
 interface Props {
     listId: number;
@@ -123,16 +124,7 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                         },
                     ]}>
                     <SortHandle />
-                    <TouchableOpacity
-                        style={{
-                            width: 18,
-                            height: 18,
-                            borderColor: 'black',
-                            borderWidth: 1,
-                            marginRight: 5,
-                            backgroundColor: checkedOff ? 'black' : 'white',
-                        }}
-                        onPress={toggleCheck}></TouchableOpacity>
+                    <Checkbox checked={checkedOff} onPress={toggleCheck} />
                     <TouchableOpacity
                         style={{ flex: 1 }}
                         onPress={showEditModal}>

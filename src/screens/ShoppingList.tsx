@@ -7,12 +7,16 @@ import ShoppingListItem from '@/components/ShoppingListItem';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import { useQueryCache, useMutation } from 'react-query';
 import api from '@/api';
-import { View, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { View, TouchableOpacity, ScrollView, Button } from 'react-native';
 import useStores from '@/hooks/useStores';
 import BodyText from '@/components/BodyText';
 import { StoreTag } from '@/types/StoreTag';
 import SortableList from '@/components/SortableList';
 import { Store } from '@/types/Store';
+import { Navigation } from 'react-native-navigation';
+import { screenComponent } from '@/util/navigation';
+import { AddItemsFromListsStartProps } from './AddItemsFromListsStart';
+import useShoppingLists from '@/hooks/useShoppingLists';
 
 interface Props extends ScreenProps {
     id: number;
@@ -24,6 +28,7 @@ interface ItemsByStoreTag {
 }
 
 const ShoppingList: Screen<Props> = (props) => {
+    const shoppingLists = useShoppingLists();
     const list = useShoppingList(props.id);
     const stores = useStores();
 
@@ -125,6 +130,23 @@ const ShoppingList: Screen<Props> = (props) => {
         setScrollEnabled(false);
     };
 
+    const onAddFromOtherListsPress = () => {
+        Navigation.showModal({
+            stack: {
+                children: [
+                    screenComponent<AddItemsFromListsStartProps>(
+                        'AddItemsFromListsStart',
+                        {
+                            passProps: {
+                                addToListId: props.id,
+                            },
+                        },
+                    ),
+                ],
+            },
+        });
+    };
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ padding: 20 }}>
@@ -145,6 +167,12 @@ const ShoppingList: Screen<Props> = (props) => {
                 ))}
             </View>
             <View style={{ zIndex: 100 }}>
+                {shoppingLists.data?.length > 0 && (
+                    <Button
+                        title="Add from other lists"
+                        onPress={onAddFromOtherListsPress}
+                    />
+                )}
                 <CreateItemForm listId={props.id} />
             </View>
             <ScrollView style={{ flex: 1 }} scrollEnabled={scrollEnabled}>

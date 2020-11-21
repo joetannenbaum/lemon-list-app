@@ -2,6 +2,8 @@ import React from 'react';
 import { Navigation } from 'react-native-navigation';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import AddItemsFromList from '@/screens/AddItemsFromList';
+import AddItemsFromListsStart from '@/screens/AddItemsFromListsStart';
 import App from '@/screens/App';
 import EditShoppingListItem from '@/screens/EditShoppingListItem';
 import Home from '@/screens/Home';
@@ -16,6 +18,8 @@ import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 const queryCache = new QueryCache();
 
 const screens = {
+    AddItemsFromListsStart,
+    AddItemsFromList,
     App,
     EditShoppingListItem,
     Home,
@@ -38,13 +42,15 @@ const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
 };
 
 export type screenComponentName =
+    | 'AddItemsFromListsStart'
+    | 'AddItemsFromList'
     | 'App'
+    | 'EditShoppingListItem'
     | 'Home'
     | 'Login'
     | 'Register'
     | 'ShoppingList'
-    | 'Store'
-    | 'EditShoppingListItem';
+    | 'Store';
 
 export const registerScreens = () => {
     for (const screenName in screens) {
