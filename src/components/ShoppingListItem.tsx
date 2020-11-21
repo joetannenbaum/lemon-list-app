@@ -9,21 +9,18 @@ import {
     useWindowDimensions,
 } from 'react-native';
 import debounce from 'lodash/debounce';
-import SwipeableItem from 'react-native-swipeable-item';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
 import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
 import { Navigation } from 'react-native-navigation';
 import { screenComponent } from '@/util/navigation';
 import { EditShoppingListItemProps } from '@/screens/EditShoppingListItem';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { RectButton } from 'react-native-gesture-handler';
+import SortHandle from './SortHandle';
 
 interface Props {
     listId: number;
     item: ShoppingListItemType;
     dragging: boolean;
-    // drag: () => void;
-    // isActive: boolean;
 }
 
 const ShoppingListItem: React.FC<Props> = (props) => {
@@ -97,10 +94,6 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         progress: Animated.AnimatedInterpolation,
         dragX: Animated.AnimatedInterpolation,
     ) => {
-        const trans = dragX.interpolate({
-            inputRange: [0, 50, 100, 101],
-            outputRange: [-20, 0, 0, 1],
-        });
         return (
             <View
                 style={{
@@ -114,8 +107,6 @@ const ShoppingListItem: React.FC<Props> = (props) => {
             </View>
         );
     };
-
-    console.log(props.dragging);
 
     return (
         <View style={{ width }}>
@@ -131,9 +122,7 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                             backgroundColor: '#fff',
                         },
                     ]}>
-                    <View style={{ paddingRight: 15 }}>
-                        <BodyText>:::</BodyText>
-                    </View>
+                    <SortHandle />
                     <TouchableOpacity
                         style={{
                             width: 18,
@@ -146,8 +135,7 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                         onPress={toggleCheck}></TouchableOpacity>
                     <TouchableOpacity
                         style={{ flex: 1 }}
-                        onPress={showEditModal}
-                        onLongPress={props.drag}>
+                        onPress={showEditModal}>
                         <BodyText
                             style={
                                 checkedOff

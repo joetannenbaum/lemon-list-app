@@ -1,19 +1,26 @@
 import React from 'react';
 import BodyText from './BodyText';
-import { View, TouchableOpacity, Button } from 'react-native';
+import {
+    View,
+    TouchableOpacity,
+    Button,
+    Animated,
+    useWindowDimensions,
+} from 'react-native';
 import api from '@/api';
 import { useMutation, useQueryCache } from 'react-query';
-import SwipeableItem from 'react-native-swipeable-item';
 import { StoreTag as StoreTagType } from '@/types/StoreTag';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import SortHandle from './SortHandle';
 
 interface Props {
     item: StoreTagType;
-    drag: () => void;
-    isActive: boolean;
+    dragging: boolean;
 }
 
 const StoreTag: React.FC<Props> = (props) => {
     const queryCache = useQueryCache();
+    const { width } = useWindowDimensions();
 
     const [updateItem] = useMutation(
         (params) => {
@@ -37,35 +44,34 @@ const StoreTag: React.FC<Props> = (props) => {
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries(['stores', props.item.store_id]);
+                queryCache.invalidateQueries(['store', props.item.store_id]);
             },
         },
     );
 
-    const renderDelete = () => {
+    const renderRightActions = (
+        progress: Animated.AnimatedInterpolation,
+        dragX: Animated.AnimatedInterpolation,
+    ) => {
         return (
             <View
                 style={{
                     backgroundColor: 'red',
-                    justifyContent: 'flex-end',
-                    flexDirection: 'row',
                 }}>
                 <Button
                     color="white"
                     title="Delete"
-                    onPress={() => {
-                        deleteItem();
-                    }}
+                    onPress={() => deleteItem()}
                 />
             </View>
         );
     };
 
     return (
-        <View style={{ flex: 1 }}>
-            <SwipeableItem
-                renderUnderlayLeft={renderDelete}
-                snapPointsLeft={[100]}>
+        <View style={{ flex: 1, width }}>
+            <Swipeable
+                renderRightActions={renderRightActions}
+                enabled={!props.dragging}>
                 <View
                     style={[
                         {
@@ -74,22 +80,13 @@ const StoreTag: React.FC<Props> = (props) => {
                             justifyContent: 'space-between',
                             backgroundColor: '#fff',
                         },
-                        props.isActive
-                            ? {
-                                  shadowColor: '#9B9B9B',
-                                  shadowOffset: { width: 3, height: 3 },
-                                  shadowOpacity: 0.25,
-                                  shadowRadius: 10,
-                              }
-                            : null,
                     ]}>
-                    <TouchableOpacity
-                        style={{ flex: 1 }}
-                        onLongPress={props.drag}>
+                    <SortHandle />
+                    <TouchableOpacity style={{ flex: 1 }}>
                         <BodyText>{props.item.name}</BodyText>
                     </TouchableOpacity>
                 </View>
-            </SwipeableItem>
+            </Swipeable>
         </View>
     );
 };
