@@ -77,16 +77,27 @@ const CreateItemForm: React.FC<Props> = (props) => {
             onSubmit={onSubmit}>
             {({ handleSubmit, isSubmitting, values, setFieldValue }) => (
                 <View>
-                    <TextField
-                        ref={inputRef}
-                        name="name"
-                        placeholder="Add Item Here"
-                        onSubmitEditing={() => {
-                            if (values.name.trim().length > 0) {
-                                handleSubmit();
-                            }
-                        }}
-                    />
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flex: 1 }}>
+                            <TextField
+                                ref={inputRef}
+                                name="name"
+                                placeholder="Add Item Here"
+                                onSubmitEditing={() => {
+                                    if (values.name.trim().length > 0) {
+                                        handleSubmit();
+                                    }
+                                }}
+                            />
+                        </View>
+
+                        <SubmitButton
+                            disabled={values.name === ''}
+                            onPress={handleSubmit}
+                            processing={isSubmitting}>
+                            Add
+                        </SubmitButton>
+                    </View>
                     <AutoComplete
                         query={values.name}
                         data={itemsData}
@@ -95,12 +106,6 @@ const CreateItemForm: React.FC<Props> = (props) => {
                             handleSubmit();
                         }}
                     />
-                    <SubmitButton
-                        disabled={values.name === ''}
-                        onPress={handleSubmit}
-                        processing={isSubmitting}>
-                        Add
-                    </SubmitButton>
                 </View>
             )}
         </Formik>

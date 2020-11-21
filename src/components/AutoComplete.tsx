@@ -37,6 +37,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
                 {fuse.current.search(props.query).map((item) => {
                     return (
                         <TouchableOpacity
+                            style={{ padding: 10 }}
                             key={item.item.label}
                             onPress={() => props.onSelect(item.item.value)}>
                             <BodyText>{item.item.label}</BodyText>
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
         backgroundColor: '#fff',
+        zIndex: 100,
     },
 });
 
