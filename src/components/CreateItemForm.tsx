@@ -7,6 +7,8 @@ import TextField from './form/TextField';
 import api from '@/api';
 import { useMutation, useQueryCache } from 'react-query';
 import useShoppingList from '@/hooks/useShoppingList';
+import AutoComplete from './AutoComplete';
+import useItems from '@/hooks/useItems';
 
 interface Props {
     listId: number;
@@ -22,6 +24,13 @@ const CreateItemForm: React.FC<Props> = (props) => {
     const inputRef = useRef<TextInput>(null);
 
     const list = useShoppingList(props.listId);
+    const items = useItems();
+
+    const itemsData =
+        items.data?.map((item) => ({
+            label: item.name,
+            value: item.name,
+        })) || [];
 
     const [mutate, { status, data, error }] = useMutation(
         (params) => {
@@ -33,6 +42,7 @@ const CreateItemForm: React.FC<Props> = (props) => {
         {
             onSuccess() {
                 queryCache.invalidateQueries(['shopping-list', props.listId]);
+                queryCache.invalidateQueries('items');
             },
         },
     );
@@ -42,7 +52,7 @@ const CreateItemForm: React.FC<Props> = (props) => {
     };
 
     const validationSchema = Yup.object().shape({
-        name: Yup.string().required('Required'),
+        name: Yup.string(),
     });
 
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
@@ -65,14 +75,25 @@ const CreateItemForm: React.FC<Props> = (props) => {
             initialValues={initialFormValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}>
-            {({ handleSubmit, isSubmitting, values }) => (
+            {({ handleSubmit, isSubmitting, values, setFieldValue }) => (
                 <View>
                     <TextField
                         ref={inputRef}
-                        required={true}
                         name="name"
                         placeholder="Add Item Here"
-                        onSubmitEditing={handleSubmit}
+                        onSubmitEditing={() => {
+                            if (values.name.trim().length > 0) {
+                                handleSubmit();
+                            }
+                        }}
+                    />
+                    <AutoComplete
+                        query={values.name}
+                        data={itemsData}
+                        onSelect={(val) => {
+                            setFieldValue('name', val);
+                            handleSubmit();
+                        }}
                     />
                     <SubmitButton
                         disabled={values.name === ''}

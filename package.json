@@ -16,6 +16,7 @@
     "axios-retry": "3.1.9",
     "babel-plugin-module-resolver": "4.0.0",
     "formik": "2.2.5",
+    "fuse.js": "6.4.3",
     "hoist-non-react-statics": "3.3.2",
     "lodash": "4.17.20",
     "react": "16.13.1",

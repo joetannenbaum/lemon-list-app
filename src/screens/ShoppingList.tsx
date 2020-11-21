@@ -11,6 +11,7 @@ import DraggableFlatList, {
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import { useQueryCache, useMutation } from 'react-query';
 import api from '@/api';
+import { View } from 'react-native';
 
 interface Props extends ScreenProps {
     id: number;
@@ -56,7 +57,9 @@ const ShoppingList: Screen<Props> = (props) => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <CreateItemForm listId={props.id} />
+            <View style={{ zIndex: 100 }}>
+                <CreateItemForm listId={props.id} />
+            </View>
             <DraggableFlatList
                 style={{ flex: 1 }}
                 data={listData}
