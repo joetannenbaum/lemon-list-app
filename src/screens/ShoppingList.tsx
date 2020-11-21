@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import SafeAreaView from 'react-native-safe-area-view';
 import useShoppingList from '@/hooks/useShoppingList';
-import useItems from '@/hooks/useItems';
 import CreateItemForm from '@/components/CreateItemForm';
 import ShoppingListItem from '@/components/ShoppingListItem';
 import DraggableFlatList, {
@@ -21,7 +20,6 @@ interface Props extends ScreenProps {
 
 const ShoppingList: Screen<Props> = (props) => {
     const list = useShoppingList(props.id);
-    const items = useItems();
 
     const [listData, setListData] = useState(
         list.data?.active_version?.items || [],
