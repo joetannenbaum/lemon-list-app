@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useWindowDimensions } from 'react-native';
-import { AutoDragSortableView } from 'react-native-drag-sort';
+import { DragSortableView } from 'react-native-drag-sort';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export interface SortableListProps {
@@ -38,7 +38,7 @@ const SortableList: React.FC<SortableListProps> = (props) => {
     };
 
     const renderSortable = () => (
-        <AutoDragSortableView
+        <DragSortableView
             dataSource={props.data}
             parentWidth={width}
             childrenWidth={width}
