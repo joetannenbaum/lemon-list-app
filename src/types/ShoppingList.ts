@@ -6,5 +6,6 @@ export interface ShoppingList {
     name: string;
     uuid: string;
     image: string | null;
+    is_shared: boolean;
     active_version: null | ShoppingListVersion;
 }

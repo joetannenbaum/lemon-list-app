@@ -47,6 +47,11 @@ const ShoppingList: Screen<Props> = (props) => {
     const [scrollEnabled, setScrollEnabled] = useState(true);
 
     useEffect(() => {
+        if (!list.data?.is_shared) {
+            // No need to fire up pushed if it's not a shared list
+            return;
+        }
+
         Pusher.logToConsole = Config.ENVIRONMENT === 'local';
 
         const pusher = new Pusher('a051268051a78476f081', {
@@ -66,7 +71,7 @@ const ShoppingList: Screen<Props> = (props) => {
         return () => {
             channel.unsubscribe();
         };
-    }, []);
+    }, [list.data?.is_shared]);
 
     const storeOrder = useMemo<{
         [key: number]: ItemsByStoreTag;
