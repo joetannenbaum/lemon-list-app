@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import LogoutButton from '@/components/LogoutButton';
 import useMe from '@/hooks/useMe';
@@ -8,10 +8,16 @@ import useShoppingLists from '@/hooks/useShoppingLists';
 import { View, TouchableOpacity } from 'react-native';
 import CreateListForm from '@/components/CreateListForm';
 import { Navigation } from 'react-native-navigation';
-import { mainStackId, screenComponent } from '@/util/navigation';
+import {
+    mainStackId,
+    screenComponent,
+    handleDynamicLink,
+} from '@/util/navigation';
 import useItems from '@/hooks/useItems';
 import useStores from '@/hooks/useStores';
 import CreateStoreForm from '@/components/CreateStoreForm';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
+import useListenForDynamicLinks from '@/hooks/useListenForDynamicLinks';
 
 interface Props extends ScreenProps {}
 
@@ -19,7 +25,14 @@ const Home: Screen<Props> = (props) => {
     const me = useMe();
     const lists = useShoppingLists();
     const stores = useStores();
+    // TODO: Is there a pre-warm cache option instead of storing this in a variable?
     const items = useItems();
+
+    useEffect(() => {
+        dynamicLinks().getInitialLink().then(handleDynamicLink);
+    }, []);
+
+    useListenForDynamicLinks();
 
     return (
         <SafeAreaView>

@@ -17,6 +17,7 @@ import { Navigation } from 'react-native-navigation';
 import { screenComponent } from '@/util/navigation';
 import { AddItemsFromListsStartProps } from './AddItemsFromListsStart';
 import useShoppingLists from '@/hooks/useShoppingLists';
+import { ShareShoppingListProps } from './ShareShoppingList';
 
 interface Props extends ScreenProps {
     id: number;
@@ -173,6 +174,21 @@ const ShoppingList: Screen<Props> = (props) => {
                         onPress={onAddFromOtherListsPress}
                     />
                 )}
+                <Button
+                    title="Share List"
+                    onPress={() => {
+                        Navigation.showModal(
+                            screenComponent<ShareShoppingListProps>(
+                                'ShareShoppingList',
+                                {
+                                    passProps: {
+                                        id: list.data?.id,
+                                    },
+                                },
+                            ),
+                        );
+                    }}
+                />
                 <CreateItemForm listId={props.id} />
             </View>
             <ScrollView style={{ flex: 1 }} scrollEnabled={scrollEnabled}>

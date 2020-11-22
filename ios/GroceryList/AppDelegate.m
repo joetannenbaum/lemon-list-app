@@ -16,6 +16,8 @@
 #import <Bugsnag/Bugsnag.h>
 #import "ReactNativeConfig.h"
 
+#import <Firebase.h>
+
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
   SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
@@ -31,13 +33,16 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  NSString *env = [ReactNativeConfig envFor:@"ENVIRONMENT"];
 
-  NSString *apiUrl = [ReactNativeConfig envFor:@"API_URL"];
-  
   BugsnagConfiguration *config = [BugsnagConfiguration loadConfig];
-  config.releaseStage = apiUrl;
+  config.releaseStage = env;
   config.enabledReleaseStages = [NSSet setWithArray:@[@"production", @"development", @"testing"]];
   [Bugsnag startWithConfiguration:config];
+
+  if ([FIRApp defaultApp] == nil) {
+    [FIRApp configure];
+  }
 
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);

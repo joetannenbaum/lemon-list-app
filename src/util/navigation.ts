@@ -5,6 +5,10 @@ import {
     Layout,
 } from 'react-native-navigation';
 import { screenComponentName } from '@/screens';
+import Url from 'url-parse';
+import createMatcher from 'feather-route-matcher';
+import { FirebaseDynamicLinksTypes } from '@react-native-firebase/dynamic-links';
+import { AcceptShareProps } from '@/screens/AcceptShare';
 
 export const mainStackId = 'MainGroceryListStack';
 export const screenPrefix = 'groceryList';
@@ -21,7 +25,7 @@ export const screenComponent = <P = {}>(
     },
 });
 
-export const setStackRootWithoutAnimating = (name: string) => {
+export const setStackRootWithoutAnimating = (name: screenComponentName) => {
     Navigation.setStackRoot(
         mainStackId,
         screenComponent(name, {
@@ -34,4 +38,25 @@ export const setStackRootWithoutAnimating = (name: string) => {
             },
         }),
     );
+};
+
+const matcher = createMatcher({
+    '/list/:uuid': 'share-list',
+});
+
+export const handleDynamicLink = (
+    link: FirebaseDynamicLinksTypes.DynamicLink,
+) => {
+    const url = new Url(link.url);
+    const route = matcher(url.pathname);
+
+    if (route.value === 'share-list') {
+        Navigation.showModal(
+            screenComponent<AcceptShareProps>('AcceptShare', {
+                passProps: {
+                    listUuid: route.params.uuid,
+                },
+            }),
+        );
+    }
 };
