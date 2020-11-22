@@ -18,6 +18,9 @@ import { screenComponent } from '@/util/navigation';
 import { AddItemsFromListsStartProps } from './AddItemsFromListsStart';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import { ShareShoppingListProps } from './ShareShoppingList';
+import Pusher from 'pusher-js/react-native';
+import useMe from '@/hooks/useMe';
+import Config from 'react-native-config';
 
 interface Props extends ScreenProps {
     id: number;
@@ -29,6 +32,10 @@ interface ItemsByStoreTag {
 }
 
 const ShoppingList: Screen<Props> = (props) => {
+    const queryCache = useQueryCache();
+
+    const me = useMe();
+
     const shoppingLists = useShoppingLists();
     const list = useShoppingList(props.id);
     const stores = useStores();
@@ -38,6 +45,28 @@ const ShoppingList: Screen<Props> = (props) => {
     );
     const [activeStoreId, setActiveStoreId] = useState<number | null>(null);
     const [scrollEnabled, setScrollEnabled] = useState(true);
+
+    useEffect(() => {
+        Pusher.logToConsole = Config.ENVIRONMENT === 'local';
+
+        const pusher = new Pusher('a051268051a78476f081', {
+            cluster: 'us2',
+        });
+
+        const channel = pusher.subscribe(`shopping-list-${props.id}`);
+
+        channel.bind('App\\Events\\ShoppingListUpdated', function (data) {
+            if (me.data?.id !== data.user.id) {
+                // If I am the one that made the change, we don't need to invalidate the query,
+                // it'll happen anyway from the mutate
+                queryCache.invalidateQueries(['shopping-list', props.id]);
+            }
+        });
+
+        return () => {
+            channel.unsubscribe();
+        };
+    }, []);
 
     const storeOrder = useMemo<{
         [key: number]: ItemsByStoreTag;
@@ -85,8 +114,6 @@ const ShoppingList: Screen<Props> = (props) => {
     useEffect(() => {
         setListData(list.data?.active_version?.items || []);
     }, [list.data]);
-
-    const queryCache = useQueryCache();
 
     const [mutate, { status, data, error }] = useMutation(
         (params) => {
