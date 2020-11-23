@@ -13,6 +13,7 @@ export default (listId: number, listVersionId: number, itemId: number) => {
         {
             onSuccess() {
                 queryCache.invalidateQueries(['shopping-list', listId]);
+                queryCache.invalidateQueries('items');
             },
         },
     );
