@@ -39,7 +39,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
                         <TouchableOpacity
                             style={{ padding: 10 }}
                             key={item.item.label}
-                            onPress={() => props.onSelect(item.item.value)}>
+                            onPress={() => props.onSelect(item.item)}>
                             <BodyText>{item.item.label}</BodyText>
                         </TouchableOpacity>
                     );

@@ -9,6 +9,7 @@ import { useMutation, useQueryCache } from 'react-query';
 import useShoppingList from '@/hooks/useShoppingList';
 import AutoComplete from './AutoComplete';
 import useItems from '@/hooks/useItems';
+import logger from '@/util/logger';
 
 interface Props {
     listId: number;
@@ -29,7 +30,7 @@ const CreateItemForm: React.FC<Props> = (props) => {
     const itemsData =
         items.data?.map((item) => ({
             label: item.name,
-            value: item.name,
+            value: item.id,
         })) || [];
 
     const [mutate, { status, data, error }] = useMutation(
@@ -75,7 +76,13 @@ const CreateItemForm: React.FC<Props> = (props) => {
             initialValues={initialFormValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}>
-            {({ handleSubmit, isSubmitting, values, setFieldValue }) => (
+            {({
+                handleSubmit,
+                isSubmitting,
+                values,
+                setSubmitting,
+                resetForm,
+            }) => (
                 <View>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ flex: 1 }}>
@@ -102,8 +109,20 @@ const CreateItemForm: React.FC<Props> = (props) => {
                         query={values.name}
                         data={itemsData}
                         onSelect={(val) => {
-                            setFieldValue('name', val);
-                            handleSubmit();
+                            setSubmitting(true);
+
+                            mutate({
+                                item_id: val.value,
+                            })
+                                .then((res) => {
+                                    setSubmitting(false);
+                                    resetForm();
+                                    inputRef.current?.focus();
+                                })
+                                .catch((error) => {
+                                    setSubmitting(false);
+                                    logger.red(error);
+                                });
                         }}
                     />
                 </View>
