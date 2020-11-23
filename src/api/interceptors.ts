@@ -8,14 +8,15 @@ import Axios, { AxiosInstance, AxiosError } from 'axios';
 import logger from '@/util/logger';
 import Config from 'react-native-config';
 
+// TODO: Make JWT refresh actually work
 const accessTokenExpired = (error: AxiosError) =>
-    error?.response?.status === 401;
-// error.response.data.message ===
-//     'Your session expired, please log in again.';
+    error?.response?.status === 401 &&
+    error?.response?.data?.message ===
+        'Your session expired, please log in again.';
 
 const accessTokenNotFound = (error: AxiosError) =>
-    error?.response?.status === 401;
-// error.response.data.message === 'JWT Token not found';
+    error?.response?.status === 401 &&
+    error?.response?.data?.message === 'JWT Token not found';
 
 export const useAccountInterceptors = (axiosInstance: AxiosInstance): void => {
     axiosInstance.interceptors.request.use((config) => {
