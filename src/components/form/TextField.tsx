@@ -12,7 +12,7 @@ import ErrorMessageComponent from '@/components/form/ErrorMessage';
 import FieldRequiredIndicator from './FieldRequiredIndicator';
 import FieldLabel from './FieldLabel';
 
-export interface TextFieldProps {
+export interface TextFieldComponentProps {
     name: string;
     label?: string;
     labelAlign?: 'left' | 'center' | 'right';
@@ -23,49 +23,45 @@ export interface TextFieldProps {
     errorComponent?: string | React.ComponentType;
 }
 
-const TextField: React.FC<TextFieldProps & TextInputProps> = forwardRef(
-    (props, ref) => {
-        const [field, meta] = useField(props.name);
-        const inputRef = useRef<TextInput>();
+export type TextFieldProps = TextFieldComponentProps & TextInputProps;
 
-        const InputComponent = props.component || TextInput;
+const TextField: React.FC<TextFieldProps> = forwardRef((props, ref) => {
+    const [field, meta] = useField(props.name);
+    const inputRef = useRef<TextInput>();
 
-        const hasError = meta.touched && meta.error;
+    const InputComponent = props.component || TextInput;
 
-        return (
-            <>
-                {typeof props.label !== 'undefined' && (
-                    <FieldLabel align={props.labelAlign}>
-                        {props.label}
-                    </FieldLabel>
-                )}
+    const hasError = meta.touched && meta.error;
+
+    return (
+        <>
+            {typeof props.label !== 'undefined' && (
+                <FieldLabel align={props.labelAlign}>{props.label}</FieldLabel>
+            )}
+            <View>
                 <View>
-                    <View>
-                        <InputComponent
-                            ref={ref}
-                            maxFontSizeMultiplier={1}
-                            onChangeText={field.onChange(props.name)}
-                            onBlur={field.onBlur(props.name)}
-                            underlineColorAndroid="transparent"
-                            value={field.value}
-                            testID={field.name}
-                            {...props}
-                        />
-                        <FieldRequiredIndicator
-                            required={props.editable && props.required}
-                            name={props.name}
-                        />
-                    </View>
-                    <ErrorMessage
+                    <InputComponent
+                        ref={ref}
+                        maxFontSizeMultiplier={1}
+                        onChangeText={field.onChange(props.name)}
+                        onBlur={field.onBlur(props.name)}
+                        underlineColorAndroid="transparent"
+                        value={field.value}
+                        testID={field.name}
+                        {...props}
+                    />
+                    <FieldRequiredIndicator
+                        required={props.editable && props.required}
                         name={props.name}
-                        component={
-                            props.errorComponent || ErrorMessageComponent
-                        }
                     />
                 </View>
-            </>
-        );
-    },
-);
+                <ErrorMessage
+                    name={props.name}
+                    component={props.errorComponent || ErrorMessageComponent}
+                />
+            </View>
+        </>
+    );
+});
 
 export default TextField;
