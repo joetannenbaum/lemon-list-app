@@ -16,6 +16,7 @@ import useStores from '@/hooks/useStores';
 import sortBy from 'lodash/sortBy';
 import useUpdateItem from '@/hooks/useUpdateItem';
 import omit from 'lodash/omit';
+import AutoGrowTextField from '@/components/form/AutoGrowTextField';
 
 export interface EditShoppingListItemProps {
     listId: number;
@@ -30,6 +31,7 @@ interface FormValues {
               [key: number]: number | undefined;
           }
         | undefined;
+    note: string;
 }
 
 const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
@@ -63,11 +65,13 @@ const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
             }),
             {},
         ),
+        note: props.item.note || '',
     };
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('Required'),
         quantity: Yup.number().required('Required').min(1),
+        note: Yup.string().nullable(),
     });
 
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
@@ -164,6 +168,13 @@ const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
                                         />
                                     </View>
                                 ))}
+                        </View>
+                        <View style={{ padding: 20 }}>
+                            <AutoGrowTextField
+                                name="note"
+                                maxLength={200}
+                                placeholder="Add a note"
+                            />
                         </View>
                         <View style={{ padding: 20 }}>
                             <Button

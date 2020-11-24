@@ -139,6 +139,9 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                             }>
                             {props.item.item.name}
                         </BodyText>
+                        {props.item.note !== null && (
+                            <BodyText>{props.item.note}</BodyText>
+                        )}
                     </TouchableOpacity>
                     <View
                         style={{
