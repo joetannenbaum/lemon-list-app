@@ -17,6 +17,7 @@ import { EditShoppingListItemProps } from '@/screens/EditShoppingListItem';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import SortHandle from './SortHandle';
 import Checkbox from './Checkbox';
+import ShoppingListItemQuantityControl from './ShoppingListItemQuantityControl';
 
 interface Props {
     listId: number;
@@ -28,12 +29,7 @@ const ShoppingListItem: React.FC<Props> = (props) => {
     const { width } = useWindowDimensions();
 
     // This is in state for purposes of optimistic updates
-    const [quantity, setQuantity] = useState(props.item.quantity);
     const [checkedOff, setCheckedOff] = useState(props.item.checked_off);
-
-    useEffect(() => {
-        setQuantity(props.item.quantity);
-    }, [props.item.quantity]);
 
     useEffect(() => {
         setCheckedOff(props.item.checked_off);
@@ -58,16 +54,9 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         [],
     );
 
-    const increaseQuantity = () => changeQuantity(1);
-    const decreaseQuantity = () => changeQuantity(-1);
-
-    const changeQuantity = (by: number) => {
-        setQuantity((state) => {
-            const newState = Math.max(1, state + by);
-            debouncedUpdate({
-                quantity: newState,
-            });
-            return newState;
+    const onQuantityChange = (newQuantity: number) => {
+        debouncedUpdate({
+            quantity: newQuantity,
         });
     };
 
@@ -143,18 +132,10 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                             <BodyText>{props.item.note}</BodyText>
                         )}
                     </TouchableOpacity>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                        }}>
-                        <TouchableOpacity onPress={decreaseQuantity}>
-                            <BodyText>-</BodyText>
-                        </TouchableOpacity>
-                        <BodyText>{quantity}</BodyText>
-                        <TouchableOpacity onPress={increaseQuantity}>
-                            <BodyText>+</BodyText>
-                        </TouchableOpacity>
-                    </View>
+                    <ShoppingListItemQuantityControl
+                        quantity={props.item.quantity}
+                        onChange={onQuantityChange}
+                    />
                 </View>
             </Swipeable>
         </View>

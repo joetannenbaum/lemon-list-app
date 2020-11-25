@@ -1,6 +1,6 @@
 import React from 'react';
 import RNPickerSelect from 'react-native-picker-select';
-import { useField, useFormikContext } from 'formik';
+import { useField } from 'formik';
 import { TextFieldProps } from './TextField';
 
 interface SelectItem {
@@ -13,17 +13,16 @@ export interface SelectProps {
 }
 
 const Select: React.FC<SelectProps & TextFieldProps> = (props) => {
-    const [field] = useField(props.name);
-    const form = useFormikContext();
+    const [field, meta, helpers] = useField(props.name);
 
     return (
         <RNPickerSelect
             value={field.value}
             onValueChange={(val) => {
                 if (val === null) {
-                    form.setFieldValue(props.name, '');
+                    helpers.setValue('');
                 } else {
-                    form.setFieldValue(props.name, val);
+                    helpers.setValue(val);
                 }
             }}
             items={props.items}

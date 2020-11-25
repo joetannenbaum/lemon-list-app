@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import BodyText from '@/components/BodyText';
-import { View, Button, Alert, TouchableOpacity } from 'react-native';
+import { View, Button, Alert } from 'react-native';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
 import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
 import { Formik, FormikHelpers } from 'formik';
@@ -17,6 +17,7 @@ import sortBy from 'lodash/sortBy';
 import useUpdateItem from '@/hooks/useUpdateItem';
 import omit from 'lodash/omit';
 import AutoGrowTextField from '@/components/form/AutoGrowTextField';
+import QuantityControlField from '@/components/QuantityControlField';
 
 export interface EditShoppingListItemProps {
     listId: number;
@@ -123,30 +124,9 @@ const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
 
                         <View
                             style={{
-                                flexDirection: 'row',
                                 paddingTop: 20,
                             }}>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    setFieldValue(
-                                        'quantity',
-                                        values.quantity === 1
-                                            ? 1
-                                            : --values.quantity,
-                                    );
-                                }}>
-                                <BodyText>-</BodyText>
-                            </TouchableOpacity>
-                            <BodyText>{values.quantity}</BodyText>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    setFieldValue(
-                                        'quantity',
-                                        ++values.quantity,
-                                    );
-                                }}>
-                                <BodyText>+</BodyText>
-                            </TouchableOpacity>
+                            <QuantityControlField name="quantity" />
                         </View>
                         <View style={{ padding: 20 }}>
                             {stores.data

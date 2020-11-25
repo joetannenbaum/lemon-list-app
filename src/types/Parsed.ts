@@ -3,10 +3,10 @@ export interface ParsedUrl {
     servings: number;
     url: string;
     image: string;
-    items: ParsedUrlItem[];
+    items: ParsedItem[];
 }
 
-export interface ParsedUrlItem {
+export interface ParsedItem {
     id: number;
     aisle: string;
     name: string;
