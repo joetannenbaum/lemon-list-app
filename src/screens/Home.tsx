@@ -18,6 +18,7 @@ import useStores from '@/hooks/useStores';
 import CreateStoreForm from '@/components/CreateStoreForm';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import useListenForDynamicLinks from '@/hooks/useListenForDynamicLinks';
+import useListenForIncomingShare from '@/hooks/useListenForIncomingShare';
 
 interface Props extends ScreenProps {}
 
@@ -33,6 +34,7 @@ const Home: Screen<Props> = (props) => {
     }, []);
 
     useListenForDynamicLinks();
+    useListenForIncomingShare();
 
     return (
         <SafeAreaView>

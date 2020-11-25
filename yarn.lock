@@ -6035,6 +6035,11 @@ react-native-drag-sort@2.3.9:
   resolved "https://registry.yarnpkg.com/react-native-drag-sort/-/react-native-drag-sort-2.3.9.tgz#d63e2a15dc78eb8d4779784705072e0b54ef249e"
   integrity sha512-TcyWAqVcHOT4LVC4tAdpbbTlNgcPH7O1P2tzxX7krGtdUbOBpoEmKdY3wDhvDWJbeAgL4mCmzvLNkleD2qvtXg==
 
+react-native-fast-image@8.3.4:
+  version "8.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.3.4.tgz#79edca177e30311b19d59ff335625bcbe22650d7"
+  integrity sha512-LpzAdjUphihUpVEBn5fEv5AILe55rHav0YiZroPZ1rumKDhAl4u2cG01ku2Pb7l8sayjTsNu7FuURAlXUUDsow==
+
 react-native-gesture-handler@1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.8.0.tgz#18f61f51da50320f938957b0ee79bc58f47449dc"
@@ -6075,6 +6080,11 @@ react-native-reanimated@1.13.2:
   integrity sha512-O+WhgxSjOIzcVdAAvx+h2DY331Ek1knKlaq+jsNLpC1fhRy9XTdOObovgob/aF2ve9uJfPEawCx8381g/tUJZQ==
   dependencies:
     fbjs "^1.0.0"
+
+react-native-receive-sharing-intent@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-receive-sharing-intent/-/react-native-receive-sharing-intent-1.0.4.tgz#9b2ad2f46b7d301e8091da25f41a9a0d52d162a2"
+  integrity sha512-y2LF/IcmcB3DBPtjqKN80qg814xwWOZw1e1yw5jnppzMVQVmU4bPQWaGgWqr2wppq/PdWiw3shgc5oRCZC5bSg==
 
 react-native-safe-area-context@3.1.9:
   version "3.1.9"
