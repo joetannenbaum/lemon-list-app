@@ -78,6 +78,7 @@ const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
         Promise.all([
             updateShoppingListItem(omit(values, 'store_tags')),
+            // TODO: The item ID might have changed, we should check this out
             updateItem({
                 store_tags: Object.values(values.store_tags),
             }),

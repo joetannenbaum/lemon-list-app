@@ -14,7 +14,9 @@ const QuantityControl: React.FC<QuantityControlProps> = (props) => {
             style={{
                 flexDirection: 'row',
             }}>
-            <TouchableOpacity onPress={props.onDecreasePress}>
+            <TouchableOpacity
+                disabled={props.quantity === 1}
+                onPress={props.onDecreasePress}>
                 <BodyText>-</BodyText>
             </TouchableOpacity>
             <BodyText>{props.quantity}</BodyText>

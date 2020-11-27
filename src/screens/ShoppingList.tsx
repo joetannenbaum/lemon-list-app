@@ -7,7 +7,13 @@ import ShoppingListItem from '@/components/ShoppingListItem';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import { useQueryCache, useMutation } from 'react-query';
 import api from '@/api';
-import { View, TouchableOpacity, ScrollView, Button } from 'react-native';
+import {
+    View,
+    TouchableOpacity,
+    ScrollView,
+    Button,
+    Alert,
+} from 'react-native';
 import useStores from '@/hooks/useStores';
 import BodyText from '@/components/BodyText';
 import { StoreTag } from '@/types/StoreTag';
@@ -54,7 +60,7 @@ const ShoppingList: Screen<Props> = (props) => {
 
         Pusher.logToConsole = Config.ENVIRONMENT === 'local';
 
-        const pusher = new Pusher('a051268051a78476f081', {
+        const pusher = new Pusher(Config.PUSHER_APP_KEY, {
             cluster: 'us2',
         });
 
@@ -118,9 +124,13 @@ const ShoppingList: Screen<Props> = (props) => {
 
     useEffect(() => {
         setListData(list.data?.active_version?.items || []);
+
+        if (list.data === null) {
+            queryCache.invalidateQueries('shopping-lists');
+        }
     }, [list.data]);
 
-    const [mutate, { status, data, error }] = useMutation(
+    const [reorder] = useMutation(
         (params) => {
             return api.put(
                 `shopping-list-versions/${list.data?.active_version?.id}/reorder-items`,
@@ -134,8 +144,19 @@ const ShoppingList: Screen<Props> = (props) => {
         },
     );
 
+    const [deleteList] = useMutation(
+        () => {
+            return api.delete(`shopping-lists/${list.data?.id}`);
+        },
+        {
+            onSuccess() {
+                queryCache.invalidateQueries('shopping-lists');
+            },
+        },
+    );
+
     const onListUpdate = (data) => {
-        mutate({
+        reorder({
             order: data.map((item) => item.id),
         });
     };
@@ -180,6 +201,83 @@ const ShoppingList: Screen<Props> = (props) => {
         });
     };
 
+    const deleteShoppingList = () => {
+        deleteList().then(() => {
+            Navigation.pop(props.componentId);
+        });
+    };
+
+    const onDeleteShoppingListPress = () => {
+        if (!list.data?.is_shared) {
+            return Alert.alert(
+                `Delete ${list.data?.name}?`,
+                'You cannot undo this action.',
+                [
+                    {
+                        text: 'Cancel',
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'Delete',
+                        style: 'destructive',
+                        onPress: deleteShoppingList,
+                    },
+                ],
+            );
+        }
+
+        if (list.data?.is_owner) {
+            return Alert.alert(
+                `Delete ${list.data?.name}?`,
+                "This will delete it for you and anyone you've shared the list with.",
+                [
+                    {
+                        text: 'Cancel',
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'Delete',
+                        style: 'destructive',
+                        onPress: deleteShoppingList,
+                    },
+                ],
+            );
+        }
+
+        Alert.alert(
+            `Leave ${list.data?.name}?`,
+            'If you leave this list you will have to re-add it again to gain access later.',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Leave',
+                    style: 'destructive',
+                    onPress: deleteShoppingList,
+                },
+            ],
+        );
+    };
+
+    if (list.data === null) {
+        return (
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ padding: 20 }}>
+                    <BodyText>List not found.</BodyText>
+                    <BodyText>This list looks like it's missing.</BodyText>
+                    <Button
+                        title="Back to Home"
+                        onPress={() => {
+                            Navigation.pop(props.componentId);
+                        }}
+                    />
+                </View>
+            </SafeAreaView>
+        );
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ padding: 20 }}>
@@ -220,6 +318,11 @@ const ShoppingList: Screen<Props> = (props) => {
                             ),
                         );
                     }}
+                />
+                <Button
+                    title={list.data?.is_owner ? 'Delete List' : 'Leave List'}
+                    onPress={onDeleteShoppingListPress}
+                    color="#f00"
                 />
                 <CreateItemForm listId={props.id} />
             </View>

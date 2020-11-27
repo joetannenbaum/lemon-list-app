@@ -7,5 +7,6 @@ export interface ShoppingList {
     uuid: string;
     image: string | null;
     is_shared: boolean;
+    is_owner: boolean;
     active_version: null | ShoppingListVersion;
 }

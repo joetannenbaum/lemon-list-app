@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import api from '@/api';
 import { ShoppingList } from '@/types/ShoppingList';
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, AxiosError } from 'axios';
 import { ApiResource } from '@/types/ApiResource';
 
 export default (id: number) => {
@@ -11,6 +11,14 @@ export default (id: number) => {
             .then(
                 (res: AxiosResponse<ApiResource<ShoppingList>>) =>
                     res.data.data,
-            );
+            )
+            .catch((error: AxiosError) => {
+                if (error.response?.status === 404) {
+                    // This list was deleted
+                    return null;
+                }
+
+                throw new Error(error);
+            });
     });
 };

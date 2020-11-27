@@ -4,8 +4,8 @@ import { View } from 'react-native';
 import * as Yup from 'yup';
 import SubmitButton from './form/SubmitButton';
 import TextField from './form/TextField';
-import api from '@/api';
-import { useMutation, useQueryCache } from 'react-query';
+import useAddShoppingList from '@/hooks/useAddShoppingList';
+import logger from '@/util/logger';
 
 interface Props {}
 
@@ -14,18 +14,7 @@ interface FormValues {
 }
 
 const CreateListForm: React.FC<Props> = (props) => {
-    const queryCache = useQueryCache();
-
-    const [mutate, { status, data, error }] = useMutation(
-        (params) => {
-            return api.post('shopping-lists', params);
-        },
-        {
-            onSuccess() {
-                queryCache.invalidateQueries('shopping-lists');
-            },
-        },
-    );
+    const [addShoppingList] = useAddShoppingList();
 
     const initialFormValues: FormValues = {
         name: '',
@@ -36,7 +25,7 @@ const CreateListForm: React.FC<Props> = (props) => {
     });
 
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
-        mutate({
+        addShoppingList({
             name: values.name,
         })
             .then((res) => {

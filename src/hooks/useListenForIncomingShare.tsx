@@ -6,7 +6,10 @@ import {
     AppState,
     AppStateStatus,
 } from 'react-native';
-import { Navigation } from 'react-native-navigation';
+import {
+    Navigation,
+    OptionsModalPresentationStyle,
+} from 'react-native-navigation';
 import { screenComponent } from '@/util/navigation';
 import { IncomingShareProps } from '@/screens/IncomingShare';
 import MimeTypes from '@/util/mimeTypes';
@@ -83,6 +86,13 @@ export default () => {
                 passProps: {
                     text: files[0].text,
                     url: files[0].weblink,
+                },
+                options: {
+                    modalPresentationStyle:
+                        OptionsModalPresentationStyle.fullScreen,
+                    modal: {
+                        swipeToDismiss: false,
+                    },
                 },
             }),
         );

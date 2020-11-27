@@ -7,7 +7,7 @@ const QuantityControlField: React.FC<TextFieldProps> = (props) => {
     const [field, meta, helpers] = useField(props.name);
 
     const onIncreasePress = () => {
-        helpers.setValue(++field.value);
+        helpers.setValue(Math.max(1, ++field.value));
     };
 
     const onDecreasePress = () => {
