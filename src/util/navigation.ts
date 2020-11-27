@@ -45,8 +45,12 @@ const matcher = createMatcher({
 });
 
 export const handleDynamicLink = (
-    link: FirebaseDynamicLinksTypes.DynamicLink,
+    link: FirebaseDynamicLinksTypes.DynamicLink | null,
 ) => {
+    if (!link?.url) {
+        return;
+    }
+
     const url = new Url(link.url);
     const route = matcher(url.pathname);
 
