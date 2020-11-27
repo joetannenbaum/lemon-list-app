@@ -72,6 +72,13 @@ const Home: Screen<Props> = (props) => {
                                         passProps: {
                                             id: list.id,
                                         },
+                                        options: {
+                                            topBar: {
+                                                title: {
+                                                    text: list.name,
+                                                },
+                                            },
+                                        },
                                     }),
                                 );
                             }}>
