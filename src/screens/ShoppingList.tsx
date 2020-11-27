@@ -27,8 +27,10 @@ import { ShareShoppingListProps } from './ShareShoppingList';
 import Pusher from 'pusher-js/react-native';
 import useMe from '@/hooks/useMe';
 import Config from 'react-native-config';
+import { useNavigationButtonPress } from 'react-native-navigation-hooks';
+import { EditShoppingListProps } from './EditShoppingList';
 
-interface Props extends ScreenProps {
+export interface ShoppingListProps {
     id: number;
 }
 
@@ -37,7 +39,7 @@ interface ItemsByStoreTag {
     items: ShoppingListItemType[];
 }
 
-const ShoppingList: Screen<Props> = (props) => {
+const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     const queryCache = useQueryCache();
 
     const me = useMe();
@@ -51,6 +53,19 @@ const ShoppingList: Screen<Props> = (props) => {
     );
     const [activeStoreId, setActiveStoreId] = useState<number | null>(null);
     const [scrollEnabled, setScrollEnabled] = useState(true);
+
+    useNavigationButtonPress(
+        (e) => {
+            Navigation.showModal(
+                screenComponent<EditShoppingListProps>('EditShoppingList', {
+                    passProps: {
+                        id: list.data?.id,
+                    },
+                }),
+            );
+        },
+        { buttonId: 'edit-shopping-list', componentId: props.componentId },
+    );
 
     useEffect(() => {
         if (!list.data?.is_shared) {
@@ -71,6 +86,10 @@ const ShoppingList: Screen<Props> = (props) => {
                 // If I am the one that made the change, we don't need to invalidate the query,
                 // it'll happen anyway from the mutate
                 queryCache.invalidateQueries(['shopping-list', props.id]);
+
+                if (data.name !== list.data?.name) {
+                    queryCache.invalidateQueries('shopping-lists');
+                }
             }
         });
 
@@ -127,6 +146,27 @@ const ShoppingList: Screen<Props> = (props) => {
 
         if (list.data === null) {
             queryCache.invalidateQueries('shopping-lists');
+        } else {
+            Navigation.mergeOptions(props.componentId, {
+                topBar: {
+                    title: {
+                        text: list.data?.name,
+                    },
+                },
+            });
+        }
+
+        if (list.data?.is_owner) {
+            Navigation.mergeOptions(props.componentId, {
+                topBar: {
+                    rightButtons: [
+                        {
+                            text: 'Edit',
+                            id: 'edit-shopping-list',
+                        },
+                    ],
+                },
+            });
         }
     }, [list.data]);
 
