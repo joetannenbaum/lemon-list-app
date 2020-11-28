@@ -195,6 +195,17 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         },
     );
 
+    const [clearComplete] = useMutation(
+        () => {
+            return api.post(`shopping-lists/${list.data?.id}/archive`);
+        },
+        {
+            onSuccess() {
+                queryCache.invalidateQueries(['shopping-list', props.id]);
+            },
+        },
+    );
+
     const onListUpdate = (data) => {
         reorder({
             order: data.map((item) => item.id),
@@ -245,6 +256,28 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         deleteList().then(() => {
             Navigation.pop(props.componentId);
         });
+    };
+
+    const clearCompletedItems = () => {
+        clearComplete();
+    };
+
+    const onClearCompletedItemPress = () => {
+        return Alert.alert(
+            'Clear completed items?',
+            'This will remove all completed items from the list',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Clear Items',
+                    style: 'destructive',
+                    onPress: clearCompletedItems,
+                },
+            ],
+        );
     };
 
     const onDeleteShoppingListPress = () => {
@@ -358,6 +391,10 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                             ),
                         );
                     }}
+                />
+                <Button
+                    title="Clear Completed Items"
+                    onPress={onClearCompletedItemPress}
                 />
                 <Button
                     title={list.data?.is_owner ? 'Delete List' : 'Leave List'}
