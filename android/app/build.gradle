@@ -137,8 +137,8 @@ android {
         versionCode 1
         versionName "1.0"
         applicationIdSuffix ".local"
-        // resValue "string", "build_config_package", "YOUR_PACKAGE_NAME_IN_ANDROIDMANIFEST.XML"
-
+        multiDexEnabled true
+        resValue "string", "build_config_package", "com.grocerylist"
     }
     splits {
         abi {
