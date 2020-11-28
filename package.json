@@ -41,7 +41,7 @@
     "react-native-safe-area-context": "3.1.9",
     "react-native-safe-area-view": "1.1.1",
     "react-native-share": "4.1.0",
-    "react-query": "2.26.2",
+    "react-query": "2.26.3",
     "url-parse": "1.4.7",
     "yup": "0.29.3"
   },
