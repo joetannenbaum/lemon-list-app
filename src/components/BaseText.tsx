@@ -1,29 +1,24 @@
 import React from 'react';
-import { Text, TextProps, StyleProp, TextStyle } from 'react-native';
-import capitalize from 'lodash/capitalize';
-import { bsl } from '@/util/style';
+import { Text, TextProps } from 'react-native';
+import { bsl, black } from '@/util/style';
 
 export interface BaseTextProps extends TextProps {
-    textStyle?: StyleProp<TextStyle>;
     color?: string;
     align?: 'left' | 'center' | 'right';
     size?: number;
     lineHeight?: number;
     bold?: boolean;
     letterSpacing?: number;
+    fontFamily?: string;
 }
 
 const BaseText: React.FC<BaseTextProps> = (props) => {
     const getTextStyle = () => {
-        let textStyle = [props.textStyle];
+        const textStyle = props.style ? [props.style] : [];
 
-        if (props.style) {
-            textStyle = textStyle.concat(props.style);
-        }
+        textStyle.push({ fontFamily: props.fontFamily || 'Karla-Regular' });
 
-        if (props.color) {
-            // textStyle.push(styles[`text${capitalize(props.color)}`]);
-        }
+        textStyle.push({ color: props.color || black });
 
         if (props.align) {
             textStyle.push({ textAlign: props.align });
@@ -33,13 +28,18 @@ const BaseText: React.FC<BaseTextProps> = (props) => {
             textStyle.push({ fontSize: bsl(props.size) });
         }
 
-        if (props.lineHeight) {
-            textStyle.push({ lineHeight: bsl(props.lineHeight) });
+        if (typeof props.lineHeight !== 'undefined') {
+            textStyle.push({
+                lineHeight: bsl(props.lineHeight),
+            });
+        } else {
+            textStyle.push({
+                lineHeight: bsl(1.25 * (props.size || 12)),
+            });
         }
 
         if (props.bold) {
             textStyle.push({ fontWeight: '700' });
-            // textStyle.push(styles.bodyTextBold);
         }
 
         if (typeof props.letterSpacing !== 'undefined') {

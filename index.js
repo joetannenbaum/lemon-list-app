@@ -8,6 +8,12 @@ Bugsnag.start();
 
 registerScreens();
 
+Navigation.setDefaultOptions({
+    topBar: {
+        visible: false,
+    },
+});
+
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
         root: {

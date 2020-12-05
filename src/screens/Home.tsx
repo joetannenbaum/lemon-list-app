@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import LogoutButton from '@/components/LogoutButton';
 import useMe from '@/hooks/useMe';
-import SafeAreaView from 'react-native-safe-area-view';
 import BodyText from '@/components/BodyText';
 import useShoppingLists from '@/hooks/useShoppingLists';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import CreateListForm from '@/components/CreateListForm';
 import { Navigation } from 'react-native-navigation';
 import {
@@ -15,10 +14,20 @@ import {
 } from '@/util/navigation';
 import useItems from '@/hooks/useItems';
 import useStores from '@/hooks/useStores';
-import CreateStoreForm from '@/components/CreateStoreForm';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import useListenForDynamicLinks from '@/hooks/useListenForDynamicLinks';
 import useListenForIncomingShare from '@/hooks/useListenForIncomingShare';
+import Wrapper from '@/components/Wrapper';
+import {
+    flexCenter,
+    bsl,
+    sizeImage,
+    black,
+    centeredRow,
+    getColorFromString,
+} from '@/util/style';
+import ListWrapper from '@/components/ListWrapper';
+import BaseText from '@/components/BaseText';
 
 interface Props extends ScreenProps {}
 
@@ -37,102 +46,96 @@ const Home: Screen<Props> = (props) => {
     useListenForIncomingShare();
 
     return (
-        <SafeAreaView>
-            <BodyText>Hi, {me?.data?.name}</BodyText>
+        <Wrapper>
+            {lists?.data?.length === 0 && (
+                <View>
+                    <BodyText>
+                        You don't have any lists! Create one now.
+                    </BodyText>
+                </View>
+            )}
 
-            <View
-                style={{
-                    paddingTop: 50,
-                    paddingBottom: 50,
-                    paddingLeft: 25,
-                    paddingRight: 25,
-                }}>
-                <BodyText size={30} bold={true}>
-                    Lists
-                </BodyText>
-
-                {lists?.data?.length === 0 && (
-                    <View>
-                        <BodyText>
-                            You don't have any lists! Create one now.
-                        </BodyText>
-                    </View>
-                )}
-
-                <CreateListForm />
-
-                {lists?.data?.map((list) => {
-                    return (
-                        <TouchableOpacity
-                            key={`${list.id}`}
-                            onPress={() => {
-                                Navigation.push(
-                                    mainStackId,
-                                    screenComponent('ShoppingList', {
-                                        passProps: {
-                                            id: list.id,
-                                        },
-                                        options: {
-                                            topBar: {
-                                                title: {
-                                                    text: list.name,
-                                                },
+            <View style={styles.wrapper}>
+                <ListWrapper>
+                    {lists?.data?.map((list) => {
+                        return (
+                            <TouchableOpacity
+                                style={styles.listItem}
+                                key={list.id.toString()}
+                                onPress={() => {
+                                    Navigation.push(
+                                        mainStackId,
+                                        screenComponent('ShoppingList', {
+                                            passProps: {
+                                                id: list.id,
                                             },
+                                        }),
+                                    );
+                                }}>
+                                <View
+                                    style={[
+                                        styles.colorIndicator,
+                                        {
+                                            backgroundColor: getColorFromString(
+                                                list.name,
+                                            ),
                                         },
-                                    }),
-                                );
-                            }}>
-                            <BodyText bold={true}>{list.name}</BodyText>
-                        </TouchableOpacity>
-                    );
-                })}
-            </View>
-            <View
-                style={{
-                    paddingTop: 50,
-                    paddingBottom: 50,
-                    paddingLeft: 25,
-                    paddingRight: 25,
-                }}>
-                <BodyText size={30} bold={true}>
-                    Stores
-                </BodyText>
+                                    ]}
+                                />
+                                <View style={styles.listItemInner}>
+                                    <View style={styles.listItemTextWrapper}>
+                                        <BaseText size={40}>
+                                            {list.name}
+                                        </BaseText>
+                                    </View>
+                                    <Image
+                                        style={styles.carat}
+                                        source={require('@images/carat-right.png')}
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                        );
+                    })}
+                </ListWrapper>
 
-                {stores?.data?.length === 0 && (
-                    <View>
-                        <BodyText>
-                            You don't have any stores! Create one now.
-                        </BodyText>
-                    </View>
-                )}
-
-                <CreateStoreForm />
-
-                {stores?.data?.map((store) => {
-                    return (
-                        <TouchableOpacity
-                            key={`${store.id}`}
-                            onPress={() => {
-                                Navigation.push(
-                                    mainStackId,
-                                    screenComponent('Store', {
-                                        passProps: {
-                                            id: store.id,
-                                        },
-                                    }),
-                                );
-                            }}>
-                            <BodyText bold={true}>{store.name}</BodyText>
-                        </TouchableOpacity>
-                    );
-                })}
+                {/* <CreateListForm /> */}
             </View>
 
-            <View style={{ marginTop: 100 }}>
+            {/* <View style={{ marginTop: 100 }}>
                 <LogoutButton />
-            </View>
-        </SafeAreaView>
+            </View> */}
+        </Wrapper>
     );
 };
+
+const styles = StyleSheet.create({
+    wrapper: {
+        flex: 1,
+        ...flexCenter,
+        padding: bsl(20),
+    },
+    listItem: {
+        ...centeredRow,
+        borderBottomColor: '#E5E7EB',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    listItemInner: {
+        ...centeredRow,
+        justifyContent: 'space-between',
+        padding: bsl(24),
+        flex: 1,
+    },
+    listItemTextWrapper: {
+        paddingRight: bsl(10),
+    },
+    carat: {
+        ...sizeImage(16, 24, { width: 16 }),
+        tintColor: black,
+    },
+    colorIndicator: {
+        width: bsl(20),
+        alignSelf: 'stretch',
+    },
+});
 
 export default Home;
