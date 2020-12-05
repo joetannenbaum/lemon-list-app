@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { DragSortableView } from 'react-native-drag-sort';
 import { ScrollView } from 'react-native-gesture-handler';
+import { bsl } from '@/util/style';
 
 export interface SortableListProps {
     data: any[];
@@ -42,7 +43,7 @@ const SortableList: React.FC<SortableListProps> = (props) => {
             dataSource={props.data}
             parentWidth={width}
             childrenWidth={width}
-            childrenHeight={50}
+            childrenHeight={bsl(170)}
             onDataChange={props.onUpdate}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}

@@ -23,8 +23,17 @@ const rem = screenWidth / 750;
 
 export const bsl = (size: number) => rem * size;
 
-export const lightGrey = '#F3F4F6';
 export const black = '#272727';
+export const grey50 = '#F9FAFB';
+export const grey100 = '#F3F4F6';
+export const grey200 = '#E5E7EB';
+export const grey300 = '#D1D5DB';
+export const grey400 = '#9CA3AF';
+export const grey500 = '#6B7280';
+export const grey600 = '#4B5563';
+export const grey700 = '#374151';
+export const grey800 = '#1F2937';
+export const grey900 = '#111827';
 
 export const flexCenter: {
     alignItems: 'center';
@@ -69,6 +78,34 @@ export const sizeImage = (
         height: bsl(height),
     };
 };
+
+export const marginX = (
+    val: number,
+): { marginLeft: number; marginRight: number } => ({
+    marginLeft: bsl(val),
+    marginRight: bsl(val),
+});
+
+export const marginY = (
+    val: number,
+): { marginTop: number; marginBottom: number } => ({
+    marginTop: bsl(val),
+    marginBottom: bsl(val),
+});
+
+export const paddingX = (
+    val: number,
+): { paddingLeft: number; paddingRight: number } => ({
+    paddingLeft: bsl(val),
+    paddingRight: bsl(val),
+});
+
+export const paddingY = (
+    val: number,
+): { paddingTop: number; paddingBottom: number } => ({
+    paddingTop: bsl(val),
+    paddingBottom: bsl(val),
+});
 
 const getLetterIndex = (str: string) => {
     const letters = 'abcdefghijklmnopqrstuvwxyz';

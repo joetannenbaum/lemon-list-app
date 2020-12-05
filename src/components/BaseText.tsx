@@ -13,8 +13,10 @@ export interface BaseTextProps extends TextProps {
 }
 
 const BaseText: React.FC<BaseTextProps> = (props) => {
+    const defaultFontSize = 30;
+
     const getTextStyle = () => {
-        const textStyle = props.style ? [props.style] : [];
+        const textStyle = [];
 
         textStyle.push({ fontFamily: props.fontFamily || 'Karla-Regular' });
 
@@ -24,9 +26,7 @@ const BaseText: React.FC<BaseTextProps> = (props) => {
             textStyle.push({ textAlign: props.align });
         }
 
-        if (props.size) {
-            textStyle.push({ fontSize: bsl(props.size) });
-        }
+        textStyle.push({ fontSize: bsl(props.size || defaultFontSize) });
 
         if (typeof props.lineHeight !== 'undefined') {
             textStyle.push({
@@ -34,7 +34,7 @@ const BaseText: React.FC<BaseTextProps> = (props) => {
             });
         } else {
             textStyle.push({
-                lineHeight: bsl(1.25 * (props.size || 12)),
+                lineHeight: bsl(1.25 * (props.size || defaultFontSize)),
             });
         }
 
@@ -44,6 +44,10 @@ const BaseText: React.FC<BaseTextProps> = (props) => {
 
         if (typeof props.letterSpacing !== 'undefined') {
             textStyle.push({ letterSpacing: bsl(props.letterSpacing) });
+        }
+
+        if (props.style) {
+            textStyle.push(props.style);
         }
 
         if (textStyle.length === 1) {

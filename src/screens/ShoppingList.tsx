@@ -13,6 +13,9 @@ import {
     ScrollView,
     Button,
     Alert,
+    StyleSheet,
+    Image,
+    Platform,
 } from 'react-native';
 import useStores from '@/hooks/useStores';
 import BodyText from '@/components/BodyText';
@@ -29,6 +32,18 @@ import useMe from '@/hooks/useMe';
 import Config from 'react-native-config';
 import { useNavigationButtonPress } from 'react-native-navigation-hooks';
 import { EditShoppingListProps } from './EditShoppingList';
+import Wrapper from '@/components/Wrapper';
+import BaseText from '@/components/BaseText';
+import {
+    flexCenter,
+    getColorFromString,
+    bsl,
+    centeredRow,
+    sizeImage,
+    paddingX,
+    marginY,
+} from '@/util/style';
+import ListWrapper from '@/components/ListWrapper';
 
 export interface ShoppingListProps {
     id: number;
@@ -216,16 +231,14 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         item: ShoppingListItemType,
         index: number,
         dragging: boolean,
-    ) => {
-        return (
-            <ShoppingListItem
-                listId={props.id}
-                item={item}
-                key={item.id.toString()}
-                dragging={dragging}
-            />
-        );
-    };
+    ) => (
+        <ShoppingListItem
+            listId={props.id}
+            item={item}
+            key={item.id.toString()}
+            dragging={dragging}
+        />
+    );
 
     const onDragEnd = () => {
         setScrollEnabled(true);
@@ -336,7 +349,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
 
     if (list.data === null) {
         return (
-            <SafeAreaView style={{ flex: 1 }}>
+            <Wrapper>
                 <View style={{ padding: 20 }}>
                     <BodyText>List not found.</BodyText>
                     <BodyText>This list looks like it's missing.</BodyText>
@@ -347,13 +360,35 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                         }}
                     />
                 </View>
-            </SafeAreaView>
+            </Wrapper>
         );
     }
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ padding: 20 }}>
+        <Wrapper>
+            <Button
+                title="Back"
+                onPress={() => {
+                    Navigation.pop(props.componentId);
+                }}
+            />
+            <View style={styles.headerWrapper}>
+                <View>
+                    <BaseText size={50}>{list.data?.name}</BaseText>
+                    <View
+                        style={[
+                            styles.headerUnderline,
+                            {
+                                backgroundColor: getColorFromString(
+                                    list.data?.name,
+                                ),
+                            },
+                        ]}
+                    />
+                </View>
+            </View>
+
+            {/* <View style={{ padding: 20 }}>
                 {stores.data?.map((store) => (
                     <TouchableOpacity
                         key={store.id.toString()}
@@ -369,16 +404,11 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                         </BodyText>
                     </TouchableOpacity>
                 ))}
-            </View>
-            <View style={{ zIndex: 100 }}>
-                {shoppingLists.data?.length > 0 && (
-                    <Button
-                        title="Add from other lists"
-                        onPress={onAddFromOtherListsPress}
-                    />
-                )}
-                <Button
-                    title="Share List"
+            </View> */}
+
+            <View style={styles.toolsWrapper}>
+                <TouchableOpacity
+                    style={styles.tool}
                     onPress={() => {
                         Navigation.showModal(
                             screenComponent<ShareShoppingListProps>(
@@ -390,20 +420,73 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                                 },
                             ),
                         );
-                    }}
-                />
-                <Button
-                    title="Clear Completed Items"
-                    onPress={onClearCompletedItemPress}
-                />
-                <Button
-                    title={list.data?.is_owner ? 'Delete List' : 'Leave List'}
-                    onPress={onDeleteShoppingListPress}
-                    color="#f00"
-                />
-                <CreateItemForm listId={props.id} />
+                    }}>
+                    <Image
+                        source={Platform.select({
+                            ios: require('@images/share-ios.png'),
+                            android: require('@images/share-android.png'),
+                        })}
+                        style={Platform.select({
+                            ios: styles.shareIconIos,
+                            android: styles.shareIconAndroid,
+                        })}
+                    />
+                    <BaseText size={20}>SHARE</BaseText>
+                </TouchableOpacity>
+
+                {shoppingLists.data?.length && shoppingLists.data?.length > 0 && (
+                    <TouchableOpacity
+                        style={styles.tool}
+                        onPress={onAddFromOtherListsPress}>
+                        <Image
+                            source={require('@images/list-add.png')}
+                            style={styles.listAddIcon}
+                        />
+                        <BaseText size={20}>ADD FROM LIST</BaseText>
+                    </TouchableOpacity>
+                )}
+
+                <TouchableOpacity
+                    style={styles.tool}
+                    onPress={onClearCompletedItemPress}>
+                    <Image
+                        source={require('@images/check-circle.png')}
+                        style={styles.checkIcon}
+                    />
+                    <BaseText size={20}>CLEAR COMPLETED</BaseText>
+                </TouchableOpacity>
+
+                {list.data?.is_owner && (
+                    <TouchableOpacity
+                        style={styles.tool}
+                        onPress={onDeleteShoppingListPress}>
+                        <Image
+                            source={require('@images/trash.png')}
+                            style={styles.trashIcon}
+                        />
+                        <BaseText size={20}>DELETE</BaseText>
+                    </TouchableOpacity>
+                )}
+
+                {!list.data?.is_owner && (
+                    <TouchableOpacity
+                        style={styles.tool}
+                        onPress={onDeleteShoppingListPress}>
+                        <Image
+                            source={require('@images/leave.png')}
+                            style={styles.leaveIcon}
+                        />
+                        <BaseText size={20}>LEAVE</BaseText>
+                    </TouchableOpacity>
+                )}
             </View>
-            <ScrollView style={{ flex: 1 }} scrollEnabled={scrollEnabled}>
+
+            {/* <CreateItemForm listId={props.id} /> */}
+
+            <ScrollView
+                style={styles.listScrollView}
+                contentContainerStyle={styles.listScrollViewContent}
+                scrollEnabled={scrollEnabled}>
                 {activeStoreId ? (
                     storeOrder[activeStoreId]?.map(
                         (section: ItemsByStoreTag) => (
@@ -411,30 +494,82 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                                 <BodyText bold={true}>
                                     {section.tag.name}
                                 </BodyText>
-                                <SortableList
-                                    data={section.items}
-                                    onUpdate={onListUpdate}
-                                    renderItem={renderShoppingListItem}
-                                    disableScroll={true}
-                                    onDragEnd={onDragEnd}
-                                    onDragStart={onDragStart}
-                                />
+
+                                <ListWrapper>
+                                    <SortableList
+                                        data={section.items}
+                                        onUpdate={onListUpdate}
+                                        renderItem={renderShoppingListItem}
+                                        disableScroll={true}
+                                        onDragEnd={onDragEnd}
+                                        onDragStart={onDragStart}
+                                    />
+                                </ListWrapper>
                             </View>
                         ),
                     )
                 ) : (
-                    <SortableList
-                        data={listData}
-                        onUpdate={onListUpdate}
-                        renderItem={renderShoppingListItem}
-                        disableScroll={true}
-                        onDragEnd={onDragEnd}
-                        onDragStart={onDragStart}
-                    />
+                    <ListWrapper>
+                        <SortableList
+                            data={listData}
+                            onUpdate={onListUpdate}
+                            renderItem={renderShoppingListItem}
+                            disableScroll={true}
+                            onDragEnd={onDragEnd}
+                            onDragStart={onDragStart}
+                        />
+                    </ListWrapper>
                 )}
             </ScrollView>
-        </SafeAreaView>
+        </Wrapper>
     );
 };
+
+const styles = StyleSheet.create({
+    headerWrapper: {
+        ...flexCenter,
+    },
+    listScrollView: {
+        flex: 1,
+    },
+    listScrollViewContent: {
+        ...paddingX(20),
+    },
+    headerUnderline: {
+        height: bsl(10),
+    },
+    toolsWrapper: {
+        ...centeredRow,
+        padding: bsl(50),
+        justifyContent: 'space-between',
+    },
+    tool: {
+        ...flexCenter,
+    },
+    shareIconAndroid: {
+        ...sizeImage(61, 60, { height: 40 }),
+        marginBottom: bsl(15),
+    },
+    shareIconIos: {
+        ...sizeImage(45, 60, { height: 40 }),
+        marginBottom: bsl(15),
+    },
+    listAddIcon: {
+        ...sizeImage(60, 60, { height: 40 }),
+        marginBottom: bsl(15),
+    },
+    checkIcon: {
+        ...sizeImage(60, 60, { height: 40 }),
+        marginBottom: bsl(15),
+    },
+    trashIcon: {
+        ...sizeImage(50, 60, { height: 40 }),
+        marginBottom: bsl(15),
+    },
+    leaveIcon: {
+        ...sizeImage(60, 60, { height: 40 }),
+        marginBottom: bsl(15),
+    },
+});
 
 export default ShoppingList;

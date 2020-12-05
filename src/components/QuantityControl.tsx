@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import BodyText from './BodyText';
 
 export interface QuantityControlProps {
@@ -26,5 +26,7 @@ const QuantityControl: React.FC<QuantityControlProps> = (props) => {
         </View>
     );
 };
+
+const styles = StyleSheet.create({});
 
 export default QuantityControl;

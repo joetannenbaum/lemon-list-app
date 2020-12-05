@@ -7,6 +7,8 @@ import {
     Button,
     Animated,
     useWindowDimensions,
+    StyleSheet,
+    Image,
 } from 'react-native';
 import debounce from 'lodash/debounce';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
@@ -18,6 +20,15 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import SortHandle from './SortHandle';
 import Checkbox from './Checkbox';
 import ShoppingListItemQuantityControl from './ShoppingListItemQuantityControl';
+import {
+    centeredRow,
+    bsl,
+    grey200,
+    grey300,
+    grey400,
+    sizeImage,
+} from '@/util/style';
+import BaseText from './BaseText';
 
 interface Props {
     listId: number;
@@ -99,39 +110,32 @@ const ShoppingListItem: React.FC<Props> = (props) => {
     };
 
     return (
-        <View style={{ width }}>
+        <View style={{ width: width - bsl(40) }}>
             <Swipeable
                 enabled={!props.dragging}
                 renderRightActions={renderRightActions}>
-                <View
-                    style={[
-                        {
-                            padding: 10,
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            backgroundColor: '#fff',
-                        },
-                    ]}>
+                <View style={styles.wrapper}>
                     <SortHandle />
-                    <Checkbox checked={checkedOff} onPress={toggleCheck} />
+                    <View style={styles.checkboxWrapper}>
+                        <Checkbox checked={checkedOff} onPress={toggleCheck} />
+                    </View>
                     <TouchableOpacity
-                        style={{ flex: 1 }}
+                        style={styles.itemButton}
                         onPress={showEditModal}>
-                        <BodyText
-                            style={
-                                checkedOff
-                                    ? {
-                                          textDecorationLine: 'line-through',
-                                          textDecorationStyle: 'solid',
-                                      }
-                                    : null
-                            }>
+                        <BaseText
+                            style={checkedOff ? styles.checkedOffText : null}>
                             {props.item.item.name}
-                        </BodyText>
+                        </BaseText>
                         {props.item.note !== null && (
-                            <BodyText style={{ color: '#999' }}>
-                                {props.item.note}
-                            </BodyText>
+                            <View style={styles.noteWrapper}>
+                                <Image
+                                    source={require('@images/quote.png')}
+                                    style={styles.quoteIcon}
+                                />
+                                <BaseText color={grey400}>
+                                    {props.item.note}
+                                </BaseText>
+                            </View>
                         )}
                     </TouchableOpacity>
                     <ShoppingListItemQuantityControl
@@ -143,5 +147,42 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    wrapper: {
+        ...centeredRow,
+        justifyContent: 'space-between',
+        backgroundColor: '#fff',
+        alignSelf: 'stretch',
+        borderBottomColor: grey200,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    checkedOffText: {
+        textDecorationLine: 'line-through',
+        textDecorationStyle: 'solid',
+        color: grey300,
+    },
+    itemButton: {
+        flex: 1,
+        padding: bsl(20),
+    },
+    checkboxWrapper: {
+        paddingLeft: bsl(20),
+    },
+    noteWrapper: {
+        ...centeredRow,
+        marginTop: bsl(5),
+    },
+    quoteIcon: {
+        ...sizeImage(28, 20, { width: 18 }),
+        tintColor: grey400,
+        marginRight: bsl(5),
+        transform: [
+            {
+                translateY: bsl(-10),
+            },
+        ],
+    },
+});
 
 export default ShoppingListItem;

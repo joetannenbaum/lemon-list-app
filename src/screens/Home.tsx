@@ -25,6 +25,7 @@ import {
     black,
     centeredRow,
     getColorFromString,
+    grey200,
 } from '@/util/style';
 import ListWrapper from '@/components/ListWrapper';
 import BaseText from '@/components/BaseText';
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     },
     listItem: {
         ...centeredRow,
-        borderBottomColor: '#E5E7EB',
+        borderBottomColor: grey200,
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
     listItemInner: {

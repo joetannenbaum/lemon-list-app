@@ -1,7 +1,7 @@
 import React from 'react';
 import SafeAreaView from 'react-native-safe-area-view';
 import { StyleSheet } from 'react-native';
-import { lightGrey } from '@/util/style';
+import { grey100 } from '@/util/style';
 
 export interface WrapperProps {}
 
@@ -12,7 +12,7 @@ const Wrapper: React.FC<WrapperProps> = (props) => {
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
-        backgroundColor: lightGrey,
+        backgroundColor: grey100,
     },
 });
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { bsl, flexCenter, sizeImage, black } from '@/util/style';
 
 export interface CheckboxProps {
     checked: boolean;
@@ -9,17 +10,36 @@ export interface CheckboxProps {
 const Checkbox: React.FC<CheckboxProps> = (props) => {
     return (
         <TouchableOpacity
-            style={{
-                width: 18,
-                height: 18,
-                borderColor: 'black',
-                borderWidth: 1,
-                marginRight: 5,
-                backgroundColor: props.checked ? 'black' : 'white',
-            }}
-            onPress={props.onPress}
-        />
+            style={[
+                styles.button,
+                {
+                    backgroundColor: props.checked ? '#6EE7B7' : 'transparent',
+                    borderColor: props.checked ? '#6EE7B7' : black,
+                },
+            ]}
+            onPress={props.onPress}>
+            {props.checked && (
+                <Image
+                    source={require('@images/check.png')}
+                    style={styles.checkIcon}
+                />
+            )}
+        </TouchableOpacity>
     );
 };
+
+const styles = StyleSheet.create({
+    button: {
+        ...flexCenter,
+        borderRadius: bsl(35),
+        width: bsl(35),
+        height: bsl(35),
+        borderWidth: bsl(1),
+    },
+    checkIcon: {
+        tintColor: '#fff',
+        ...sizeImage(35, 29, { width: bsl(25) }),
+    },
+});
 
 export default Checkbox;
