@@ -3,7 +3,7 @@ import { ScreenProps, Screen } from '@/types/navigation';
 import { ScrollView, View, Button, TouchableOpacity } from 'react-native';
 import useShoppingList from '@/hooks/useShoppingList';
 import Checkbox from '@/components/Checkbox';
-import BodyText from '@/components/BodyText';
+import BaseText from '@/components/BaseText';
 import { useQueryCache, useMutation } from 'react-query';
 import api from '@/api';
 import { Navigation } from 'react-native-navigation';
@@ -92,7 +92,7 @@ const AddItemsFromList: Screen<AddItemsFromListProps & ScreenProps> = (
                             onPress={() => toggleItem(item.id)}
                         />
                         <TouchableOpacity onPress={() => toggleItem(item.id)}>
-                            <BodyText>{item.item.name}</BodyText>
+                            <BaseText>{item.item.name}</BaseText>
                         </TouchableOpacity>
                     </View>
                 ))}

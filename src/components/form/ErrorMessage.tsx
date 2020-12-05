@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleProp, TextStyle, StyleSheet } from 'react-native';
-import BodyText from '@/components/BodyText';
+import BaseText from '@/components/BaseText';
 
 interface Props {
     global?: boolean;
@@ -13,9 +13,9 @@ const FormErrorMessage: React.FC<Props> = (props) => (
             props.global ? localStyles.errorGlobal : localStyles.errorInput,
             props.additionalStyles,
         ]}>
-        <BodyText align="center" color="white">
+        <BaseText align="center" color="white">
             {props.children}
-        </BodyText>
+        </BaseText>
     </View>
 );
 

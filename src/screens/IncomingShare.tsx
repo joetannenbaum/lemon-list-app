@@ -8,7 +8,7 @@ import { View, ScrollView, Button } from 'react-native';
 import { ApiResource } from '@/types/ApiResource';
 import { ParsedUrl, ParsedItem } from '@/types/Parsed';
 import Checkbox from '@/components/Checkbox';
-import BodyText from '@/components/BodyText';
+import BaseText from '@/components/BaseText';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import Select from '@/components/form/Select';
 import { Formik, FieldArray, FormikHelpers } from 'formik';
@@ -156,28 +156,28 @@ const IncomingShare: Screen<IncomingShareProps & ScreenProps> = (props) => {
                                     <View style={{ padding: 20 }}>
                                         {urlData?.title ? (
                                             <>
-                                                <BodyText align="center">
+                                                <BaseText align="center">
                                                     Importing Ingredients from
-                                                </BodyText>
-                                                <BodyText
+                                                </BaseText>
+                                                <BaseText
                                                     align="center"
                                                     bold={true}>
                                                     {urlData.title}
                                                     {/* {urlData.url} */}
-                                                </BodyText>
-                                                <BodyText
+                                                </BaseText>
+                                                <BaseText
                                                     numberOfLines={1}
                                                     align="center">
                                                     {urlData.url}
-                                                </BodyText>
-                                                <BodyText align="center">
+                                                </BaseText>
+                                                <BaseText align="center">
                                                     into list:
-                                                </BodyText>
+                                                </BaseText>
                                             </>
                                         ) : (
-                                            <BodyText align="center">
+                                            <BaseText align="center">
                                                 Importing Ingredients into list:
-                                            </BodyText>
+                                            </BaseText>
                                         )}
                                         <Select
                                             name="listId"
@@ -186,7 +186,7 @@ const IncomingShare: Screen<IncomingShareProps & ScreenProps> = (props) => {
                                                 value: list.id,
                                             }))}
                                         />
-                                        <BodyText align="center">or</BodyText>
+                                        <BaseText align="center">or</BaseText>
                                         <TextField
                                             name="newListName"
                                             placeholder="New List"

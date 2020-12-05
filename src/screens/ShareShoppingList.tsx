@@ -4,7 +4,7 @@ import dynamicLinks from '@react-native-firebase/dynamic-links';
 import Share from 'react-native-share';
 import SafeAreaView from 'react-native-safe-area-view';
 import { View, Button } from 'react-native';
-import BodyText from '@/components/BodyText';
+import BaseText from '@/components/BaseText';
 import useShoppingList from '@/hooks/useShoppingList';
 import Config from 'react-native-config';
 import { Navigation } from 'react-native-navigation';
@@ -40,10 +40,10 @@ const ShareShoppingList: Screen<ShareShoppingListProps & ScreenProps> = (
     return (
         <SafeAreaView>
             <View style={{ padding: 20 }}>
-                <BodyText>
+                <BaseText>
                     Sharing a list means that anyone with the link to the list
                     can contribute or check off items in a list.
-                </BodyText>
+                </BaseText>
 
                 <Button title="Share List" onPress={onSharePress} />
             </View>

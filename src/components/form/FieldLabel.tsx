@@ -1,13 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
-import BodyText from '../BodyText';
+import BaseText from '../BaseText';
 
 interface Props {}
 
 const FieldLabel: React.FC<Props> = (props) => {
     return !props.children ? null : (
         <View>
-            <BodyText {...props}>{props.children}</BodyText>
+            <BaseText {...props}>{props.children}</BaseText>
         </View>
     );
 };

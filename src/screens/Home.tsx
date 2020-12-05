@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import LogoutButton from '@/components/LogoutButton';
 import useMe from '@/hooks/useMe';
-import BodyText from '@/components/BodyText';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import CreateListForm from '@/components/CreateListForm';
@@ -50,9 +49,9 @@ const Home: Screen<Props> = (props) => {
         <Wrapper>
             {lists?.data?.length === 0 && (
                 <View>
-                    <BodyText>
+                    <BaseText>
                         You don't have any lists! Create one now.
-                    </BodyText>
+                    </BaseText>
                 </View>
             )}
 

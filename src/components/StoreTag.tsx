@@ -1,5 +1,5 @@
 import React from 'react';
-import BodyText from './BodyText';
+import BaseText from './BaseText';
 import {
     View,
     TouchableOpacity,
@@ -83,7 +83,7 @@ const StoreTag: React.FC<Props> = (props) => {
                     ]}>
                     <SortHandle />
                     <TouchableOpacity style={{ flex: 1 }}>
-                        <BodyText>{props.item.name}</BodyText>
+                        <BaseText>{props.item.name}</BaseText>
                     </TouchableOpacity>
                 </View>
             </Swipeable>

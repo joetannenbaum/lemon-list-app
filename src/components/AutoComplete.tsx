@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import BodyText from '@/components/BodyText';
+import BaseText from '@/components/BaseText';
 import Fuse from 'fuse.js';
 
 interface AutoCompleteData {
@@ -40,7 +40,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
                             style={{ padding: 10 }}
                             key={item.item.label}
                             onPress={() => props.onSelect(item.item)}>
-                            <BodyText>{item.item.label}</BodyText>
+                            <BaseText>{item.item.label}</BaseText>
                         </TouchableOpacity>
                     );
                 })}

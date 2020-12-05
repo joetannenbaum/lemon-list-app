@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
-import BodyText from './BodyText';
+import BaseText from './BaseText';
 import {
     View,
     TouchableOpacity,
@@ -27,8 +27,8 @@ import {
     grey300,
     grey400,
     sizeImage,
+    paddingX,
 } from '@/util/style';
-import BaseText from './BaseText';
 
 interface Props {
     listId: number;
@@ -116,32 +116,39 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                 renderRightActions={renderRightActions}>
                 <View style={styles.wrapper}>
                     <SortHandle />
-                    <View style={styles.checkboxWrapper}>
-                        <Checkbox checked={checkedOff} onPress={toggleCheck} />
+                    <View style={styles.rowContent}>
+                        <View style={styles.checkboxWrapper}>
+                            <Checkbox
+                                checked={checkedOff}
+                                onPress={toggleCheck}
+                            />
+                        </View>
+                        <TouchableOpacity
+                            style={styles.itemButton}
+                            onPress={showEditModal}>
+                            <BaseText
+                                style={
+                                    checkedOff ? styles.checkedOffText : null
+                                }>
+                                {props.item.item.name}
+                            </BaseText>
+                            {props.item.note !== null && (
+                                <View style={styles.noteWrapper}>
+                                    <Image
+                                        source={require('@images/quote.png')}
+                                        style={styles.quoteIcon}
+                                    />
+                                    <BaseText color={grey400}>
+                                        {props.item.note}
+                                    </BaseText>
+                                </View>
+                            )}
+                        </TouchableOpacity>
+                        <ShoppingListItemQuantityControl
+                            quantity={props.item.quantity}
+                            onChange={onQuantityChange}
+                        />
                     </View>
-                    <TouchableOpacity
-                        style={styles.itemButton}
-                        onPress={showEditModal}>
-                        <BaseText
-                            style={checkedOff ? styles.checkedOffText : null}>
-                            {props.item.item.name}
-                        </BaseText>
-                        {props.item.note !== null && (
-                            <View style={styles.noteWrapper}>
-                                <Image
-                                    source={require('@images/quote.png')}
-                                    style={styles.quoteIcon}
-                                />
-                                <BaseText color={grey400}>
-                                    {props.item.note}
-                                </BaseText>
-                            </View>
-                        )}
-                    </TouchableOpacity>
-                    <ShoppingListItemQuantityControl
-                        quantity={props.item.quantity}
-                        onChange={onQuantityChange}
-                    />
                 </View>
             </Swipeable>
         </View>
@@ -150,12 +157,18 @@ const ShoppingListItem: React.FC<Props> = (props) => {
 
 const styles = StyleSheet.create({
     wrapper: {
-        ...centeredRow,
-        justifyContent: 'space-between',
+        flexDirection: 'row',
         backgroundColor: '#fff',
         alignSelf: 'stretch',
         borderBottomColor: grey200,
         borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    rowContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        flex: 1,
+        paddingTop: bsl(20),
+        ...paddingX(20),
     },
     checkedOffText: {
         textDecorationLine: 'line-through',
@@ -165,9 +178,10 @@ const styles = StyleSheet.create({
     itemButton: {
         flex: 1,
         padding: bsl(20),
+        paddingTop: 0,
     },
     checkboxWrapper: {
-        paddingLeft: bsl(20),
+        paddingTop: bsl(1),
     },
     noteWrapper: {
         ...centeredRow,

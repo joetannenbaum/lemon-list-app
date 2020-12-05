@@ -18,7 +18,6 @@ import {
     Platform,
 } from 'react-native';
 import useStores from '@/hooks/useStores';
-import BodyText from '@/components/BodyText';
 import { StoreTag } from '@/types/StoreTag';
 import SortableList from '@/components/SortableList';
 import { Store } from '@/types/Store';
@@ -351,8 +350,8 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         return (
             <Wrapper>
                 <View style={{ padding: 20 }}>
-                    <BodyText>List not found.</BodyText>
-                    <BodyText>This list looks like it's missing.</BodyText>
+                    <BaseText>List not found.</BaseText>
+                    <BaseText>This list looks like it's missing.</BaseText>
                     <Button
                         title="Back to Home"
                         onPress={() => {
@@ -399,9 +398,9 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                                 setActiveStoreId(store.id);
                             }
                         }}>
-                        <BodyText bold={store.id === activeStoreId}>
+                        <BaseText bold={store.id === activeStoreId}>
                             {store.name}
-                        </BodyText>
+                        </BaseText>
                     </TouchableOpacity>
                 ))}
             </View> */}
@@ -491,9 +490,9 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     storeOrder[activeStoreId]?.map(
                         (section: ItemsByStoreTag) => (
                             <View key={section.tag.id.toString()}>
-                                <BodyText bold={true}>
+                                <BaseText bold={true}>
                                     {section.tag.name}
-                                </BodyText>
+                                </BaseText>
 
                                 <ListWrapper>
                                     <SortableList

@@ -5,7 +5,7 @@ import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { screenComponent } from '@/util/navigation';
 import { AddItemsFromListProps } from './AddItemsFromList';
-import BodyText from '@/components/BodyText';
+import BaseText from '@/components/BaseText';
 
 export interface AddItemsFromListsStartProps {
     addToListId: number;
@@ -38,7 +38,7 @@ const AddItemsFromListsStart: Screen<
                                     ),
                                 );
                             }}>
-                            <BodyText>{list.name}</BodyText>
+                            <BaseText>{list.name}</BaseText>
                         </TouchableOpacity>
                     ))}
             </View>

@@ -9,7 +9,7 @@ import PasswordField from '@/components/form/PasswordField';
 import SubmitButton from '@/components/form/SubmitButton';
 import logger from '@/util/logger';
 import { requestAccessToken } from '@/api/token';
-import BodyText from '@/components/BodyText';
+import BaseText from '@/components/BaseText';
 import { setStackRootWithoutAnimating } from '@/util/navigation';
 
 interface Props extends ScreenProps {}
@@ -71,7 +71,7 @@ const Register: Screen<Props> = (props) => {
                         </SubmitButton>
 
                         <View>
-                            <BodyText>Don't have an account?</BodyText>
+                            <BaseText>Don't have an account?</BaseText>
                             <Button
                                 title="Register"
                                 onPress={() => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
-import BodyText from '@/components/BodyText';
+import BaseText from '@/components/BaseText';
 import { View, Button, Alert } from 'react-native';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
 import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
@@ -134,9 +134,9 @@ const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
                                 ?.filter((store) => store.tags.length > 0)
                                 .map((store) => (
                                     <View key={store.id.toString()}>
-                                        <BodyText bold={true}>
+                                        <BaseText bold={true}>
                                             {store.name}
-                                        </BodyText>
+                                        </BaseText>
                                         <Select
                                             name={`store_tags.${store.id}`}
                                             items={sortBy(

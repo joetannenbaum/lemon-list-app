@@ -4,7 +4,7 @@ import SafeAreaView from 'react-native-safe-area-view';
 import { View, Button } from 'react-native';
 import Loading from '@/components/Loading';
 import api from '@/api';
-import BodyText from '@/components/BodyText';
+import BaseText from '@/components/BaseText';
 import { ShoppingList } from '@/types/ShoppingList';
 import { useQueryCache, useMutation } from 'react-query';
 import { Navigation } from 'react-native-navigation';
@@ -50,13 +50,13 @@ const AcceptShare: Screen<AcceptShareProps & ScreenProps> = (props) => {
     return (
         <SafeAreaView>
             <View style={{ padding: 20 }}>
-                <BodyText>
+                <BaseText>
                     Do you want to add {list.name} to your lists?
-                </BodyText>
-                <BodyText>
+                </BaseText>
+                <BaseText>
                     You'll be able to view and contribute to this list right
                     from your account.
-                </BodyText>
+                </BaseText>
 
                 <Button title="Accept" onPress={onAcceptPress} />
                 <View style={{ padding: 20 }}>

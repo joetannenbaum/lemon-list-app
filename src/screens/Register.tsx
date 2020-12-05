@@ -11,7 +11,7 @@ import api from '@/api';
 import SubmitButton from '@/components/form/SubmitButton';
 import logger from '@/util/logger';
 import { requestAccessToken } from '@/api/token';
-import BodyText from '@/components/BodyText';
+import BaseText from '@/components/BaseText';
 import { setStackRootWithoutAnimating } from '@/util/navigation';
 
 interface Props extends ScreenProps {}
@@ -97,7 +97,7 @@ const Register: Screen<Props> = (props) => {
                         </SubmitButton>
 
                         <View>
-                            <BodyText>Already have an account?</BodyText>
+                            <BaseText>Already have an account?</BaseText>
                             <Button
                                 title="Login"
                                 onPress={() => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
-import BodyText from '../BodyText';
+import BaseText from '../BaseText';
 
 interface Props extends TouchableOpacityProps {
     processing?: boolean;
@@ -11,14 +11,14 @@ const SubmitButton: React.FC<Props> = (props) => {
 
     const renderButtonContent = () => {
         if (props.processing) {
-            return <BodyText>One sec...</BodyText>;
+            return <BaseText>One sec...</BaseText>;
         }
 
         if (typeof props.children === 'string') {
             return (
-                <BodyText size={40} align="center">
+                <BaseText size={40} align="center">
                     {props.children}
-                </BodyText>
+                </BaseText>
             );
         }
 

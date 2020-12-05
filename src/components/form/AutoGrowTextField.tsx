@@ -3,7 +3,7 @@ import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 import TextField, { TextFieldProps } from './TextField';
 import { useField } from 'formik';
 import { bsl } from '@/util/style';
-import BodyText from '../BodyText';
+import BaseText from '../BaseText';
 
 type Props = TextFieldProps;
 
@@ -16,9 +16,9 @@ const AutoGrowTextField: React.FC<TextFieldProps> = (props) => {
         }
 
         return (
-            <BodyText>
+            <BaseText>
                 {field.value.length}/{props.maxLength}
-            </BodyText>
+            </BaseText>
         );
     };
 
