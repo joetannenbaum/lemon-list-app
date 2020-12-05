@@ -26,7 +26,6 @@
     "pusher-js": "7.0.1",
     "react": "16.13.1",
     "react-native": "0.63.3",
-    "react-native-autogrow-textinput": "5.4.0",
     "react-native-config": "1.4.1",
     "react-native-device-info": "7.0.2",
     "react-native-drag-sort": "2.3.9",

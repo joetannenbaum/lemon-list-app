@@ -1,11 +1,8 @@
 import React from 'react';
-import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 import TextField, { TextFieldProps } from './TextField';
 import { useField } from 'formik';
 import { bsl } from '@/util/style';
 import BaseText from '../BaseText';
-
-type Props = TextFieldProps;
 
 const AutoGrowTextField: React.FC<TextFieldProps> = (props) => {
     const [field] = useField(props.name);
@@ -27,7 +24,6 @@ const AutoGrowTextField: React.FC<TextFieldProps> = (props) => {
     return (
         <>
             <TextField
-                component={AutoGrowingTextInput}
                 multiline={true}
                 {...props}
                 additionalStyles={[
