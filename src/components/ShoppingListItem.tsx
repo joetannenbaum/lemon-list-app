@@ -28,6 +28,7 @@ import {
     grey400,
     sizeImage,
     paddingX,
+    marginX,
 } from '@/util/style';
 
 interface Props {
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flex: 1,
         paddingTop: bsl(20),
-        ...paddingX(20),
+        ...marginX(20),
     },
     checkedOffText: {
         textDecorationLine: 'line-through',

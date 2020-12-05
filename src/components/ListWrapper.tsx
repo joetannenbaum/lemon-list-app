@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         borderRadius: bsl(10),
+        elevation: 2,
     },
     innerWrapper: {
         backgroundColor: '#fff',

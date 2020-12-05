@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
         },
         shadowRadius: bsl(3),
         shadowOpacity: 0.1,
+        elevation: 3,
     },
     innerWrapper: {
         position: 'absolute',

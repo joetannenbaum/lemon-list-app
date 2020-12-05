@@ -6,6 +6,7 @@ import {
     paddingX,
     bsl,
     flexCenter,
+    grey200,
 } from '@/util/style';
 import BaseText from './BaseText';
 
@@ -24,7 +25,14 @@ const QuantityControl: React.FC<QuantityControlProps> = (props) => {
                     onPress={props.onDecreasePress}>
                     <Image
                         source={require('@images/subtract-circle.png')}
-                        style={styles.controlIcon}
+                        style={[
+                            styles.controlIcon,
+                            props.quantity === 1
+                                ? {
+                                      tintColor: grey200,
+                                  }
+                                : undefined,
+                        ]}
                     />
                 </TouchableOpacity>
                 <View style={styles.textWrapper}>
