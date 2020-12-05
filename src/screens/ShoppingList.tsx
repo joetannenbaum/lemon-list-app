@@ -41,6 +41,7 @@ import {
     sizeImage,
     paddingX,
     marginY,
+    paddingY,
 } from '@/util/style';
 import ListWrapper from '@/components/ListWrapper';
 
@@ -480,7 +481,9 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 )}
             </View>
 
-            {/* <CreateItemForm listId={props.id} /> */}
+            <View style={styles.addFormWrapper}>
+                <CreateItemForm listId={props.id} />
+            </View>
 
             <ScrollView
                 style={styles.listScrollView}
@@ -530,6 +533,10 @@ const styles = StyleSheet.create({
     },
     listScrollView: {
         flex: 1,
+    },
+    addFormWrapper: {
+        zIndex: 100,
+        ...paddingY(20),
     },
     listScrollViewContent: {
         ...paddingX(20),

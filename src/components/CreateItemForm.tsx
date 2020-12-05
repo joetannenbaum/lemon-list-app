@@ -1,8 +1,13 @@
 import React, { useRef } from 'react';
 import { Formik, FormikHelpers } from 'formik';
-import { View, TextInput } from 'react-native';
+import {
+    View,
+    TextInput,
+    StyleSheet,
+    Image,
+    TouchableOpacity,
+} from 'react-native';
 import * as Yup from 'yup';
-import SubmitButton from './form/SubmitButton';
 import TextField from './form/TextField';
 import api from '@/api';
 import { useMutation, useQueryCache } from 'react-query';
@@ -10,6 +15,8 @@ import useShoppingList from '@/hooks/useShoppingList';
 import AutoComplete from './AutoComplete';
 import useItems from '@/hooks/useItems';
 import logger from '@/util/logger';
+import { bsl, paddingX, sizeImage } from '@/util/style';
+import Processing from './Processing';
 
 interface Props {
     listId: number;
@@ -84,26 +91,30 @@ const CreateItemForm: React.FC<Props> = (props) => {
                 resetForm,
             }) => (
                 <View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ flex: 1 }}>
-                            <TextField
-                                ref={inputRef}
-                                name="name"
-                                placeholder="Add Item Here"
-                                onSubmitEditing={() => {
-                                    if (values.name.trim().length > 0) {
-                                        handleSubmit();
-                                    }
-                                }}
-                            />
-                        </View>
-
-                        <SubmitButton
-                            disabled={values.name === ''}
+                    <View style={styles.inputWrapper}>
+                        <TextField
+                            ref={inputRef}
+                            name="name"
+                            placeholder="Add Item Here"
+                            onSubmitEditing={() => {
+                                if (values.name.trim().length > 0) {
+                                    handleSubmit();
+                                }
+                            }}
+                        />
+                        <TouchableOpacity
+                            style={styles.addButton}
                             onPress={handleSubmit}
-                            processing={isSubmitting}>
-                            Add
-                        </SubmitButton>
+                            disabled={values.name.trim() === ''}>
+                            {isSubmitting ? (
+                                <Processing />
+                            ) : (
+                                <Image
+                                    source={require('@images/add-circle.png')}
+                                    style={styles.addIcon}
+                                />
+                            )}
+                        </TouchableOpacity>
                     </View>
                     <AutoComplete
                         query={values.name}
@@ -130,5 +141,21 @@ const CreateItemForm: React.FC<Props> = (props) => {
         </Formik>
     );
 };
+
+const styles = StyleSheet.create({
+    inputWrapper: {
+        ...paddingX(20),
+        position: 'relative',
+    },
+    addButton: {
+        position: 'absolute',
+        right: bsl(40),
+        top: bsl(20),
+        ...sizeImage(10, 10, { width: 40 }),
+    },
+    addIcon: {
+        ...sizeImage(10, 10, { width: 40 }),
+    },
+});
 
 export default CreateItemForm;

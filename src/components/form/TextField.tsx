@@ -5,18 +5,19 @@ import {
     TextInputProps,
     StyleProp,
     TextStyle,
+    StyleSheet,
 } from 'react-native';
 import { useField } from 'formik';
 import { ErrorMessage } from 'formik';
 import ErrorMessageComponent from '@/components/form/ErrorMessage';
 import FieldRequiredIndicator from './FieldRequiredIndicator';
 import FieldLabel from './FieldLabel';
+import { grey300, bsl } from '@/util/style';
 
 export interface TextFieldComponentProps {
     name: string;
     label?: string;
     labelAlign?: 'left' | 'center' | 'right';
-    component?: React.FC;
     required?: boolean;
     editable?: boolean;
     additionalStyles?: StyleProp<TextStyle>;
@@ -29,8 +30,6 @@ const TextField: React.FC<TextFieldProps> = forwardRef((props, ref) => {
     const [field, meta] = useField(props.name);
     const inputRef = useRef<TextInput>();
 
-    const InputComponent = props.component || TextInput;
-
     const hasError = meta.touched && meta.error;
 
     return (
@@ -40,7 +39,7 @@ const TextField: React.FC<TextFieldProps> = forwardRef((props, ref) => {
             )}
             <View>
                 <View>
-                    <InputComponent
+                    <TextInput
                         ref={ref}
                         maxFontSizeMultiplier={1}
                         onChangeText={field.onChange(props.name)}
@@ -48,6 +47,7 @@ const TextField: React.FC<TextFieldProps> = forwardRef((props, ref) => {
                         underlineColorAndroid="transparent"
                         value={field.value}
                         testID={field.name}
+                        style={styles.input}
                         {...props}
                     />
                     <FieldRequiredIndicator
@@ -62,6 +62,18 @@ const TextField: React.FC<TextFieldProps> = forwardRef((props, ref) => {
             </View>
         </>
     );
+});
+
+const styles = StyleSheet.create({
+    input: {
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: grey300,
+        padding: bsl(20),
+        fontFamily: 'Karla-Regular',
+        fontSize: bsl(30),
+        backgroundColor: '#fff',
+        borderRadius: bsl(10),
+    },
 });
 
 export default TextField;

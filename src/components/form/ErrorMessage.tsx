@@ -10,7 +10,7 @@ interface Props {
 const FormErrorMessage: React.FC<Props> = (props) => (
     <View
         style={[
-            props.global ? localStyles.errorGlobal : localStyles.errorInput,
+            props.global ? styels.errorGlobal : styels.errorInput,
             props.additionalStyles,
         ]}>
         <BaseText align="center" color="white">
@@ -19,6 +19,6 @@ const FormErrorMessage: React.FC<Props> = (props) => (
     </View>
 );
 
-const localStyles = StyleSheet.create({});
+const styels = StyleSheet.create({});
 
 export default FormErrorMessage;

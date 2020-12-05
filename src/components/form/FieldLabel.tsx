@@ -2,7 +2,9 @@ import React from 'react';
 import { View } from 'react-native';
 import BaseText from '../BaseText';
 
-interface Props {}
+interface Props {
+    align?: 'left' | 'center' | 'right';
+}
 
 const FieldLabel: React.FC<Props> = (props) => {
     return !props.children ? null : (

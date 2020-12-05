@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import BaseText from '@/components/BaseText';
 import Fuse from 'fuse.js';
+import { bsl } from '@/util/style';
 
 interface AutoCompleteData {
     label: string;
@@ -32,8 +33,9 @@ const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
     }
 
     return (
-        <View style={{ position: 'relative' }}>
-            <View style={styles.container}>
+        <View style={styles.wrapper}>
+            <View style={styles.innerWrapper}>
+                <View style={styles.buffer} />
                 {fuse.current.search(props.query).map((item) => {
                     return (
                         <TouchableOpacity
@@ -50,13 +52,32 @@ const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
+    wrapper: {
+        position: 'relative',
         backgroundColor: '#fff',
+        shadowOffset: {
+            width: 0,
+            height: bsl(1),
+        },
+        shadowRadius: bsl(3),
+        shadowOpacity: 0.1,
+    },
+    innerWrapper: {
+        position: 'absolute',
+        left: bsl(21),
+        right: bsl(21),
+        top: bsl(-10),
+        backgroundColor: '#fff',
+        shadowOpacity: 0.06,
+        shadowOffset: {
+            width: 0,
+            height: bsl(2),
+        },
+        shadowRadius: 0,
         zIndex: 100,
+    },
+    buffer: {
+        height: bsl(10),
     },
 });
 
