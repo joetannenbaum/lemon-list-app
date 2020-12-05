@@ -3,10 +3,12 @@ import {
     getRefreshTokenFromKeychain,
     saveRefreshTokenInKeychain,
     saveAccessTokenInKeychain,
+    clearAllTokensFromKeychain,
 } from '@/util/keychain';
 import Axios, { AxiosInstance, AxiosError } from 'axios';
 import logger from '@/util/logger';
 import Config from 'react-native-config';
+import { setStackRootWithoutAnimating } from '@/util/navigation';
 
 // TODO: Make JWT refresh actually work
 const accessTokenExpired = (error: AxiosError) =>
@@ -16,7 +18,7 @@ const accessTokenExpired = (error: AxiosError) =>
 
 const accessTokenNotFound = (error: AxiosError) =>
     error?.response?.status === 401 &&
-    error?.response?.data?.message === 'JWT Token not found';
+    error?.response?.data?.message === 'Unauthenticated.';
 
 export const useAccountInterceptors = (axiosInstance: AxiosInstance): void => {
     axiosInstance.interceptors.request.use((config) => {
@@ -63,7 +65,10 @@ export const useAccountInterceptors = (axiosInstance: AxiosInstance): void => {
             }
 
             if (accessTokenNotFound(error)) {
-                console.log('ACCESS TOKEN NOT FOUND!!!');
+                clearAllTokensFromKeychain().then(() => {
+                    // queryCache.clear();
+                    setStackRootWithoutAnimating('App');
+                });
             }
 
             return Promise.reject(error);
