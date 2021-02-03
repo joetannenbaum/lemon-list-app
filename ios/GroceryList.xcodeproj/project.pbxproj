@@ -34,6 +34,8 @@
 		CFB79595256DD7F500B2141E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFB79593256DD7F500B2141E /* MainInterface.storyboard */; };
 		CFB79599256DD7F500B2141E /* GroceryListShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CFB7958F256DD7F500B2141E /* GroceryListShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CFC26471256AA70500AFC206 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFC26470256AA70500AFC206 /* GoogleService-Info.plist */; };
+		CFED16EA25C5D4F30066AFC9 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFED16E925C5D4F30066AFC9 /* Dummy.swift */; };
+		CFED16EB25C5D4F30066AFC9 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFED16E925C5D4F30066AFC9 /* Dummy.swift */; };
 		D5FDD05FCD5D4FA1B064F217 /* Karla-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80430A44CB2A4644A07015A6 /* Karla-Bold.ttf */; };
 		EA811FF9FB114B7AA6256AD8 /* Karla-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87E31EA15A51477685AF68DA /* Karla-Regular.ttf */; };
 /* End PBXBuildFile section */
@@ -111,6 +113,7 @@
 		CFC26470256AA70500AFC206 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "GroceryList/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CFC26472256AA89800AFC206 /* GroceryList.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = GroceryList.entitlements; path = GroceryList/GroceryList.entitlements; sourceTree = "<group>"; };
 		CFED16D625C5D42E0066AFC9 /* GroceryList-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GroceryList-Bridging-Header.h"; sourceTree = "<group>"; };
+		CFED16E925C5D4F30066AFC9 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		D03CEF8C33DD48CE96F06554 /* Karla-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Light.ttf"; path = "../assets/fonts/Karla-Light.ttf"; sourceTree = "<group>"; };
 		D48C5CC318AA45D9861A98AA /* Karla-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Medium.ttf"; path = "../assets/fonts/Karla-Medium.ttf"; sourceTree = "<group>"; };
 		D5247DC9D2A844DE99123619 /* Karla-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-ExtraBold.ttf"; path = "../assets/fonts/Karla-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -190,6 +193,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				CFED16D625C5D42E0066AFC9 /* GroceryList-Bridging-Header.h */,
+				CFED16E925C5D4F30066AFC9 /* Dummy.swift */,
 			);
 			name = GroceryList;
 			sourceTree = "<group>";
@@ -627,6 +631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				CFED16EA25C5D4F30066AFC9 /* Dummy.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -652,6 +657,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFED16EB25C5D4F30066AFC9 /* Dummy.swift in Sources */,
 				CFB79592256DD7F500B2141E /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -691,6 +697,7 @@
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -713,6 +720,7 @@
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = GroceryListTests/Info.plist;
