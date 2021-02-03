@@ -2,16 +2,16 @@ import React from 'react';
 import { Button } from 'react-native';
 import { clearAllTokensFromKeychain } from '@/util/keychain';
 import { setStackRootWithoutAnimating } from '@/util/navigation';
-import { useQueryCache } from 'react-query';
+import { useQueryClient } from 'react-query';
 
 interface Props {}
 
 const LogoutButton: React.FC<Props> = (props) => {
-    const queryCache = useQueryCache();
+    const queryClient = useQueryClient();
 
     const onPress = () => {
         clearAllTokensFromKeychain().then(() => {
-            queryCache.clear();
+            queryClient.clear();
             setStackRootWithoutAnimating('App');
         });
     };

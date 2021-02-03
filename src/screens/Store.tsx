@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import SafeAreaView from 'react-native-safe-area-view';
 import useStore from '@/hooks/useStore';
-import { useQueryCache, useMutation } from 'react-query';
+import { useQueryClient, useMutation } from 'react-query';
 import api from '@/api';
 import StoreTag from '@/components/StoreTag';
 import { StoreTag as StoreTagType } from '@/types/StoreTag';
@@ -22,15 +22,15 @@ const Store: Screen<Props> = (props) => {
         setTagData(store.data?.tags || []);
     }, [store.data]);
 
-    const queryCache = useQueryCache();
+    const queryClient = useQueryClient();
 
-    const [mutate, { status, data, error }] = useMutation(
+    const { mutate, status, data, error } = useMutation(
         (params) => {
             return api.put(`stores/${props.id}/reorder-tags`, params);
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries(['store', props.id]);
+                queryClient.invalidateQueries(['store', props.id]);
             },
         },
     );

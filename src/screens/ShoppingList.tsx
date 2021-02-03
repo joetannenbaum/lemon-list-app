@@ -5,7 +5,7 @@ import useShoppingList from '@/hooks/useShoppingList';
 import CreateItemForm from '@/components/CreateItemForm';
 import ShoppingListItem from '@/components/ShoppingListItem';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
-import { useQueryCache, useMutation } from 'react-query';
+import { useQueryClient, useMutation } from 'react-query';
 import api from '@/api';
 import {
     View,
@@ -55,7 +55,7 @@ interface ItemsByStoreTag {
 }
 
 const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
-    const queryCache = useQueryCache();
+    const queryClient = useQueryClient();
 
     const me = useMe();
 
@@ -100,10 +100,10 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
             if (me.data?.id !== data.user.id) {
                 // If I am the one that made the change, we don't need to invalidate the query,
                 // it'll happen anyway from the mutate
-                queryCache.invalidateQueries(['shopping-list', props.id]);
+                queryClient.invalidateQueries(['shopping-list', props.id]);
 
                 if (data.name !== list.data?.name) {
-                    queryCache.invalidateQueries('shopping-lists');
+                    queryClient.invalidateQueries('shopping-lists');
                 }
             }
         });
@@ -160,7 +160,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         setListData(list.data?.active_version?.items || []);
 
         if (list.data === null) {
-            queryCache.invalidateQueries('shopping-lists');
+            queryClient.invalidateQueries('shopping-lists');
         } else {
             Navigation.mergeOptions(props.componentId, {
                 topBar: {
@@ -185,7 +185,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         }
     }, [list.data]);
 
-    const [reorder] = useMutation(
+    const { mutate: reorder } = useMutation(
         (params) => {
             return api.put(
                 `shopping-list-versions/${list.data?.active_version?.id}/reorder-items`,
@@ -194,29 +194,29 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries(['shopping-list', props.id]);
+                queryClient.invalidateQueries(['shopping-list', props.id]);
             },
         },
     );
 
-    const [deleteList] = useMutation(
+    const { mutate: deleteList } = useMutation(
         () => {
             return api.delete(`shopping-lists/${list.data?.id}`);
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries('shopping-lists');
+                queryClient.invalidateQueries('shopping-lists');
             },
         },
     );
 
-    const [clearComplete] = useMutation(
+    const { mutate: clearComplete } = useMutation(
         () => {
             return api.post(`shopping-lists/${list.data?.id}/archive`);
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries(['shopping-list', props.id]);
+                queryClient.invalidateQueries(['shopping-list', props.id]);
             },
         },
     );

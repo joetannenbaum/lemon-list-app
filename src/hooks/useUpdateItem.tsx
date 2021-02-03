@@ -1,8 +1,8 @@
-import { useMutation, useQueryCache } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import api from '@/api';
 
 export default (id: number) => {
-    const queryCache = useQueryCache();
+    const queryClient = useQueryClient();
 
     return useMutation(
         (params: object) => {
@@ -10,7 +10,7 @@ export default (id: number) => {
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries('items');
+                queryClient.invalidateQueries('items');
             },
         },
     );

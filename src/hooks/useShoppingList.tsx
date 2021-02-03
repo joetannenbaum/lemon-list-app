@@ -18,7 +18,7 @@ export default (id: number) => {
                     return null;
                 }
 
-                throw new Error(error);
+                throw error;
             });
     });
 };

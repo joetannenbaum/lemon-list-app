@@ -10,7 +10,7 @@ import {
 import * as Yup from 'yup';
 import TextField from './form/TextField';
 import api from '@/api';
-import { useMutation, useQueryCache } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import useShoppingList from '@/hooks/useShoppingList';
 import AutoComplete from './AutoComplete';
 import useItems from '@/hooks/useItems';
@@ -27,7 +27,7 @@ interface FormValues {
 }
 
 const CreateItemForm: React.FC<Props> = (props) => {
-    const queryCache = useQueryCache();
+    const queryClient = useQueryClient();
 
     const inputRef = useRef<TextInput>(null);
 
@@ -40,7 +40,7 @@ const CreateItemForm: React.FC<Props> = (props) => {
             value: item.id,
         })) || [];
 
-    const [mutate, { status, data, error }] = useMutation(
+    const { mutate, status, data, error } = useMutation(
         (params) => {
             return api.post(
                 `shopping-list-versions/${list.data?.active_version.id}/items`,
@@ -49,8 +49,8 @@ const CreateItemForm: React.FC<Props> = (props) => {
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries(['shopping-list', props.listId]);
-                queryCache.invalidateQueries('items');
+                queryClient.invalidateQueries(['shopping-list', props.listId]);
+                queryClient.invalidateQueries('items');
             },
         },
     );

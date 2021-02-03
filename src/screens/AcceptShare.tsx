@@ -6,7 +6,7 @@ import Loading from '@/components/Loading';
 import api from '@/api';
 import BaseText from '@/components/BaseText';
 import { ShoppingList } from '@/types/ShoppingList';
-import { useQueryCache, useMutation } from 'react-query';
+import { useQueryClient, useMutation } from 'react-query';
 import { Navigation } from 'react-native-navigation';
 
 export interface AcceptShareProps {
@@ -16,15 +16,15 @@ export interface AcceptShareProps {
 const AcceptShare: Screen<AcceptShareProps & ScreenProps> = (props) => {
     const [list, setList] = useState<ShoppingList | null>(null);
 
-    const queryCache = useQueryCache();
+    const queryClient = useQueryClient();
 
-    const [joinList] = useMutation(
+    const { mutate: joinList } = useMutation(
         () => {
             return api.post(`shopping-lists/join/${props.listUuid}`);
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries('shopping-lists');
+                queryClient.invalidateQueries('shopping-lists');
             },
         },
     );

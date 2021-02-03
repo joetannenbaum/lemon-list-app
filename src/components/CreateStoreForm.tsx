@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import SubmitButton from './form/SubmitButton';
 import TextField from './form/TextField';
 import api from '@/api';
-import { useMutation, useQueryCache } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 interface Props {}
 
@@ -14,15 +14,15 @@ interface FormValues {
 }
 
 const CreateStoreForm: React.FC<Props> = (props) => {
-    const queryCache = useQueryCache();
+    const queryClient = useQueryClient();
 
-    const [mutate, { status, data, error }] = useMutation(
+    const { mutate, status, data, error } = useMutation(
         (params) => {
             return api.post('stores', params);
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries('stores');
+                queryClient.invalidateQueries('stores');
             },
         },
     );

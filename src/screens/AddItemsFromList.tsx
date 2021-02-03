@@ -4,7 +4,7 @@ import { ScrollView, View, Button, TouchableOpacity } from 'react-native';
 import useShoppingList from '@/hooks/useShoppingList';
 import Checkbox from '@/components/Checkbox';
 import BaseText from '@/components/BaseText';
-import { useQueryCache, useMutation } from 'react-query';
+import { useQueryClient, useMutation } from 'react-query';
 import api from '@/api';
 import { Navigation } from 'react-native-navigation';
 
@@ -18,11 +18,11 @@ const AddItemsFromList: Screen<AddItemsFromListProps & ScreenProps> = (
 ) => {
     const [selected, setSelected] = useState<number[]>([]);
 
-    const queryCache = useQueryCache();
+    const queryClient = useQueryClient();
     const addToList = useShoppingList(props.addToListId);
     const list = useShoppingList(props.id);
 
-    const [addItems, { status, data, error }] = useMutation(
+    const { mutate: addItems, status, data, error } = useMutation(
         (ids: number[]) => {
             return api.post(
                 `shopping-list-versions/${props.addToListId}/items-from-list`,
@@ -31,7 +31,7 @@ const AddItemsFromList: Screen<AddItemsFromListProps & ScreenProps> = (
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries([
+                queryClient.invalidateQueries([
                     'shopping-list',
                     props.addToListId,
                 ]);

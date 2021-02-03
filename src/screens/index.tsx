@@ -3,7 +3,7 @@ import { Navigation } from 'react-native-navigation';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { screenName as getScreenName } from '@/util/navigation';
-import { QueryCache, ReactQueryCacheProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import flowRight from 'lodash/flowRight';
 import AcceptShare from '@/screens/AcceptShare';
@@ -20,7 +20,7 @@ import ShareShoppingList from '@/screens/ShareShoppingList';
 import ShoppingList from '@/screens/ShoppingList';
 import Store from '@/screens/Store';
 
-const queryCache = new QueryCache();
+const queryClient = new QueryClient();
 
 const screens = {
     AcceptShare,
@@ -42,9 +42,9 @@ const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
     return (props: any) => {
         return (
             <SafeAreaProvider>
-                <ReactQueryCacheProvider queryCache={queryCache}>
+                <QueryClientProvider client={queryClient}>
                     <ScreenComponent {...props} />
-                </ReactQueryCacheProvider>
+                </QueryClientProvider>
             </SafeAreaProvider>
         );
     };

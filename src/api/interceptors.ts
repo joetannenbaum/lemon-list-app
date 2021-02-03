@@ -66,7 +66,7 @@ export const useAccountInterceptors = (axiosInstance: AxiosInstance): void => {
 
             if (accessTokenNotFound(error)) {
                 clearAllTokensFromKeychain().then(() => {
-                    // queryCache.clear();
+                    // queryClient.clear();
                     setStackRootWithoutAnimating('App');
                 });
             }

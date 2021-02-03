@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import SubmitButton from './form/SubmitButton';
 import TextField from './form/TextField';
 import api from '@/api';
-import { useMutation, useQueryCache } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 interface Props {
     storeId: number;
@@ -16,17 +16,17 @@ interface FormValues {
 }
 
 const CreateStoreTagForm: React.FC<Props> = (props) => {
-    const queryCache = useQueryCache();
+    const queryClient = useQueryClient();
 
     const inputRef = useRef<TextInput>(null);
 
-    const [mutate, { status, data, error }] = useMutation(
+    const { mutate, status, data, error } = useMutation(
         (params) => {
             return api.post(`stores/${props.storeId}/tags`, params);
         },
         {
             onSuccess() {
-                queryCache.invalidateQueries(['store', props.storeId]);
+                queryClient.invalidateQueries(['store', props.storeId]);
             },
         },
     );
