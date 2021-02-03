@@ -26,7 +26,7 @@ const EditShoppingList: Screen<EditShoppingListProps & ScreenProps> = (
 
     const list = useShoppingList(props.id);
 
-    const [updateShoppingList] = useUpdateShoppingList(props.id);
+    const { mutate: updateShoppingList } = useUpdateShoppingList(props.id);
 
     const initialFormValues: FormValues = {
         name: list.data?.name || '',

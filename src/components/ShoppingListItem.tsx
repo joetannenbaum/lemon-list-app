@@ -47,13 +47,13 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         setCheckedOff(props.item.checked_off);
     }, [props.item.checked_off]);
 
-    const [updateItem] = useUpdateShoppingListItem(
+    const { mutate: updateItem } = useUpdateShoppingListItem(
         props.listId,
         props.item.shopping_list_version_id,
         props.item.id,
     );
 
-    const [deleteItem] = useDeleteShoppingListItem(
+    const { mutate: deleteItem } = useDeleteShoppingListItem(
         props.listId,
         props.item.shopping_list_version_id,
         props.item.id,

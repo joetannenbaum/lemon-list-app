@@ -14,7 +14,7 @@ interface FormValues {
 }
 
 const CreateListForm: React.FC<Props> = (props) => {
-    const [addShoppingList] = useAddShoppingList();
+    const { mutate: addShoppingList } = useAddShoppingList();
 
     const initialFormValues: FormValues = {
         name: '',

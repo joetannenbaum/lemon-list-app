@@ -49,7 +49,7 @@ const IncomingShare: Screen<IncomingShareProps & ScreenProps> = (props) => {
 
     const lists = useShoppingLists();
 
-    const [addShoppingList] = useAddShoppingList();
+    const { mutate: addShoppingList } = useAddShoppingList();
 
     const handleUrlResponse = (
         result: AxiosResponse<ApiResource<ParsedUrl>>,

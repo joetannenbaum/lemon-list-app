@@ -40,15 +40,15 @@ const EditShoppingListItem: Screen<EditShoppingListItemProps & ScreenProps> = (
 ) => {
     const stores = useStores();
 
-    const [updateShoppingListItem] = useUpdateShoppingListItem(
+    const { mutate: updateShoppingListItem } = useUpdateShoppingListItem(
         props.listId,
         props.item.shopping_list_version_id,
         props.item.id,
     );
 
-    const [updateItem] = useUpdateItem(props.item.item.id);
+    const { mutate: updateItem } = useUpdateItem(props.item.item.id);
 
-    const [deleteItem] = useDeleteShoppingListItem(
+    const { mutate: deleteItem } = useDeleteShoppingListItem(
         props.listId,
         props.item.shopping_list_version_id,
         props.item.id,
