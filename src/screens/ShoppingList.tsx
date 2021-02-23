@@ -23,7 +23,6 @@ import { Navigation } from 'react-native-navigation';
 import { screenComponent } from '@/util/navigation';
 import { AddItemsFromListsStartProps } from './AddItemsFromListsStart';
 import useShoppingLists from '@/hooks/useShoppingLists';
-import { ShareShoppingListProps } from './ShareShoppingList';
 import Pusher from 'pusher-js/react-native';
 import useMe from '@/hooks/useMe';
 import Config from 'react-native-config';
@@ -42,6 +41,8 @@ import {
 } from '@/util/style';
 import ListWrapper from '@/components/ListWrapper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import ShareShoppingList from '@/components/ShareShoppingList';
+import AddItemsFromListsStart from '@/components/AddItemsFromListsStart';
 
 export interface ShoppingListProps {
     id: number;
@@ -70,6 +71,8 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     );
     const [activeStoreId, setActiveStoreId] = useState<number | null>(null);
     const [scrollEnabled, setScrollEnabled] = useState(true);
+    const [sharing, setSharing] = useState(false);
+    const [addingFromAnotherList, setAddingFromAnotherList] = useState(false);
 
     useNavigationButtonPress(
         (e) => {
@@ -248,23 +251,6 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
 
     const onDragStart = () => {
         setScrollEnabled(false);
-    };
-
-    const onAddFromOtherListsPress = () => {
-        Navigation.showModal({
-            stack: {
-                children: [
-                    screenComponent<AddItemsFromListsStartProps>(
-                        'AddItemsFromListsStart',
-                        {
-                            passProps: {
-                                addToListId: props.id,
-                            },
-                        },
-                    ),
-                ],
-            },
-        });
     };
 
     const deleteShoppingList = () => {
@@ -472,18 +458,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     <View style={styles.toolsWrapper}>
                         <TouchableOpacity
                             style={styles.tool}
-                            onPress={() => {
-                                Navigation.showModal(
-                                    screenComponent<ShareShoppingListProps>(
-                                        'ShareShoppingList',
-                                        {
-                                            passProps: {
-                                                id: list.data?.id,
-                                            },
-                                        },
-                                    ),
-                                );
-                            }}>
+                            onPress={() => setSharing(true)}>
                             <Image
                                 source={require('@images/share.png')}
                                 style={styles.shareIcon}
@@ -497,7 +472,9 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                             shoppingLists.data?.length > 0 && (
                                 <TouchableOpacity
                                     style={styles.tool}
-                                    onPress={onAddFromOtherListsPress}>
+                                    onPress={() =>
+                                        setAddingFromAnotherList(true)
+                                    }>
                                     <Image
                                         source={require('@images/collection.png')}
                                         style={styles.listAddIcon}
@@ -550,6 +527,18 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     </View>
                 </View>
             </View>
+            {sharing && (
+                <ShareShoppingList
+                    id={list.data?.id}
+                    onDismiss={() => setSharing(false)}
+                />
+            )}
+            {addingFromAnotherList && (
+                <AddItemsFromListsStart
+                    addToListId={props.id}
+                    onDismiss={() => setAddingFromAnotherList(false)}
+                />
+            )}
         </Wrapper>
     );
 };

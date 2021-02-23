@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
         elevation: 3,
         paddingBottom: bsl(120),
         marginHorizontal: bsl(20),
+        maxHeight: bsl(1000),
     },
 });
 

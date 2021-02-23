@@ -16,7 +16,11 @@ const SubmitButton: React.FC<Props> = (props) => {
 
     const renderButtonContent = () => {
         if (props.processing) {
-            return <BaseText>One sec...</BaseText>;
+            return (
+                <BaseText size={30} letterSpacing={1.25} align="center">
+                    ONE SEC...
+                </BaseText>
+            );
         }
 
         if (typeof props.children === 'string') {

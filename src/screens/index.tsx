@@ -7,15 +7,12 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import flowRight from 'lodash/flowRight';
 import AcceptShare from '@/screens/AcceptShare';
-import AddItemsFromList from '@/screens/AddItemsFromList';
-import AddItemsFromListsStart from '@/screens/AddItemsFromListsStart';
 import App from '@/screens/App';
 import EditShoppingList from '@/screens/EditShoppingList';
 import Home from '@/screens/Home';
 import IncomingShare from '@/screens/IncomingShare';
 import Login from '@/screens/Login';
 import Register from '@/screens/Register';
-import ShareShoppingList from '@/screens/ShareShoppingList';
 import ShoppingList from '@/screens/ShoppingList';
 import Store from '@/screens/Store';
 
@@ -23,15 +20,12 @@ const queryClient = new QueryClient();
 
 const screens = {
     AcceptShare,
-    AddItemsFromListsStart,
-    AddItemsFromList,
     App,
     EditShoppingList,
     Home,
     IncomingShare,
     Login,
     Register,
-    ShareShoppingList,
     ShoppingList,
     Store,
 };
@@ -50,15 +44,12 @@ const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
 
 export type screenComponentName =
     | 'AcceptShare'
-    | 'AddItemsFromListsStart'
-    | 'AddItemsFromList'
     | 'App'
     | 'EditShoppingList'
     | 'Home'
     | 'IncomingShare'
     | 'Login'
     | 'Register'
-    | 'ShareShoppingList'
     | 'ShoppingList'
     | 'Store';
 
