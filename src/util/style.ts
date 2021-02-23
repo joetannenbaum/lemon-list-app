@@ -116,10 +116,10 @@ const getLetterIndex = (str: string) => {
 
 export const getColorFromString = (str: string) => {
     const userFallbackColors = [
-        '#FECACA', // red
-        '#FDE68A', // yellow
-        '#A7F3D0', // green
-        '#BFDBFE', // blue
+        '#F87171', // red
+        '#FBBF24', // yellow
+        '#10B981', // green
+        '#60A5FA', // blue
         // '#C7D2FE', // indigo
         // '#DDD6FE', // purple
         // '#FBCFE8', // pink

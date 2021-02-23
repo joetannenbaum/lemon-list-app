@@ -44,6 +44,7 @@ import {
     paddingY,
 } from '@/util/style';
 import ListWrapper from '@/components/ListWrapper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export interface ShoppingListProps {
     id: number;
@@ -62,6 +63,10 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     const shoppingLists = useShoppingLists();
     const list = useShoppingList(props.id);
     const stores = useStores();
+
+    const inset = useSafeAreaInsets();
+
+    const listColor = getColorFromString(list.data?.name);
 
     const [listData, setListData] = useState(
         list.data?.active_version?.items || [],
@@ -365,26 +370,23 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     }
 
     return (
-        <Wrapper>
-            <Button
+        <Wrapper forceInset={{ top: 'never', bottom: 'never' }}>
+            {/* <Button
                 title="Back"
                 onPress={() => {
                     Navigation.pop(props.componentId);
                 }}
-            />
-            <View style={styles.headerWrapper}>
-                <View>
+            /> */}
+            <View
+                style={[
+                    styles.headerWrapper,
+                    {
+                        paddingTop: inset.top,
+                        backgroundColor: listColor,
+                    },
+                ]}>
+                <View style={styles.header}>
                     <BaseText size={50}>{list.data?.name}</BaseText>
-                    <View
-                        style={[
-                            styles.headerUnderline,
-                            {
-                                backgroundColor: getColorFromString(
-                                    list.data?.name,
-                                ),
-                            },
-                        ]}
-                    />
                 </View>
             </View>
 
@@ -406,83 +408,11 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 ))}
             </View> */}
 
-            <View style={styles.toolsWrapper}>
-                <TouchableOpacity
-                    style={styles.tool}
-                    onPress={() => {
-                        Navigation.showModal(
-                            screenComponent<ShareShoppingListProps>(
-                                'ShareShoppingList',
-                                {
-                                    passProps: {
-                                        id: list.data?.id,
-                                    },
-                                },
-                            ),
-                        );
-                    }}>
-                    <Image
-                        source={Platform.select({
-                            ios: require('@images/share-ios.png'),
-                            android: require('@images/share-android.png'),
-                        })}
-                        style={Platform.select({
-                            ios: styles.shareIconIos,
-                            android: styles.shareIconAndroid,
-                        })}
-                    />
-                    <BaseText size={20}>SHARE</BaseText>
-                </TouchableOpacity>
-
-                {shoppingLists.data?.length && shoppingLists.data?.length > 0 && (
-                    <TouchableOpacity
-                        style={styles.tool}
-                        onPress={onAddFromOtherListsPress}>
-                        <Image
-                            source={require('@images/list-add.png')}
-                            style={styles.listAddIcon}
-                        />
-                        <BaseText size={20}>ADD FROM LIST</BaseText>
-                    </TouchableOpacity>
-                )}
-
-                <TouchableOpacity
-                    style={styles.tool}
-                    onPress={onClearCompletedItemPress}>
-                    <Image
-                        source={require('@images/check-circle.png')}
-                        style={styles.checkIcon}
-                    />
-                    <BaseText size={20}>CLEAR COMPLETED</BaseText>
-                </TouchableOpacity>
-
-                {list.data?.is_owner && (
-                    <TouchableOpacity
-                        style={styles.tool}
-                        onPress={onDeleteShoppingListPress}>
-                        <Image
-                            source={require('@images/trash.png')}
-                            style={styles.trashIcon}
-                        />
-                        <BaseText size={20}>DELETE</BaseText>
-                    </TouchableOpacity>
-                )}
-
-                {!list.data?.is_owner && (
-                    <TouchableOpacity
-                        style={styles.tool}
-                        onPress={onDeleteShoppingListPress}>
-                        <Image
-                            source={require('@images/leave.png')}
-                            style={styles.leaveIcon}
-                        />
-                        <BaseText size={20}>LEAVE</BaseText>
-                    </TouchableOpacity>
-                )}
-            </View>
-
-            <View style={styles.addFormWrapper}>
-                <CreateItemForm listId={props.id} />
+            <View style={styles.footerBg}>
+                <Image
+                    source={require('@images/food-footer.png')}
+                    style={styles.footerImage}
+                />
             </View>
 
             <ScrollView
@@ -523,13 +453,145 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     </ListWrapper>
                 )}
             </ScrollView>
+            <View style={styles.footer}>
+                <Image
+                    source={require('@images/paper-bag-top.png')}
+                    style={[
+                        styles.paperBagTopImage,
+                        {
+                            tintColor: listColor,
+                        },
+                    ]}
+                />
+                <View
+                    style={{
+                        backgroundColor: listColor,
+                        paddingBottom: inset.bottom,
+                    }}>
+                    <View style={styles.addFormWrapper}>
+                        <CreateItemForm listId={props.id} />
+                    </View>
+
+                    <View style={styles.toolsWrapper}>
+                        <TouchableOpacity
+                            style={styles.tool}
+                            onPress={() => {
+                                Navigation.showModal(
+                                    screenComponent<ShareShoppingListProps>(
+                                        'ShareShoppingList',
+                                        {
+                                            passProps: {
+                                                id: list.data?.id,
+                                            },
+                                        },
+                                    ),
+                                );
+                            }}>
+                            <Image
+                                source={require('@images/share.png')}
+                                style={styles.shareIcon}
+                            />
+                            <BaseText size={20} bold={true}>
+                                SHARE
+                            </BaseText>
+                        </TouchableOpacity>
+
+                        {shoppingLists.data?.length &&
+                            shoppingLists.data?.length > 0 && (
+                                <TouchableOpacity
+                                    style={styles.tool}
+                                    onPress={onAddFromOtherListsPress}>
+                                    <Image
+                                        source={require('@images/collection.png')}
+                                        style={styles.listAddIcon}
+                                    />
+                                    <BaseText size={20} bold={true}>
+                                        ADD FROM LIST
+                                    </BaseText>
+                                </TouchableOpacity>
+                            )}
+
+                        <TouchableOpacity
+                            style={styles.tool}
+                            onPress={onClearCompletedItemPress}>
+                            <Image
+                                source={require('@images/badge-check.png')}
+                                style={styles.checkIcon}
+                            />
+                            <BaseText size={20} bold={true}>
+                                CLEAR COMPLETED
+                            </BaseText>
+                        </TouchableOpacity>
+
+                        {list.data?.is_owner && (
+                            <TouchableOpacity
+                                style={styles.tool}
+                                onPress={onDeleteShoppingListPress}>
+                                <Image
+                                    source={require('@images/trash.png')}
+                                    style={styles.trashIcon}
+                                />
+                                <BaseText size={20} bold={true}>
+                                    DELETE
+                                </BaseText>
+                            </TouchableOpacity>
+                        )}
+
+                        {!list.data?.is_owner && (
+                            <TouchableOpacity
+                                style={styles.tool}
+                                onPress={onDeleteShoppingListPress}>
+                                <Image
+                                    source={require('@images/leave.png')}
+                                    style={styles.leaveIcon}
+                                />
+                                <BaseText size={20} bold={true}>
+                                    LEAVE
+                                </BaseText>
+                            </TouchableOpacity>
+                        )}
+                    </View>
+                </View>
+            </View>
         </Wrapper>
     );
 };
 
 const styles = StyleSheet.create({
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0,
+    },
+    footerBg: {
+        position: 'absolute',
+        bottom: bsl(380),
+        right: 0,
+        left: 0,
+    },
     headerWrapper: {
         ...flexCenter,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: bsl(1),
+        },
+        shadowRadius: bsl(3),
+        shadowOpacity: 0.1,
+        zIndex: 50,
+    },
+    header: {
+        ...paddingX(20),
+        ...paddingY(30),
+    },
+    footerImage: {
+        ...sizeImage(1156, 351, { width: 750 }),
+        opacity: 0.5,
+    },
+    paperBagTopImage: {
+        marginTop: bsl(-20),
+        ...sizeImage(1160, 51, { width: 750 }),
     },
     listScrollView: {
         flex: 1,
@@ -540,6 +602,7 @@ const styles = StyleSheet.create({
     },
     listScrollViewContent: {
         padding: bsl(20),
+        paddingBottom: bsl(400),
     },
     headerUnderline: {
         height: bsl(10),
@@ -569,11 +632,15 @@ const styles = StyleSheet.create({
         marginBottom: bsl(15),
     },
     trashIcon: {
-        ...sizeImage(50, 60, { height: 40 }),
+        ...sizeImage(61, 68, { height: 40 }),
+        marginBottom: bsl(15),
+    },
+    shareIcon: {
+        ...sizeImage(68, 68, { height: 40 }),
         marginBottom: bsl(15),
     },
     leaveIcon: {
-        ...sizeImage(60, 60, { height: 40 }),
+        ...sizeImage(68, 61, { height: 40 }),
         marginBottom: bsl(15),
     },
 });

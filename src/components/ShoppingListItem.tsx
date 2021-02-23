@@ -159,7 +159,7 @@ const ShoppingListItem: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
     wrapper: {
         flexDirection: 'row',
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(255, 255, 255, .9)',
         alignSelf: 'stretch',
         borderBottomColor: grey200,
         borderBottomWidth: StyleSheet.hairlineWidth,

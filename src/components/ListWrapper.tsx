@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     wrapper: {
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         elevation: 2,
     },
     innerWrapper: {
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
         shadowColor: '#000',
         shadowOpacity: 0.06,
         shadowOffset: {

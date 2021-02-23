@@ -40,7 +40,7 @@ const CreateItemForm: React.FC<Props> = (props) => {
             value: item.id,
         })) || [];
 
-    const { mutate, status, data, error } = useMutation(
+    const { mutateAsync } = useMutation(
         (params) => {
             return api.post(
                 `shopping-list-versions/${list.data?.active_version.id}/items`,
@@ -64,10 +64,12 @@ const CreateItemForm: React.FC<Props> = (props) => {
     });
 
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
-        mutate({
+        mutateAsync({
             name: values.name,
         })
             .then((res) => {
+                console.log(res, form);
+
                 form.setSubmitting(false);
                 form.resetForm();
                 inputRef.current?.focus();
@@ -110,7 +112,7 @@ const CreateItemForm: React.FC<Props> = (props) => {
                                 <Processing />
                             ) : (
                                 <Image
-                                    source={require('@images/add-circle.png')}
+                                    source={require('@images/plus-circle.png')}
                                     style={styles.addIcon}
                                 />
                             )}
@@ -122,7 +124,7 @@ const CreateItemForm: React.FC<Props> = (props) => {
                         onSelect={(val) => {
                             setSubmitting(true);
 
-                            mutate({
+                            mutateAsync({
                                 item_id: val.value,
                             })
                                 .then((res) => {
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
         ...sizeImage(10, 10, { width: 40 }),
     },
     addIcon: {
-        ...sizeImage(10, 10, { width: 40 }),
+        ...sizeImage(76, 78, { width: 40 }),
     },
 });
 

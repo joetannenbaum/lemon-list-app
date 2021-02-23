@@ -24,7 +24,7 @@ const QuantityControl: React.FC<QuantityControlProps> = (props) => {
                     disabled={props.quantity === 1}
                     onPress={props.onDecreasePress}>
                     <Image
-                        source={require('@images/subtract-circle.png')}
+                        source={require('@images/minus-circle.png')}
                         style={[
                             styles.controlIcon,
                             props.quantity === 1
@@ -40,7 +40,7 @@ const QuantityControl: React.FC<QuantityControlProps> = (props) => {
                 </View>
                 <TouchableOpacity onPress={props.onIncreasePress}>
                     <Image
-                        source={require('@images/add-circle.png')}
+                        source={require('@images/plus-circle.png')}
                         style={styles.controlIcon}
                     />
                 </TouchableOpacity>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         ...flexCenter,
     },
     controlIcon: {
-        ...sizeImage(10, 10, { width: 30 }),
+        ...sizeImage(76, 78, { width: 30 }),
     },
 });
 
