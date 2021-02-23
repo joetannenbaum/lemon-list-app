@@ -1,10 +1,9 @@
-import React from 'react';
-import { View, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Button, Modal } from 'react-native';
 import { Formik, FormikHelpers } from 'formik';
 import TextField from '@/components/form/TextField';
 import * as Yup from 'yup';
 import { Navigation } from 'react-native-navigation';
-import { ScreenProps, Screen } from '@/types/navigation';
 import SubmitButton from '@/components/form/SubmitButton';
 import SafeAreaView from 'react-native-safe-area-view';
 import useStores from '@/hooks/useStores';
@@ -19,9 +18,7 @@ interface FormValues {
     name: string;
 }
 
-const EditShoppingList: Screen<EditShoppingListProps & ScreenProps> = (
-    props,
-) => {
+const EditShoppingList: React.FC<EditShoppingListProps> = (props) => {
     const stores = useStores();
 
     const list = useShoppingList(props.id);
@@ -42,8 +39,20 @@ const EditShoppingList: Screen<EditShoppingListProps & ScreenProps> = (
         });
     };
 
+    useEffect(() => {
+        if (props.id) {
+        }
+    }, [props.id]);
+
+    if (!props.id) {
+        return null;
+    }
+
     return (
-        <SafeAreaView>
+        <Modal
+            transparent={true}
+            presentationStyle={'overFullScreen'}
+            visible={}>
             <Formik
                 initialValues={initialFormValues}
                 validationSchema={validationSchema}
@@ -75,7 +84,7 @@ const EditShoppingList: Screen<EditShoppingListProps & ScreenProps> = (
                     </View>
                 )}
             </Formik>
-        </SafeAreaView>
+        </Modal>
     );
 };
 

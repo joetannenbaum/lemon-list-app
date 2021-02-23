@@ -31,6 +31,7 @@ import {
     marginX,
     paddingY,
 } from '@/util/style';
+import EditShoppingListItem from './EditShoppingListItem';
 
 interface Props {
     listId: number;
@@ -43,18 +44,19 @@ const ShoppingListItem: React.FC<Props> = (props) => {
 
     // This is in state for purposes of optimistic updates
     const [checkedOff, setCheckedOff] = useState(props.item.checked_off);
+    const [editing, setEditing] = useState(false);
 
     useEffect(() => {
         setCheckedOff(props.item.checked_off);
     }, [props.item.checked_off]);
 
-    const { mutate: updateItem } = useUpdateShoppingListItem(
+    const { mutateAsync: updateItem } = useUpdateShoppingListItem(
         props.listId,
         props.item.shopping_list_version_id,
         props.item.id,
     );
 
-    const { mutate: deleteItem } = useDeleteShoppingListItem(
+    const { mutateAsync: deleteItem } = useDeleteShoppingListItem(
         props.listId,
         props.item.shopping_list_version_id,
         props.item.id,
@@ -83,14 +85,15 @@ const ShoppingListItem: React.FC<Props> = (props) => {
     };
 
     const showEditModal = () => {
-        Navigation.showModal(
-            screenComponent<EditShoppingListItemProps>('EditShoppingListItem', {
-                passProps: {
-                    listId: props.listId,
-                    item: props.item,
-                },
-            }),
-        );
+        setEditing(true);
+        // Navigation.showModal(
+        //     screenComponent<EditShoppingListItemProps>('EditShoppingListItem', {
+        //         passProps: {
+        //             listId: props.listId,
+        //             item: props.item,
+        //         },
+        //     }),
+        // );
     };
 
     const renderRightActions = (
@@ -112,50 +115,59 @@ const ShoppingListItem: React.FC<Props> = (props) => {
     };
 
     return (
-        <View style={{ width: width - bsl(40) }}>
-            <Swipeable
-                enabled={!props.dragging}
-                renderRightActions={renderRightActions}>
-                <View style={styles.wrapper}>
-                    <SortHandle />
-                    <View style={styles.rowContent}>
-                        <View style={styles.checkboxWrapper}>
-                            <Checkbox
-                                checked={checkedOff}
-                                onPress={toggleCheck}
+        <>
+            <View style={{ width: width - bsl(40) }}>
+                <Swipeable
+                    enabled={!props.dragging}
+                    renderRightActions={renderRightActions}>
+                    <View style={styles.wrapper}>
+                        <SortHandle />
+                        <View style={styles.rowContent}>
+                            <View style={styles.checkboxWrapper}>
+                                <Checkbox
+                                    checked={checkedOff}
+                                    onPress={toggleCheck}
+                                />
+                            </View>
+                            <TouchableOpacity
+                                style={styles.itemButton}
+                                onPress={showEditModal}>
+                                <BaseText
+                                    style={
+                                        checkedOff
+                                            ? styles.checkedOffText
+                                            : styles.itemText
+                                    }>
+                                    {props.item.item.name}
+                                </BaseText>
+                                {props.item.note !== null && (
+                                    <View style={styles.noteWrapper}>
+                                        <Image
+                                            source={require('@images/word-bubble.png')}
+                                            style={styles.noteIcon}
+                                        />
+                                        <BaseText color={grey400}>
+                                            {props.item.note}
+                                        </BaseText>
+                                    </View>
+                                )}
+                            </TouchableOpacity>
+                            <ShoppingListItemQuantityControl
+                                quantity={props.item.quantity}
+                                onChange={onQuantityChange}
                             />
                         </View>
-                        <TouchableOpacity
-                            style={styles.itemButton}
-                            onPress={showEditModal}>
-                            <BaseText
-                                style={
-                                    checkedOff
-                                        ? styles.checkedOffText
-                                        : styles.itemText
-                                }>
-                                {props.item.item.name}
-                            </BaseText>
-                            {props.item.note !== null && (
-                                <View style={styles.noteWrapper}>
-                                    <Image
-                                        source={require('@images/word-bubble.png')}
-                                        style={styles.noteIcon}
-                                    />
-                                    <BaseText color={grey400}>
-                                        {props.item.note}
-                                    </BaseText>
-                                </View>
-                            )}
-                        </TouchableOpacity>
-                        <ShoppingListItemQuantityControl
-                            quantity={props.item.quantity}
-                            onChange={onQuantityChange}
-                        />
                     </View>
-                </View>
-            </Swipeable>
-        </View>
+                </Swipeable>
+            </View>
+            {editing && (
+                <EditShoppingListItem
+                    listId={props.listId}
+                    item={props.item}
+                    onDismiss={() => setEditing(false)}
+                />
+            )}
+        </>
     );
 };
 

@@ -22,7 +22,7 @@ const AddItemsFromList: Screen<AddItemsFromListProps & ScreenProps> = (
     const addToList = useShoppingList(props.addToListId);
     const list = useShoppingList(props.id);
 
-    const { mutate: addItems, status, data, error } = useMutation(
+    const { mutateAsync: addItems, status, data, error } = useMutation(
         (ids: number[]) => {
             return api.post(
                 `shopping-list-versions/${props.addToListId}/items-from-list`,

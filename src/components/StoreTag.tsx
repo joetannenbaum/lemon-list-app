@@ -22,7 +22,7 @@ const StoreTag: React.FC<Props> = (props) => {
     const queryClient = useQueryClient();
     const { width } = useWindowDimensions();
 
-    const { mutate: updateItem } = useMutation(
+    const { mutateAsync: updateItem } = useMutation(
         (params) => {
             return api.put(
                 `stores/${props.item.store_id}/tags/${props.item.id}`,
@@ -36,7 +36,7 @@ const StoreTag: React.FC<Props> = (props) => {
         },
     );
 
-    const { mutate: deleteItem } = useMutation(
+    const { mutateAsync: deleteItem } = useMutation(
         () => {
             return api.delete(
                 `stores/${props.item.store_id}/tags/${props.item.id}`,

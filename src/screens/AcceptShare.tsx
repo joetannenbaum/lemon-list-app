@@ -18,7 +18,7 @@ const AcceptShare: Screen<AcceptShareProps & ScreenProps> = (props) => {
 
     const queryClient = useQueryClient();
 
-    const { mutate: joinList } = useMutation(
+    const { mutateAsync: joinList } = useMutation(
         () => {
             return api.post(`shopping-lists/join/${props.listUuid}`);
         },

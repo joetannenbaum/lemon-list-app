@@ -12,8 +12,8 @@ const SortHandle: React.FC<SortHandleProps> = (props) => {
                     .fill(null)
                     .map((_, i) => {
                         return (
-                            <View style={styles.dotWrapper}>
-                                <View style={styles.dot} key={`dot-${i}`} />
+                            <View style={styles.dotWrapper} key={`dot-${i}`}>
+                                <View style={styles.dot} />
                             </View>
                         );
                     })}

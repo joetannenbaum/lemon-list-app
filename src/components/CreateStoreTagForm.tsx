@@ -20,7 +20,7 @@ const CreateStoreTagForm: React.FC<Props> = (props) => {
 
     const inputRef = useRef<TextInput>(null);
 
-    const { mutate, status, data, error } = useMutation(
+    const { mutateAsync, status, data, error } = useMutation(
         (params) => {
             return api.post(`stores/${props.storeId}/tags`, params);
         },
@@ -40,7 +40,7 @@ const CreateStoreTagForm: React.FC<Props> = (props) => {
     });
 
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
-        mutate({
+        mutateAsync({
             name: values.name,
         })
             .then((res) => {

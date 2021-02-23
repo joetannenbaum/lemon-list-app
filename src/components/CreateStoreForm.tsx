@@ -16,7 +16,7 @@ interface FormValues {
 const CreateStoreForm: React.FC<Props> = (props) => {
     const queryClient = useQueryClient();
 
-    const { mutate, status, data, error } = useMutation(
+    const { mutateAsync, status, data, error } = useMutation(
         (params) => {
             return api.post('stores', params);
         },
@@ -36,7 +36,7 @@ const CreateStoreForm: React.FC<Props> = (props) => {
     });
 
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
-        mutate({
+        mutateAsync({
             name: values.name,
         })
             .then((res) => {

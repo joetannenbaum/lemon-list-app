@@ -12,7 +12,7 @@ import { ErrorMessage } from 'formik';
 import ErrorMessageComponent from '@/components/form/ErrorMessage';
 import FieldRequiredIndicator from './FieldRequiredIndicator';
 import FieldLabel from './FieldLabel';
-import { grey300, bsl } from '@/util/style';
+import { grey300, bsl, paddingY, paddingX } from '@/util/style';
 
 export interface TextFieldComponentProps {
     name: string;
@@ -47,7 +47,7 @@ const TextField: React.FC<TextFieldProps> = forwardRef((props, ref) => {
                         underlineColorAndroid="transparent"
                         value={field.value}
                         testID={field.name}
-                        style={styles.input}
+                        style={[styles.input, props.additionalStyles]}
                         {...props}
                     />
                     <FieldRequiredIndicator
@@ -66,13 +66,14 @@ const TextField: React.FC<TextFieldProps> = forwardRef((props, ref) => {
 
 const styles = StyleSheet.create({
     input: {
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: bsl(3),
         borderColor: grey300,
-        padding: bsl(20),
+        ...paddingY(20), // Keep this this way, multiline won't pad the top correctly otherwise
+        ...paddingX(20),
         fontFamily: 'Karla-Regular',
         fontSize: bsl(30),
         backgroundColor: '#fff',
-        borderRadius: bsl(10),
+        borderRadius: bsl(50),
     },
 });
 

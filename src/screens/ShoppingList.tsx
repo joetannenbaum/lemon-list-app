@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
-import SafeAreaView from 'react-native-safe-area-view';
 import useShoppingList from '@/hooks/useShoppingList';
 import CreateItemForm from '@/components/CreateItemForm';
 import ShoppingListItem from '@/components/ShoppingListItem';
@@ -15,7 +14,6 @@ import {
     Alert,
     StyleSheet,
     Image,
-    Platform,
 } from 'react-native';
 import useStores from '@/hooks/useStores';
 import { StoreTag } from '@/types/StoreTag';
@@ -40,7 +38,6 @@ import {
     centeredRow,
     sizeImage,
     paddingX,
-    marginY,
     paddingY,
 } from '@/util/style';
 import ListWrapper from '@/components/ListWrapper';
@@ -190,7 +187,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         }
     }, [list.data]);
 
-    const { mutate: reorder } = useMutation(
+    const { mutateAsync: reorder } = useMutation(
         (params) => {
             return api.put(
                 `shopping-list-versions/${list.data?.active_version?.id}/reorder-items`,
@@ -204,7 +201,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         },
     );
 
-    const { mutate: deleteList } = useMutation(
+    const { mutateAsync: deleteList } = useMutation(
         () => {
             return api.delete(`shopping-lists/${list.data?.id}`);
         },
@@ -215,7 +212,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         },
     );
 
-    const { mutate: clearComplete } = useMutation(
+    const { mutateAsync: clearComplete } = useMutation(
         () => {
             return api.post(`shopping-lists/${list.data?.id}/archive`);
         },

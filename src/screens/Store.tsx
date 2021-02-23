@@ -24,7 +24,7 @@ const Store: Screen<Props> = (props) => {
 
     const queryClient = useQueryClient();
 
-    const { mutate, status, data, error } = useMutation(
+    const { mutateAsync, status, data, error } = useMutation(
         (params) => {
             return api.put(`stores/${props.id}/reorder-tags`, params);
         },
@@ -38,7 +38,7 @@ const Store: Screen<Props> = (props) => {
     const onDragEnd = (data: DragEndParams<StoreTagType>) => {
         setTagData(data);
 
-        mutate({
+        mutateAsync({
             order: data.map((item) => item.id),
         });
     };

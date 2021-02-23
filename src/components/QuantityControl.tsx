@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import {
+    View,
+    TouchableOpacity,
+    StyleSheet,
+    Image,
+    Insets,
+} from 'react-native';
 import {
     centeredRow,
     sizeImage,
@@ -17,10 +23,18 @@ export interface QuantityControlProps {
 }
 
 const QuantityControl: React.FC<QuantityControlProps> = (props) => {
+    const hitSlop: Insets = {
+        top: bsl(10),
+        bottom: bsl(10),
+        right: bsl(10),
+        left: bsl(10),
+    };
+
     return (
         <View>
             <View style={styles.wrapper}>
                 <TouchableOpacity
+                    hitSlop={hitSlop}
                     disabled={props.quantity === 1}
                     onPress={props.onDecreasePress}>
                     <Image
@@ -38,7 +52,9 @@ const QuantityControl: React.FC<QuantityControlProps> = (props) => {
                 <View style={styles.textWrapper}>
                     <BaseText size={30}>{props.quantity}</BaseText>
                 </View>
-                <TouchableOpacity onPress={props.onIncreasePress}>
+                <TouchableOpacity
+                    hitSlop={hitSlop}
+                    onPress={props.onIncreasePress}>
                     <Image
                         source={require('@images/plus-circle.png')}
                         style={styles.controlIcon}

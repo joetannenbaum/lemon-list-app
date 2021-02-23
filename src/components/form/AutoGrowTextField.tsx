@@ -1,8 +1,9 @@
 import React from 'react';
 import TextField, { TextFieldProps } from './TextField';
 import { useField } from 'formik';
-import { bsl } from '@/util/style';
+import { bsl, paddingX, paddingY } from '@/util/style';
 import BaseText from '../BaseText';
+import { StyleSheet, View } from 'react-native';
 
 const AutoGrowTextField: React.FC<TextFieldProps> = (props) => {
     const [field] = useField(props.name);
@@ -13,36 +14,29 @@ const AutoGrowTextField: React.FC<TextFieldProps> = (props) => {
         }
 
         return (
-            <BaseText>
-                {field.value.length}/{props.maxLength}
-            </BaseText>
+            <View style={styles.lengthTextWrapper}>
+                <BaseText size={20}>
+                    {field.value.length}/{props.maxLength}
+                </BaseText>
+            </View>
         );
     };
 
-    const shouldPadBottom = props.maxLength;
-
     return (
         <>
-            <TextField
-                multiline={true}
-                {...props}
-                additionalStyles={[
-                    {
-                        borderColor: '#000',
-                        borderWidth: 1,
-                        minHeight: bsl(350),
-                    },
-                    shouldPadBottom
-                        ? {
-                              paddingBottom: bsl(100),
-                          }
-                        : null,
-                    props.additionalStyles,
-                ]}
-            />
+            <TextField multiline={true} {...props} />
             {renderMaxLength()}
         </>
     );
 };
+
+const styles = StyleSheet.create({
+    lengthTextWrapper: {
+        paddingTop: bsl(5),
+        paddingRight: bsl(20),
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+});
 
 export default AutoGrowTextField;

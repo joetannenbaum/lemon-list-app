@@ -11,7 +11,6 @@ import AddItemsFromList from '@/screens/AddItemsFromList';
 import AddItemsFromListsStart from '@/screens/AddItemsFromListsStart';
 import App from '@/screens/App';
 import EditShoppingList from '@/screens/EditShoppingList';
-import EditShoppingListItem from '@/screens/EditShoppingListItem';
 import Home from '@/screens/Home';
 import IncomingShare from '@/screens/IncomingShare';
 import Login from '@/screens/Login';
@@ -28,7 +27,6 @@ const screens = {
     AddItemsFromList,
     App,
     EditShoppingList,
-    EditShoppingListItem,
     Home,
     IncomingShare,
     Login,
@@ -56,7 +54,6 @@ export type screenComponentName =
     | 'AddItemsFromList'
     | 'App'
     | 'EditShoppingList'
-    | 'EditShoppingListItem'
     | 'Home'
     | 'IncomingShare'
     | 'Login'
