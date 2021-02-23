@@ -139,8 +139,8 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                             {props.item.note !== null && (
                                 <View style={styles.noteWrapper}>
                                     <Image
-                                        source={require('@images/quote.png')}
-                                        style={styles.quoteIcon}
+                                        source={require('@images/word-bubble.png')}
+                                        style={styles.noteIcon}
                                     />
                                     <BaseText color={grey400}>
                                         {props.item.note}
@@ -196,13 +196,13 @@ const styles = StyleSheet.create({
         ...centeredRow,
         marginTop: bsl(5),
     },
-    quoteIcon: {
-        ...sizeImage(28, 20, { width: 18 }),
+    noteIcon: {
+        ...sizeImage(75, 78, { width: 22 }),
         tintColor: grey400,
-        marginRight: bsl(5),
+        marginRight: bsl(10),
         transform: [
             {
-                translateY: bsl(-10),
+                translateY: bsl(2),
             },
         ],
     },
