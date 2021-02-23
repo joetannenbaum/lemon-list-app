@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import BaseText from '@/components/BaseText';
-import { View, Button, Alert, Modal, StyleSheet, Animated } from 'react-native';
+import { View, Alert, Modal, StyleSheet, Animated } from 'react-native';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
 import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
 import { Formik, FormikHelpers } from 'formik';
@@ -15,7 +15,7 @@ import useUpdateItem from '@/hooks/useUpdateItem';
 import omit from 'lodash/omit';
 import AutoGrowTextField from '@/components/form/AutoGrowTextField';
 import QuantityControlField from '@/components/QuantityControlField';
-import { bsl, paddingX, marginX, paddingY } from '@/util/style';
+import { bsl, paddingY, grey300 } from '@/util/style';
 import CancelButton from './form/CancelButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -38,6 +38,9 @@ interface FormValues {
 
 const EditShoppingListItem: React.FC<EditShoppingListItemProps> = (props) => {
     const stores = useStores();
+
+    const storesWithTags =
+        stores.data?.filter((store) => store.tags.length > 0) || [];
 
     const animatedValue = useRef(new Animated.Value(0));
 
@@ -183,7 +186,7 @@ const EditShoppingListItem: React.FC<EditShoppingListItemProps> = (props) => {
                                     <QuantityControlField name="quantity" />
                                 </View>
                             </View>
-                            <View style={{ ...paddingY(20) }}>
+                            <View style={{ paddingVertical: bsl(20) }}>
                                 <AutoGrowTextField
                                     name="note"
                                     maxLength={100}
@@ -191,38 +194,45 @@ const EditShoppingListItem: React.FC<EditShoppingListItemProps> = (props) => {
                                 />
                             </View>
                             <View style={{ paddingBottom: bsl(20) }}>
-                                {stores.data
-                                    ?.filter((store) => store.tags.length > 0)
-                                    .map((store) => (
-                                        <View
-                                            style={{
+                                {storesWithTags.map((store, i) => (
+                                    <View
+                                        style={[
+                                            {
                                                 flexDirection: 'row',
                                                 justifyContent: 'space-between',
-                                            }}
-                                            key={store.id.toString()}>
-                                            <BaseText bold={true}>
-                                                {store.name}
-                                            </BaseText>
-                                            <Select
-                                                name={`store_tags.${store.id}`}
-                                                items={sortBy(
-                                                    store.tags,
-                                                    'name',
-                                                ).map((tag) => ({
-                                                    label: tag.name,
-                                                    value: tag.id,
-                                                }))}
-                                            />
-                                        </View>
-                                    ))}
+                                                paddingVertical: bsl(20),
+                                            },
+                                            i + 1 < storesWithTags.length && {
+                                                borderBottomWidth: bsl(3),
+                                                borderBottomColor: grey300,
+                                            },
+                                        ]}
+                                        key={store.id.toString()}>
+                                        <BaseText bold={true}>
+                                            {store.name}
+                                        </BaseText>
+                                        <Select
+                                            name={`store_tags.${store.id}`}
+                                            items={sortBy(
+                                                store.tags,
+                                                'name',
+                                            ).map((tag) => ({
+                                                label: tag.name,
+                                                value: tag.id,
+                                            }))}
+                                        />
+                                    </View>
+                                ))}
                             </View>
-                            <SubmitButton
-                                disabled={values.name === ''}
-                                onPress={handleSubmit}
-                                processing={isSubmitting}>
-                                Update
-                            </SubmitButton>
-                            <CancelButton onPress={dismiss} />
+                            <View style={{ paddingTop: bsl(20) }}>
+                                <SubmitButton
+                                    disabled={values.name === ''}
+                                    onPress={handleSubmit}
+                                    processing={isSubmitting}>
+                                    Update
+                                </SubmitButton>
+                                <CancelButton onPress={dismiss} />
+                            </View>
                         </View>
                     )}
                 </Formik>
@@ -250,7 +260,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         elevation: 3,
         paddingBottom: bsl(120),
-        ...marginX(20),
+        marginHorizontal: bsl(20),
     },
 });
 
