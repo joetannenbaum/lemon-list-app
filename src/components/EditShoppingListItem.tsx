@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import BaseText from '@/components/BaseText';
-import { View, Alert, Modal, StyleSheet, Animated } from 'react-native';
+import { View, Alert } from 'react-native';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
 import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
 import { Formik, FormikHelpers } from 'formik';
@@ -17,11 +17,11 @@ import QuantityControlField from '@/components/QuantityControlField';
 import { bsl, grey300 } from '@/util/style';
 import CancelButton from './form/CancelButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import asModal, { asModalExportedProps, asModalProps } from './asModal';
 
 export interface EditShoppingListItemProps {
     listId: number;
     item: ShoppingListItemType;
-    onDismiss: () => void;
 }
 
 interface FormValues {
@@ -35,13 +35,13 @@ interface FormValues {
     note: string;
 }
 
-const EditShoppingListItem: React.FC<EditShoppingListItemProps> = (props) => {
+const EditShoppingListItem: React.FC<
+    EditShoppingListItemProps & asModalProps & asModalExportedProps
+> = (props) => {
     const stores = useStores();
 
     const storesWithTags =
         stores.data?.filter((store) => store.tags.length > 0) || [];
-
-    const animatedValue = useRef(new Animated.Value(0));
 
     const { mutateAsync: updateShoppingListItem } = useUpdateShoppingListItem(
         props.listId,
@@ -86,22 +86,8 @@ const EditShoppingListItem: React.FC<EditShoppingListItemProps> = (props) => {
                 store_tags: Object.values(values.store_tags),
             }),
         ]).then(() => {
-            dismiss();
+            props.dismiss();
         });
-    };
-
-    useEffect(() => {
-        Animated.spring(animatedValue.current, {
-            toValue: 1,
-            useNativeDriver: true,
-        }).start();
-    }, []);
-
-    const dismiss = () => {
-        Animated.spring(animatedValue.current, {
-            toValue: 0,
-            useNativeDriver: true,
-        }).start(props.onDismiss);
     };
 
     const onDeletePress = () => {
@@ -116,7 +102,7 @@ const EditShoppingListItem: React.FC<EditShoppingListItemProps> = (props) => {
                     style: 'destructive',
                     text: 'Delete',
                     onPress() {
-                        deleteItem().then(dismiss);
+                        deleteItem().then(props.dismiss);
                     },
                 },
             ],
@@ -124,143 +110,88 @@ const EditShoppingListItem: React.FC<EditShoppingListItemProps> = (props) => {
     };
 
     return (
-        <Modal presentationStyle="overFullScreen" transparent={true}>
-            <Animated.View
-                style={[
-                    styles.overlay,
-                    {
-                        opacity: animatedValue.current.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [0, 1],
-                        }),
-                    },
-                ]}
-            />
-            <View style={{ flex: 1 }} />
-            <Animated.View
-                style={[
-                    styles.wrapper,
-                    {
-                        transform: [
-                            {
-                                translateY: animatedValue.current.interpolate({
-                                    inputRange: [0, 1],
-                                    outputRange: [bsl(1000), bsl(40)],
-                                }),
-                            },
-                        ],
-                    },
-                ]}>
-                <Formik
-                    initialValues={initialFormValues}
-                    validationSchema={validationSchema}
-                    onSubmit={onSubmit}>
-                    {({ handleSubmit, isSubmitting, values }) => (
-                        <View>
-                            <View style={{ paddingBottom: bsl(20) }}>
-                                <TouchableOpacity onPress={onDeletePress}>
-                                    <BaseText align="right" color="red">
-                                        Delete
-                                    </BaseText>
-                                </TouchableOpacity>
-                            </View>
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                }}>
-                                <View style={{ flex: 1 }}>
-                                    <AutoGrowTextField
-                                        required={true}
-                                        name="name"
-                                        placeholder="Item"
-                                        onSubmitEditing={handleSubmit}
-                                    />
-                                </View>
+        <Formik
+            initialValues={initialFormValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}>
+            {({ handleSubmit, isSubmitting, values }) => (
+                <View>
+                    <View style={{ paddingBottom: bsl(20) }}>
+                        <TouchableOpacity onPress={onDeletePress}>
+                            <BaseText align="right" color="red">
+                                Delete
+                            </BaseText>
+                        </TouchableOpacity>
+                    </View>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                        }}>
+                        <View style={{ flex: 1 }}>
+                            <AutoGrowTextField
+                                required={true}
+                                name="name"
+                                placeholder="Item"
+                                onSubmitEditing={handleSubmit}
+                            />
+                        </View>
 
-                                <View
-                                    style={{
-                                        paddingLeft: bsl(20),
-                                    }}>
-                                    <QuantityControlField name="quantity" />
-                                </View>
-                            </View>
-                            <View style={{ paddingVertical: bsl(20) }}>
-                                <AutoGrowTextField
-                                    name="note"
-                                    maxLength={100}
-                                    placeholder="Add a note"
+                        <View
+                            style={{
+                                paddingLeft: bsl(20),
+                            }}>
+                            <QuantityControlField name="quantity" />
+                        </View>
+                    </View>
+                    <View style={{ paddingVertical: bsl(20) }}>
+                        <AutoGrowTextField
+                            name="note"
+                            maxLength={100}
+                            placeholder="Add a note"
+                        />
+                    </View>
+                    <View style={{ paddingBottom: bsl(20) }}>
+                        {storesWithTags.map((store, i) => (
+                            <View
+                                style={[
+                                    {
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        paddingVertical: bsl(20),
+                                    },
+                                    i + 1 < storesWithTags.length && {
+                                        borderBottomWidth: bsl(3),
+                                        borderBottomColor: grey300,
+                                    },
+                                ]}
+                                key={store.id.toString()}>
+                                <BaseText bold={true}>{store.name}</BaseText>
+                                <Select
+                                    name={`store_tags.${store.id}`}
+                                    items={sortBy(store.tags, 'name').map(
+                                        (tag) => ({
+                                            label: tag.name,
+                                            value: tag.id,
+                                        }),
+                                    )}
                                 />
                             </View>
-                            <View style={{ paddingBottom: bsl(20) }}>
-                                {storesWithTags.map((store, i) => (
-                                    <View
-                                        style={[
-                                            {
-                                                flexDirection: 'row',
-                                                justifyContent: 'space-between',
-                                                paddingVertical: bsl(20),
-                                            },
-                                            i + 1 < storesWithTags.length && {
-                                                borderBottomWidth: bsl(3),
-                                                borderBottomColor: grey300,
-                                            },
-                                        ]}
-                                        key={store.id.toString()}>
-                                        <BaseText bold={true}>
-                                            {store.name}
-                                        </BaseText>
-                                        <Select
-                                            name={`store_tags.${store.id}`}
-                                            items={sortBy(
-                                                store.tags,
-                                                'name',
-                                            ).map((tag) => ({
-                                                label: tag.name,
-                                                value: tag.id,
-                                            }))}
-                                        />
-                                    </View>
-                                ))}
-                            </View>
-                            <View style={{ paddingTop: bsl(20) }}>
-                                <SubmitButton
-                                    disabled={values.name === ''}
-                                    onPress={handleSubmit}
-                                    processing={isSubmitting}>
-                                    Update
-                                </SubmitButton>
-                                <CancelButton onPress={dismiss} />
-                            </View>
-                        </View>
-                    )}
-                </Formik>
-            </Animated.View>
-        </Modal>
+                        ))}
+                    </View>
+                    <View style={{ paddingTop: bsl(20) }}>
+                        <SubmitButton
+                            disabled={values.name === ''}
+                            onPress={handleSubmit}
+                            processing={isSubmitting}>
+                            Update
+                        </SubmitButton>
+                        <CancelButton onPress={props.dismiss} />
+                    </View>
+                </View>
+            )}
+        </Formik>
     );
 };
 
-const styles = StyleSheet.create({
-    overlay: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(0, 0, 0, .4)',
-        justifyContent: 'flex-end',
-    },
-    wrapper: {
-        backgroundColor: '#fff',
-        padding: bsl(40),
-        borderRadius: bsl(20),
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: bsl(1),
-        },
-        shadowRadius: bsl(3),
-        shadowOpacity: 0.1,
-        elevation: 3,
-        paddingBottom: bsl(120),
-        marginHorizontal: bsl(20),
-    },
-});
-
-export default EditShoppingListItem;
+export default asModal(EditShoppingListItem);
