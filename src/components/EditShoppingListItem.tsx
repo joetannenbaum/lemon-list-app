@@ -5,7 +5,6 @@ import { View, Alert, Modal, StyleSheet, Animated } from 'react-native';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
 import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
 import { Formik, FormikHelpers } from 'formik';
-import TextField from '@/components/form/TextField';
 import * as Yup from 'yup';
 import SubmitButton from '@/components/form/SubmitButton';
 import Select from '@/components/form/Select';
@@ -15,7 +14,7 @@ import useUpdateItem from '@/hooks/useUpdateItem';
 import omit from 'lodash/omit';
 import AutoGrowTextField from '@/components/form/AutoGrowTextField';
 import QuantityControlField from '@/components/QuantityControlField';
-import { bsl, paddingY, grey300 } from '@/util/style';
+import { bsl, grey300 } from '@/util/style';
 import CancelButton from './form/CancelButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -171,7 +170,7 @@ const EditShoppingListItem: React.FC<EditShoppingListItemProps> = (props) => {
                                     alignItems: 'center',
                                 }}>
                                 <View style={{ flex: 1 }}>
-                                    <TextField
+                                    <AutoGrowTextField
                                         required={true}
                                         name="name"
                                         placeholder="Item"
