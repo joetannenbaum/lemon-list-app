@@ -602,7 +602,7 @@ const styles = StyleSheet.create({
     },
     listScrollViewContent: {
         padding: bsl(20),
-        paddingBottom: bsl(400),
+        paddingBottom: bsl(380),
     },
     headerUnderline: {
         height: bsl(10),
