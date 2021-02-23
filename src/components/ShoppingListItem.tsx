@@ -29,6 +29,7 @@ import {
     sizeImage,
     paddingX,
     marginX,
+    paddingY,
 } from '@/util/style';
 
 interface Props {
@@ -129,7 +130,9 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                             onPress={showEditModal}>
                             <BaseText
                                 style={
-                                    checkedOff ? styles.checkedOffText : null
+                                    checkedOff
+                                        ? styles.checkedOffText
+                                        : styles.itemText
                                 }>
                                 {props.item.item.name}
                             </BaseText>
@@ -163,6 +166,7 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         borderBottomColor: grey200,
         borderBottomWidth: StyleSheet.hairlineWidth,
+        ...paddingY(10),
     },
     rowContent: {
         flexDirection: 'row',
@@ -171,7 +175,11 @@ const styles = StyleSheet.create({
         paddingTop: bsl(20),
         ...marginX(20),
     },
+    itemText: {
+        fontSize: bsl(36),
+    },
     checkedOffText: {
+        fontSize: bsl(36),
         textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
         color: grey300,

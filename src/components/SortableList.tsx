@@ -43,7 +43,7 @@ const SortableList: React.FC<SortableListProps> = (props) => {
             dataSource={props.data}
             parentWidth={width}
             childrenWidth={width}
-            childrenHeight={bsl(170)}
+            childrenHeight={bsl(110)}
             onDataChange={props.onUpdate}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}

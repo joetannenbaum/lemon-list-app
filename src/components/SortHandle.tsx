@@ -1,30 +1,50 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import { sizeImage, flexCenter, paddingX } from '@/util/style';
+import { View, StyleSheet } from 'react-native';
+import { flexCenter, paddingX, black, bsl, marginY } from '@/util/style';
 
 export interface SortHandleProps {}
 
 const SortHandle: React.FC<SortHandleProps> = (props) => {
     return (
         <View style={styles.wrapper}>
-            <Image
-                source={require('@images/gripper.png')}
-                style={styles.gripper}
-            />
+            <View style={styles.inner}>
+                {Array(8)
+                    .fill(null)
+                    .map((_, i) => {
+                        return (
+                            <View style={styles.dotWrapper}>
+                                <View style={styles.dot} key={`dot-${i}`} />
+                            </View>
+                        );
+                    })}
+            </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor: '#E5E7EB',
-        alignSelf: 'stretch',
+        borderRightColor: black,
+        borderRightWidth: bsl(3),
+        ...marginY(-10),
         ...flexCenter,
-        ...paddingX(10),
+        ...paddingX(5),
+        width: bsl(40),
     },
-    gripper: {
-        ...sizeImage(33, 70, { width: 15 }),
-        tintColor: '#9CA3AF',
+    inner: {
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+    },
+    dotWrapper: {
+        width: '50%',
+        height: bsl(15),
+        ...flexCenter,
+    },
+    dot: {
+        backgroundColor: black,
+        borderRadius: bsl(5),
+        height: bsl(5),
+        width: bsl(5),
     },
 });
 

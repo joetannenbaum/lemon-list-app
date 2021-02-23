@@ -10,17 +10,23 @@ export interface CheckboxProps {
 const Checkbox: React.FC<CheckboxProps> = (props) => {
     return (
         <TouchableOpacity
-            style={[
-                styles.button,
-                {
-                    backgroundColor: props.checked ? '#6EE7B7' : 'transparent',
-                    borderColor: props.checked ? '#6EE7B7' : black,
-                },
-            ]}
-            onPress={props.onPress}>
+            style={styles.button}
+            onPress={props.onPress}
+            hitSlop={{
+                top: bsl(10),
+                bottom: bsl(10),
+                left: bsl(10),
+                right: bsl(10),
+            }}>
+            {!props.checked && (
+                <Image
+                    source={require('@images/check-circle.png')}
+                    style={styles.checkIcon}
+                />
+            )}
             {props.checked && (
                 <Image
-                    source={require('@images/check.png')}
+                    source={require('@images/checked.png')}
                     style={styles.checkIcon}
                 />
             )}
@@ -31,14 +37,9 @@ const Checkbox: React.FC<CheckboxProps> = (props) => {
 const styles = StyleSheet.create({
     button: {
         ...flexCenter,
-        borderRadius: bsl(35),
-        width: bsl(35),
-        height: bsl(35),
-        borderWidth: bsl(1),
     },
     checkIcon: {
-        tintColor: '#fff',
-        ...sizeImage(35, 29, { width: bsl(25) }),
+        ...sizeImage(10, 10, { width: bsl(70) }),
     },
 });
 
