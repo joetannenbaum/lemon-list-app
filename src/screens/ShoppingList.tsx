@@ -385,13 +385,6 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 </TouchableOpacity>
             </View>
 
-            <View style={styles.footerBg}>
-                <Image
-                    source={require('@images/food-footer.png')}
-                    style={styles.footerImage}
-                />
-            </View>
-
             <ScrollView
                 style={styles.listScrollView}
                 contentContainerStyle={styles.listScrollViewContent}
@@ -572,10 +565,6 @@ const styles = StyleSheet.create({
     header: {
         ...paddingX(20),
         ...paddingY(30),
-    },
-    footerImage: {
-        ...sizeImage(1156, 351, { width: 750 }),
-        opacity: 0.5,
     },
     paperBagTopImage: {
         marginTop: bsl(-20),
