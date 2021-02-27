@@ -424,15 +424,6 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 )}
             </ScrollView>
             <View style={styles.footer}>
-                <Image
-                    source={require('@images/paper-bag-top.png')}
-                    style={[
-                        styles.paperBagTopImage,
-                        {
-                            tintColor: listColor,
-                        },
-                    ]}
-                />
                 <View
                     style={{
                         backgroundColor: listColor,
@@ -565,10 +556,6 @@ const styles = StyleSheet.create({
     header: {
         ...paddingX(20),
         ...paddingY(30),
-    },
-    paperBagTopImage: {
-        marginTop: bsl(-20),
-        ...sizeImage(1160, 51, { width: 750 }),
     },
     listScrollView: {
         flex: 1,
