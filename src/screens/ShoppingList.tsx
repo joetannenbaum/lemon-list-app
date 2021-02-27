@@ -19,7 +19,7 @@ import useStores from '@/hooks/useStores';
 import { StoreTag } from '@/types/StoreTag';
 import { Store } from '@/types/Store';
 import { Navigation } from 'react-native-navigation';
-import { screenComponent, showMenu } from '@/util/navigation';
+import { screenComponent } from '@/util/navigation';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import Pusher from 'pusher-js/react-native';
 import useMe from '@/hooks/useMe';
