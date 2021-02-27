@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
     TouchableOpacity,
     TouchableOpacityProps,
     StyleSheet,
+    Animated,
 } from 'react-native';
 import BaseText from '../BaseText';
-import { paddingX, paddingY, bsl } from '@/util/style';
+import { paddingX, paddingY, bsl, grey400, grey200 } from '@/util/style';
 
 interface Props extends TouchableOpacityProps {
     processing?: boolean;
@@ -13,6 +14,12 @@ interface Props extends TouchableOpacityProps {
 
 const SubmitButton: React.FC<Props> = (props) => {
     const disabled = props.disabled || props.processing;
+
+    // const animatedValue = useRef(new Animated.Value(0))
+
+    // useEffect(() => {
+
+    // }, [disabled])
 
     const renderButtonContent = () => {
         if (props.processing) {
@@ -25,7 +32,11 @@ const SubmitButton: React.FC<Props> = (props) => {
 
         if (typeof props.children === 'string') {
             return (
-                <BaseText size={30} letterSpacing={1.25} align="center">
+                <BaseText
+                    color={disabled ? grey400 : undefined}
+                    size={30}
+                    letterSpacing={1.25}
+                    align="center">
                     {props.children.toUpperCase()}
                 </BaseText>
             );
@@ -36,7 +47,7 @@ const SubmitButton: React.FC<Props> = (props) => {
 
     return (
         <TouchableOpacity
-            style={style.button}
+            style={[styles.button, disabled && styles.disabled]}
             testID={props.testID}
             onPress={props.onPress}
             disabled={disabled}
@@ -47,12 +58,15 @@ const SubmitButton: React.FC<Props> = (props) => {
     );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     button: {
         backgroundColor: '#FEF3C7',
         ...paddingX(20),
         ...paddingY(20),
         borderRadius: bsl(50),
+    },
+    disabled: {
+        backgroundColor: grey200,
     },
 });
 

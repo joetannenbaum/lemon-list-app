@@ -4,12 +4,13 @@ import { bsl, flexCenter, sizeImage, black } from '@/util/style';
 
 export interface CheckboxProps {
     checked: boolean;
-    onPress: () => void;
+    onPress?: () => void;
 }
 
 const Checkbox: React.FC<CheckboxProps> = (props) => {
     return (
         <TouchableOpacity
+            disabled={typeof props.onPress === 'undefined'}
             style={styles.button}
             onPress={props.onPress}
             hitSlop={{

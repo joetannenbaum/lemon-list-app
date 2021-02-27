@@ -5,7 +5,7 @@ import {
     StyleSheet,
 } from 'react-native';
 import BaseText from '../BaseText';
-import { bsl } from '@/util/style';
+import { bsl, grey400 } from '@/util/style';
 
 interface Props {}
 
@@ -16,7 +16,7 @@ const CancelButton: React.FC<Props & TouchableOpacityProps> = (props) => {
             testID={props.testID}
             onPress={props.onPress}
             accessibilityRole="button">
-            <BaseText color="grey" align="center">
+            <BaseText color={grey400} align="center">
                 {props.children || 'Cancel'}
             </BaseText>
         </TouchableOpacity>
