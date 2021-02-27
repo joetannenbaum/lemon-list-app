@@ -25,7 +25,10 @@ export const screenComponent = <P = {}>(
     },
 });
 
-export const setStackRootWithoutAnimating = (name: screenComponentName) => {
+export const setStackRootWithoutAnimating = (
+    name: screenComponentName,
+    passProps = {},
+) => {
     Navigation.setStackRoot(
         mainStackId,
         screenComponent(name, {
@@ -36,6 +39,7 @@ export const setStackRootWithoutAnimating = (name: screenComponentName) => {
                     },
                 },
             },
+            passProps,
         }),
     );
 };
