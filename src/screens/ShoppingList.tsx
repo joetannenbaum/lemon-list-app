@@ -530,18 +530,6 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
 };
 
 const styles = StyleSheet.create({
-    footer: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        left: 0,
-    },
-    footerBg: {
-        position: 'absolute',
-        bottom: bsl(380),
-        right: 0,
-        left: 0,
-    },
     headerWrapper: {
         ...flexCenter,
         shadowColor: '#000',
@@ -567,7 +555,6 @@ const styles = StyleSheet.create({
     },
     listScrollViewContent: {
         padding: bsl(20),
-        paddingBottom: bsl(380),
     },
     headerUnderline: {
         height: bsl(10),
