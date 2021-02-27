@@ -41,7 +41,11 @@ const AddItemsFromListsStart: React.FC<
                         Back
                     </BaseText>
                 </TouchableOpacity>
-                <AddItemsFromList id={listId} addToListId={props.addToListId} />
+                <AddItemsFromList
+                    id={listId}
+                    addToListId={props.addToListId}
+                    dismiss={props.dismiss}
+                />
                 <CancelButton onPress={props.dismiss} />
             </>
         );

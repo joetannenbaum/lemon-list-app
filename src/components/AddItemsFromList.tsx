@@ -20,10 +20,12 @@ import Divider from './Divider';
 export interface AddItemsFromListProps {
     id: number;
     addToListId: number;
+    dismiss: () => void;
 }
 
 const AddItemsFromList: React.FC<AddItemsFromListProps> = (props) => {
     const [selected, setSelected] = useState<number[]>([]);
+    const [processing, setProcessing] = useState(false);
 
     const queryClient = useQueryClient();
     const addToList = useShoppingList(props.addToListId);
@@ -68,9 +70,8 @@ const AddItemsFromList: React.FC<AddItemsFromListProps> = (props) => {
     };
 
     const onAddToListPress = () => {
-        addItems(selected).then(() => {
-            Navigation.dismissModal(props.componentId);
-        });
+        setProcessing(true);
+        addItems(selected).then(props.dismiss);
     };
 
     return (
@@ -101,6 +102,7 @@ const AddItemsFromList: React.FC<AddItemsFromListProps> = (props) => {
                 )}
             />
             <SubmitButton
+                processing={processing}
                 disabled={selected.length === 0}
                 onPress={onAddToListPress}>
                 {`Add to ${addToList.data?.name} List`}

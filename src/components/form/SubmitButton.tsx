@@ -47,7 +47,12 @@ const SubmitButton: React.FC<Props> = (props) => {
 
     return (
         <TouchableOpacity
-            style={[styles.button, disabled && styles.disabled]}
+            style={[
+                styles.button,
+                props.processing && styles.processing,
+                ,
+                disabled && !props.processing && styles.disabled,
+            ]}
             testID={props.testID}
             onPress={props.onPress}
             disabled={disabled}
@@ -64,6 +69,9 @@ const styles = StyleSheet.create({
         ...paddingX(20),
         ...paddingY(20),
         borderRadius: bsl(50),
+    },
+    processing: {
+        opacity: 0.85,
     },
     disabled: {
         backgroundColor: grey200,
