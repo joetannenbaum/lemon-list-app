@@ -6,7 +6,14 @@ import {
     Animated,
 } from 'react-native';
 import BaseText from '../BaseText';
-import { paddingX, paddingY, bsl, grey400, grey200 } from '@/util/style';
+import {
+    paddingX,
+    paddingY,
+    bsl,
+    grey400,
+    grey200,
+    yellow100,
+} from '@/util/style';
 
 interface Props extends TouchableOpacityProps {
     processing?: boolean;
@@ -65,7 +72,7 @@ const SubmitButton: React.FC<Props> = (props) => {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#FEF3C7',
+        backgroundColor: yellow100,
         ...paddingX(20),
         ...paddingY(20),
         borderRadius: bsl(50),

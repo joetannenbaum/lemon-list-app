@@ -21,7 +21,6 @@ import SortableList from '@/components/SortableList';
 import { Store } from '@/types/Store';
 import { Navigation } from 'react-native-navigation';
 import { screenComponent } from '@/util/navigation';
-import { AddItemsFromListsStartProps } from './AddItemsFromListsStart';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import Pusher from 'pusher-js/react-native';
 import useMe from '@/hooks/useMe';
@@ -38,11 +37,13 @@ import {
     sizeImage,
     paddingX,
     paddingY,
+    yellow100,
 } from '@/util/style';
 import ListWrapper from '@/components/ListWrapper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import ShareShoppingList from '@/components/ShareShoppingList';
 import AddItemsFromListsStart from '@/components/AddItemsFromListsStart';
+import ShoppingListStoreSelect from '@/components/ShoppingListStoreSelect';
 
 export interface ShoppingListProps {
     id: number;
@@ -73,6 +74,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     const [scrollEnabled, setScrollEnabled] = useState(true);
     const [sharing, setSharing] = useState(false);
     const [addingFromAnotherList, setAddingFromAnotherList] = useState(false);
+    const [changingStore, setChangingStore] = useState(false);
 
     useNavigationButtonPress(
         (e) => {
@@ -354,12 +356,6 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
 
     return (
         <Wrapper forceInset={{ top: 'never', bottom: 'never' }}>
-            {/* <Button
-                title="Back"
-                onPress={() => {
-                    Navigation.pop(props.componentId);
-                }}
-            /> */}
             <View
                 style={[
                     styles.headerWrapper,
@@ -373,23 +369,21 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 </View>
             </View>
 
-            {/* <View style={{ padding: 20 }}>
-                {stores.data?.map((store) => (
-                    <TouchableOpacity
-                        key={store.id.toString()}
-                        onPress={() => {
-                            if (store.id === activeStoreId) {
-                                setActiveStoreId(null);
-                            } else {
-                                setActiveStoreId(store.id);
-                            }
-                        }}>
-                        <BaseText bold={store.id === activeStoreId}>
-                            {store.name}
-                        </BaseText>
-                    </TouchableOpacity>
-                ))}
-            </View> */}
+            <View>
+                <TouchableOpacity
+                    style={styles.changeStoresButton}
+                    onPress={() => setChangingStore(true)}>
+                    <Image
+                        style={styles.changeStoresIcon}
+                        source={require('@images/shopping-cart.png')}
+                    />
+                    <BaseText>
+                        {stores.data?.find(
+                            (store) => store.id === activeStoreId,
+                        )?.name || 'Select Store'}
+                    </BaseText>
+                </TouchableOpacity>
+            </View>
 
             <View style={styles.footerBg}>
                 <Image
@@ -539,6 +533,14 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     onDismiss={() => setAddingFromAnotherList(false)}
                 />
             )}
+            {changingStore && (
+                <ShoppingListStoreSelect
+                    onDismiss={() => setChangingStore(false)}
+                    onSelect={(storeId) => {
+                        setActiveStoreId(storeId);
+                    }}
+                />
+            )}
         </Wrapper>
     );
 };
@@ -584,7 +586,8 @@ const styles = StyleSheet.create({
     },
     addFormWrapper: {
         zIndex: 100,
-        ...paddingY(20),
+        paddingBottom: bsl(20),
+        paddingTop: bsl(40),
     },
     listScrollViewContent: {
         padding: bsl(20),
@@ -595,7 +598,8 @@ const styles = StyleSheet.create({
     },
     toolsWrapper: {
         ...centeredRow,
-        padding: bsl(50),
+        paddingHorizontal: bsl(40),
+        paddingVertical: bsl(20),
         justifyContent: 'space-between',
     },
     tool: {
@@ -628,6 +632,20 @@ const styles = StyleSheet.create({
     leaveIcon: {
         ...sizeImage(68, 61, { height: 40 }),
         marginBottom: bsl(15),
+    },
+    changeStoresButton: {
+        backgroundColor: yellow100,
+        paddingHorizontal: bsl(20),
+        paddingVertical: bsl(20),
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    changeStoresIcon: {
+        ...sizeImage(78, 78, {
+            height: 30,
+        }),
+        marginRight: bsl(10),
     },
 });
 

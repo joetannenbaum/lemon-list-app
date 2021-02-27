@@ -103,6 +103,9 @@ const CreateItemForm: React.FC<Props> = (props) => {
                                     handleSubmit();
                                 }
                             }}
+                            additionalStyles={{
+                                borderWidth: 0,
+                            }}
                         />
                         <TouchableOpacity
                             style={styles.addButton}
