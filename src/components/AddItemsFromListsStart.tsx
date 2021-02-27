@@ -24,7 +24,7 @@ const AddItemsFromListsStart: React.FC<
     const [listId, setListId] = useState<number | null>(null);
 
     const lists = shoppingLists.data?.filter(
-        (list) => list.id !== props.addToListId,
+        (list) => list.id !== props.addToListId && list.total_items > 0,
     );
 
     if (listId !== null) {

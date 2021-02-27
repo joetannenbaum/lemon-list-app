@@ -9,4 +9,5 @@ export interface ShoppingList {
     is_shared: boolean;
     is_owner: boolean;
     active_version: null | ShoppingListVersion;
+    total_items: number;
 }
