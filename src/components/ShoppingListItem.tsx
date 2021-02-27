@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
         paddingTop: 0,
     },
     checkboxWrapper: {
-        paddingTop: bsl(1),
         marginRight: bsl(10),
     },
     noteWrapper: {

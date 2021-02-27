@@ -37,7 +37,7 @@ const Checkbox: React.FC<CheckboxProps> = (props) => {
 
 const styles = StyleSheet.create({
     button: flexCenter,
-    checkIcon: sizeImage(10, 10, { width: bsl(70) }),
+    checkIcon: sizeImage(10, 10, { width: bsl(80) }),
 });
 
 export default Checkbox;
