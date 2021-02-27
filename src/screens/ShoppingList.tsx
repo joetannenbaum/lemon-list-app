@@ -9,15 +9,14 @@ import api from '@/api';
 import {
     View,
     TouchableOpacity,
-    ScrollView,
     Button,
     Alert,
     StyleSheet,
     Image,
+    SectionList,
 } from 'react-native';
 import useStores from '@/hooks/useStores';
 import { StoreTag } from '@/types/StoreTag';
-import SortableList from '@/components/SortableList';
 import { Store } from '@/types/Store';
 import { Navigation } from 'react-native-navigation';
 import { screenComponent } from '@/util/navigation';
@@ -38,12 +37,17 @@ import {
     paddingX,
     paddingY,
     yellow100,
+    grey300,
+    grey100,
 } from '@/util/style';
 import ListWrapper from '@/components/ListWrapper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import ShareShoppingList from '@/components/ShareShoppingList';
 import AddItemsFromListsStart from '@/components/AddItemsFromListsStart';
 import ShoppingListStoreSelect from '@/components/ShoppingListStoreSelect';
+import { FlatList } from 'react-native-gesture-handler';
+import Divider from '@/components/Divider';
+import EditShoppingListItem from '@/components/EditShoppingListItem';
 
 export interface ShoppingListProps {
     id: number;
@@ -51,7 +55,7 @@ export interface ShoppingListProps {
 
 interface ItemsByStoreTag {
     tag: StoreTag;
-    items: ShoppingListItemType[];
+    data: ShoppingListItemType[];
 }
 
 const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
@@ -75,6 +79,9 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     const [sharing, setSharing] = useState(false);
     const [addingFromAnotherList, setAddingFromAnotherList] = useState(false);
     const [changingStore, setChangingStore] = useState(false);
+    const [currentlyEditing, setCurrentlyEditing] = useState<number | null>(
+        null,
+    );
 
     useNavigationButtonPress(
         (e) => {
@@ -128,14 +135,14 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 .map((tag) => {
                     return {
                         tag,
-                        items: listData.filter((item) =>
+                        data: listData.filter((item) =>
                             item.item.store_tags.find(
                                 (storeTag) => storeTag.id === tag.id,
                             ),
                         ),
                     };
                 })
-                .filter((tag) => tag.items.length > 0);
+                .filter((tag) => tag.data.length > 0);
 
             const uncategorizedItems = listData.filter(
                 (item) =>
@@ -152,7 +159,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                         store_id: -1,
                         order: -1,
                     },
-                    items: uncategorizedItems,
+                    data: uncategorizedItems,
                 });
             }
 
@@ -234,26 +241,20 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         });
     };
 
-    const renderShoppingListItem = (
-        item: ShoppingListItemType,
-        index: number,
-        dragging: boolean,
-    ) => (
+    const renderShoppingListItem = ({
+        item,
+        index,
+    }: {
+        item: ShoppingListItemType;
+        index: number;
+    }) => (
         <ShoppingListItem
             listId={props.id}
             item={item}
             key={item.id.toString()}
-            dragging={dragging}
+            onEditPress={() => setCurrentlyEditing(item.id)}
         />
     );
-
-    const onDragEnd = () => {
-        setScrollEnabled(true);
-    };
-
-    const onDragStart = () => {
-        setScrollEnabled(false);
-    };
 
     const deleteShoppingList = () => {
         deleteList().then(() => {
@@ -355,7 +356,9 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     }
 
     return (
-        <Wrapper forceInset={{ top: 'never', bottom: 'never' }}>
+        <Wrapper
+            style={{ backgroundColor: '#fff' }}
+            forceInset={{ top: 'never', bottom: 'never' }}>
             <View
                 style={[
                     styles.headerWrapper,
@@ -384,45 +387,35 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     </BaseText>
                 </TouchableOpacity>
             </View>
-
-            <ScrollView
-                style={styles.listScrollView}
-                contentContainerStyle={styles.listScrollViewContent}
-                scrollEnabled={scrollEnabled}>
+            <View style={{ flex: 1 }}>
                 {activeStoreId ? (
-                    storeOrder[activeStoreId]?.map(
-                        (section: ItemsByStoreTag) => (
-                            <View key={section.tag.id.toString()}>
-                                <BaseText bold={true}>
-                                    {section.tag.name}
-                                </BaseText>
-
-                                <ListWrapper>
-                                    <SortableList
-                                        data={section.items}
-                                        onUpdate={onListUpdate}
-                                        renderItem={renderShoppingListItem}
-                                        disableScroll={true}
-                                        onDragEnd={onDragEnd}
-                                        onDragStart={onDragStart}
-                                    />
-                                </ListWrapper>
-                            </View>
-                        ),
-                    )
+                    <SectionList
+                        sections={storeOrder[activeStoreId]}
+                        renderItem={renderShoppingListItem}
+                        renderSectionHeader={({ section }) => (
+                            <>
+                                <Divider />
+                                <View style={styles.sectionHeader}>
+                                    <BaseText bold={true}>
+                                        {section.tag.name}
+                                    </BaseText>
+                                </View>
+                                <Divider />
+                            </>
+                        )}
+                        stickySectionHeadersEnabled={false}
+                    />
                 ) : (
                     <ListWrapper>
-                        <SortableList
+                        {/* onUpdate={onListUpdate} */}
+                        <FlatList
                             data={listData}
-                            onUpdate={onListUpdate}
+                            keyExtractor={(item) => item.id.toString()}
                             renderItem={renderShoppingListItem}
-                            disableScroll={true}
-                            onDragEnd={onDragEnd}
-                            onDragStart={onDragStart}
                         />
                     </ListWrapper>
                 )}
-            </ScrollView>
+            </View>
             <View style={styles.footer}>
                 <View
                     style={{
@@ -525,6 +518,15 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     }}
                 />
             )}
+            {currentlyEditing && (
+                <EditShoppingListItem
+                    listId={list.data?.id}
+                    item={list.data.active_version.items.find(
+                        (item) => item.id === currentlyEditing,
+                    )}
+                    onDismiss={() => setCurrentlyEditing(null)}
+                />
+            )}
         </Wrapper>
     );
 };
@@ -542,8 +544,13 @@ const styles = StyleSheet.create({
         zIndex: 50,
     },
     header: {
-        ...paddingX(20),
-        ...paddingY(30),
+        paddingHorizontal: bsl(20),
+        paddingVertical: bsl(30),
+    },
+    sectionHeader: {
+        paddingHorizontal: bsl(20),
+        paddingVertical: bsl(20),
+        backgroundColor: grey100,
     },
     listScrollView: {
         flex: 1,
@@ -567,14 +574,6 @@ const styles = StyleSheet.create({
     },
     tool: {
         ...flexCenter,
-    },
-    shareIconAndroid: {
-        ...sizeImage(61, 60, { height: 40 }),
-        marginBottom: bsl(15),
-    },
-    shareIconIos: {
-        ...sizeImage(45, 60, { height: 40 }),
-        marginBottom: bsl(15),
     },
     listAddIcon: {
         ...sizeImage(60, 60, { height: 40 }),

@@ -6110,11 +6110,6 @@ react-native-device-info@8.0.1:
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.0.1.tgz#23a038ab39a9fe3ea8963feb366361ee7c03a2a1"
   integrity sha512-5fIcrEfxsyIJ0HZ/pHd+DeYwC81wi5tupFkPSASYXz/7QhatF8W0W6qR+YlvI6gJVSFNgQKgrPrh18RGMgbZdg==
 
-react-native-drag-sort@2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/react-native-drag-sort/-/react-native-drag-sort-2.4.2.tgz#bf27a70f80b59d6f77e3caa2160fb0426a3f8627"
-  integrity sha512-7f74endMVpYdxXsOY20Z8SfAy7HcLmmFWvYy9RrfzyZGnXhv3VjIMkMeSoOdBRJO4jRjaZSNIW6GdTE49bhuNg==
-
 react-native-fast-image@8.3.4:
   version "8.3.4"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.3.4.tgz#79edca177e30311b19d59ff335625bcbe22650d7"

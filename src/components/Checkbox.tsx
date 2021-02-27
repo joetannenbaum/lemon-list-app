@@ -14,10 +14,10 @@ const Checkbox: React.FC<CheckboxProps> = (props) => {
             style={styles.button}
             onPress={props.onPress}
             hitSlop={{
-                top: bsl(10),
-                bottom: bsl(10),
-                left: bsl(10),
-                right: bsl(10),
+                top: bsl(20),
+                bottom: bsl(20),
+                left: bsl(20),
+                right: bsl(20),
             }}>
             {!props.checked && (
                 <Image
@@ -36,12 +36,8 @@ const Checkbox: React.FC<CheckboxProps> = (props) => {
 };
 
 const styles = StyleSheet.create({
-    button: {
-        ...flexCenter,
-    },
-    checkIcon: {
-        ...sizeImage(10, 10, { width: bsl(70) }),
-    },
+    button: flexCenter,
+    checkIcon: sizeImage(10, 10, { width: bsl(70) }),
 });
 
 export default Checkbox;

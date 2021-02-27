@@ -13,9 +13,6 @@ import {
 import debounce from 'lodash/debounce';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
 import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
-import { Navigation } from 'react-native-navigation';
-import { screenComponent } from '@/util/navigation';
-import { EditShoppingListItemProps } from '@/screens/EditShoppingListItem';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import SortHandle from './SortHandle';
 import Checkbox from './Checkbox';
@@ -25,18 +22,15 @@ import {
     bsl,
     grey200,
     grey300,
-    grey400,
     sizeImage,
-    paddingX,
-    marginX,
-    paddingY,
+    grey500,
 } from '@/util/style';
 import EditShoppingListItem from './EditShoppingListItem';
 
 interface Props {
     listId: number;
     item: ShoppingListItemType;
-    dragging: boolean;
+    onEditPress: () => void;
 }
 
 const ShoppingListItem: React.FC<Props> = (props) => {
@@ -85,15 +79,8 @@ const ShoppingListItem: React.FC<Props> = (props) => {
     };
 
     const showEditModal = () => {
-        setEditing(true);
-        // Navigation.showModal(
-        //     screenComponent<EditShoppingListItemProps>('EditShoppingListItem', {
-        //         passProps: {
-        //             listId: props.listId,
-        //             item: props.item,
-        //         },
-        //     }),
-        // );
+        // setEditing(true);
+        props.onEditPress();
     };
 
     const renderRightActions = (
@@ -116,57 +103,48 @@ const ShoppingListItem: React.FC<Props> = (props) => {
 
     return (
         <>
-            <View style={{ width: width - bsl(40) }}>
-                <Swipeable
-                    enabled={!props.dragging}
-                    renderRightActions={renderRightActions}>
-                    <View style={styles.wrapper}>
-                        <SortHandle />
-                        <View style={styles.rowContent}>
-                            <View style={styles.checkboxWrapper}>
-                                <Checkbox
-                                    checked={checkedOff}
-                                    onPress={toggleCheck}
-                                />
-                            </View>
-                            <TouchableOpacity
-                                style={styles.itemButton}
-                                onPress={showEditModal}>
-                                <BaseText
-                                    style={
-                                        checkedOff
-                                            ? styles.checkedOffText
-                                            : styles.itemText
-                                    }>
-                                    {props.item.item.name}
-                                </BaseText>
-                                {props.item.note !== null && (
-                                    <View style={styles.noteWrapper}>
-                                        <Image
-                                            source={require('@images/word-bubble.png')}
-                                            style={styles.noteIcon}
-                                        />
-                                        <BaseText color={grey400}>
-                                            {props.item.note}
-                                        </BaseText>
-                                    </View>
-                                )}
-                            </TouchableOpacity>
-                            <ShoppingListItemQuantityControl
-                                quantity={props.item.quantity}
-                                onChange={onQuantityChange}
+            <Swipeable
+                enabled={!props.dragging}
+                renderRightActions={renderRightActions}>
+                <View style={styles.wrapper}>
+                    <SortHandle />
+                    <View style={styles.rowContent}>
+                        <View style={styles.checkboxWrapper}>
+                            <Checkbox
+                                checked={checkedOff}
+                                onPress={toggleCheck}
                             />
                         </View>
+                        <TouchableOpacity
+                            style={styles.itemButton}
+                            onPress={showEditModal}>
+                            <BaseText
+                                style={
+                                    checkedOff
+                                        ? styles.checkedOffText
+                                        : styles.itemText
+                                }>
+                                {props.item.item.name}
+                            </BaseText>
+                            {props.item.note !== null && (
+                                <View style={styles.noteWrapper}>
+                                    <Image
+                                        source={require('@images/word-bubble.png')}
+                                        style={styles.noteIcon}
+                                    />
+                                    <BaseText color={grey500}>
+                                        {props.item.note}
+                                    </BaseText>
+                                </View>
+                            )}
+                        </TouchableOpacity>
+                        <ShoppingListItemQuantityControl
+                            quantity={props.item.quantity}
+                            onChange={onQuantityChange}
+                        />
                     </View>
-                </Swipeable>
-            </View>
-            {editing && (
-                <EditShoppingListItem
-                    listId={props.listId}
-                    item={props.item}
-                    onDismiss={() => setEditing(false)}
-                />
-            )}
+                </View>
+            </Swipeable>
         </>
     );
 };
@@ -174,18 +152,18 @@ const ShoppingListItem: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
     wrapper: {
         flexDirection: 'row',
-        backgroundColor: 'rgba(255, 255, 255, .9)',
+        backgroundColor: '#fff',
         alignSelf: 'stretch',
         borderBottomColor: grey200,
         borderBottomWidth: StyleSheet.hairlineWidth,
-        ...paddingY(10),
+        paddingVertical: bsl(15),
     },
     rowContent: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         flex: 1,
         paddingTop: bsl(20),
-        ...marginX(20),
+        marginHorizontal: bsl(20),
     },
     itemText: {
         fontSize: bsl(36),
@@ -203,14 +181,15 @@ const styles = StyleSheet.create({
     },
     checkboxWrapper: {
         paddingTop: bsl(1),
+        marginRight: bsl(10),
     },
     noteWrapper: {
         ...centeredRow,
-        marginTop: bsl(5),
+        marginTop: bsl(20),
     },
     noteIcon: {
         ...sizeImage(75, 78, { width: 22 }),
-        tintColor: grey400,
+        tintColor: grey500,
         marginRight: bsl(10),
         transform: [
             {

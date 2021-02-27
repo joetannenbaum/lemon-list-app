@@ -13,6 +13,7 @@ import {
     bsl,
     flexCenter,
     grey200,
+    black,
 } from '@/util/style';
 import BaseText from './BaseText';
 
@@ -76,6 +77,7 @@ const styles = StyleSheet.create({
     },
     controlIcon: {
         ...sizeImage(76, 78, { width: 30 }),
+        tintColor: black,
     },
 });
 

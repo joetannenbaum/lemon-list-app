@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useWindowDimensions } from 'react-native';
-import { DragSortableView } from 'react-native-drag-sort';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, FlatList } from 'react-native-gesture-handler';
 import { bsl } from '@/util/style';
 
 export interface SortableListProps {
@@ -37,6 +36,17 @@ const SortableList: React.FC<SortableListProps> = (props) => {
 
         setScrollEnabled(false);
     };
+
+    return (
+        <FlatList
+            scrollEnabled={false}
+            data={props.data}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item, index }) =>
+                props.renderItem(item, index, !scrollEnabled)
+            }
+        />
+    );
 
     const renderSortable = () => (
         <DragSortableView

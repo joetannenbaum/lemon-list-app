@@ -68,8 +68,6 @@ const CreateItemForm: React.FC<Props> = (props) => {
             name: values.name,
         })
             .then((res) => {
-                console.log(res, form);
-
                 form.setSubmitting(false);
                 form.resetForm();
                 inputRef.current?.focus();

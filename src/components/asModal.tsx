@@ -26,11 +26,15 @@ const asModal: (component: React.FC) => React.FC<asModalProps> = (
         Animated.spring(animatedValue.current, {
             toValue: 0,
             useNativeDriver: true,
+            speed: 10,
         }).start(props.onDismiss);
     };
 
     return (
-        <RNModal presentationStyle="overFullScreen" transparent={true}>
+        <RNModal
+            presentationStyle="overFullScreen"
+            transparent={true}
+            onRequestClose={dismiss}>
             <Animated.View
                 style={[
                     styles.overlay,

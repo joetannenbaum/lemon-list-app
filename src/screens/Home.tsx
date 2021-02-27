@@ -101,9 +101,9 @@ const Home: Screen<Props> = (props) => {
                 {/* <CreateListForm /> */}
             </View>
 
-            {/* <View style={{ marginTop: 100 }}>
+            <View style={{ marginTop: 100 }}>
                 <LogoutButton />
-            </View> */}
+            </View>
         </Wrapper>
     );
 };

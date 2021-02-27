@@ -5,6 +5,7 @@ import { flexCenter, paddingX, black, bsl, marginY } from '@/util/style';
 export interface SortHandleProps {}
 
 const SortHandle: React.FC<SortHandleProps> = (props) => {
+    return null;
     return (
         <View style={styles.wrapper}>
             <View style={styles.inner}>
