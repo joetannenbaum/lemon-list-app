@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
+import { RNNDrawer } from 'react-native-navigation-drawer-extension';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { screenName as getScreenName } from '@/util/navigation';
@@ -15,6 +16,7 @@ import Login from '@/screens/Login';
 import Register from '@/screens/Register';
 import ShoppingList from '@/screens/ShoppingList';
 import Store from '@/screens/Store';
+import Menu from './Menu';
 
 const queryClient = new QueryClient();
 
@@ -54,8 +56,13 @@ export type screenComponentName =
     | 'Store';
 
 const enhance = flowRight(gestureHandlerRootHOC, WrappedComponent);
+const enhanceDrawer = flowRight(WrappedComponent);
 
 export const registerScreens = () => {
+    Navigation.registerComponent('Menu', () =>
+        RNNDrawer.create(enhanceDrawer(Menu)),
+    );
+
     for (const screenName in screens) {
         Navigation.registerComponent(getScreenName(screenName), () =>
             hoistNonReactStatics(

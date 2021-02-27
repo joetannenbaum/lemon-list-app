@@ -12,6 +12,7 @@ import CancelButton from './form/CancelButton';
 import { bsl, sizeImage } from '@/util/style';
 import Divider from './Divider';
 import useStores from '@/hooks/useStores';
+import ArrowButton from './ArrowButton';
 
 export interface ShoppingListStoreSelectProps {
     addToListId: number;
@@ -42,20 +43,13 @@ const ShoppingListStoreSelect: React.FC<
                     </View>
                 )}
                 renderItem={({ item }) => (
-                    <TouchableOpacity
-                        style={styles.button}
+                    <ArrowButton
                         onPress={() => {
                             props.onSelect(item.id);
                             props.dismiss();
                         }}>
-                        <View style={styles.textWrapper}>
-                            <BaseText>{item.name}</BaseText>
-                        </View>
-                        <Image
-                            source={require('@images/carat-right.png')}
-                            style={styles.carat}
-                        />
-                    </TouchableOpacity>
+                        {item.name}
+                    </ArrowButton>
                 )}
             />
             <CancelButton onPress={props.dismiss} />

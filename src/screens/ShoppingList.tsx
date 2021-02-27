@@ -19,7 +19,7 @@ import useStores from '@/hooks/useStores';
 import { StoreTag } from '@/types/StoreTag';
 import { Store } from '@/types/Store';
 import { Navigation } from 'react-native-navigation';
-import { screenComponent } from '@/util/navigation';
+import { screenComponent, showMenu } from '@/util/navigation';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import Pusher from 'pusher-js/react-native';
 import useMe from '@/hooks/useMe';
@@ -34,10 +34,7 @@ import {
     bsl,
     centeredRow,
     sizeImage,
-    paddingX,
-    paddingY,
     yellow100,
-    grey300,
     grey100,
 } from '@/util/style';
 import ListWrapper from '@/components/ListWrapper';
@@ -48,6 +45,7 @@ import ShoppingListStoreSelect from '@/components/ShoppingListStoreSelect';
 import { FlatList } from 'react-native-gesture-handler';
 import Divider from '@/components/Divider';
 import EditShoppingListItem from '@/components/EditShoppingListItem';
+import MenuButton from '@/components/MenuButton';
 
 export interface ShoppingListProps {
     id: number;
@@ -367,6 +365,14 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                         backgroundColor: listColor,
                     },
                 ]}>
+                <View
+                    style={{
+                        position: 'absolute',
+                        left: bsl(20),
+                        top: bsl(20) + inset.top,
+                    }}>
+                    <MenuButton />
+                </View>
                 <View style={styles.header}>
                     <BaseText size={50}>{list.data?.name}</BaseText>
                 </View>
