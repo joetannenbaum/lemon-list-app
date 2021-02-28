@@ -4,6 +4,7 @@ import QuantityControl from './QuantityControl';
 export interface ShoppingListItemQuantityControlProps {
     quantity: number;
     onChange: (newQuantity: number) => void;
+    disabled: boolean;
 }
 
 const ShoppingListItemQuantityControl: React.FC<ShoppingListItemQuantityControlProps> = (
@@ -33,6 +34,7 @@ const ShoppingListItemQuantityControl: React.FC<ShoppingListItemQuantityControlP
             quantity={quantity}
             onIncreasePress={increaseQuantity}
             onDecreasePress={decreaseQuantity}
+            disabled={props.disabled}
         />
     );
 };

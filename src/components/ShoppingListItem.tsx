@@ -174,6 +174,7 @@ const ShoppingListItem: React.FC<Props> = (props) => {
                         <ShoppingListItemQuantityControl
                             quantity={props.item.quantity}
                             onChange={onQuantityChange}
+                            disabled={checkedOff}
                         />
                     </View>
                 </View>

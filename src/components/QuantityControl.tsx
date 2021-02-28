@@ -21,6 +21,7 @@ export interface QuantityControlProps {
     quantity: number;
     onIncreasePress: () => void;
     onDecreasePress: () => void;
+    disabled?: boolean;
 }
 
 const QuantityControl: React.FC<QuantityControlProps> = (props) => {
@@ -36,13 +37,13 @@ const QuantityControl: React.FC<QuantityControlProps> = (props) => {
             <View style={styles.wrapper}>
                 <TouchableOpacity
                     hitSlop={hitSlop}
-                    disabled={props.quantity === 1}
+                    disabled={props.quantity === 1 || props.disabled}
                     onPress={props.onDecreasePress}>
                     <Image
                         source={require('@images/minus-circle.png')}
                         style={[
                             styles.controlIcon,
-                            props.quantity === 1
+                            props.quantity === 1 || props.disabled
                                 ? {
                                       tintColor: grey200,
                                   }
@@ -51,14 +52,26 @@ const QuantityControl: React.FC<QuantityControlProps> = (props) => {
                     />
                 </TouchableOpacity>
                 <View style={styles.textWrapper}>
-                    <BaseText size={30}>{props.quantity}</BaseText>
+                    <BaseText
+                        color={props.disabled ? grey200 : undefined}
+                        size={30}>
+                        {props.quantity}
+                    </BaseText>
                 </View>
                 <TouchableOpacity
+                    disabled={props.disabled}
                     hitSlop={hitSlop}
                     onPress={props.onIncreasePress}>
                     <Image
                         source={require('@images/plus-circle.png')}
-                        style={styles.controlIcon}
+                        style={[
+                            styles.controlIcon,
+                            props.disabled
+                                ? {
+                                      tintColor: grey200,
+                                  }
+                                : undefined,
+                        ]}
                     />
                 </TouchableOpacity>
             </View>
