@@ -35,6 +35,8 @@ export const grey700 = '#374151';
 export const grey800 = '#1F2937';
 export const grey900 = '#111827';
 export const yellow100 = '#FEF3C7';
+export const red400 = '#F87171';
+export const blue400 = '#60A5FA';
 
 export const flexCenter: {
     alignItems: 'center';

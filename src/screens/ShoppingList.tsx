@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import useShoppingList from '@/hooks/useShoppingList';
 import CreateItemForm from '@/components/CreateItemForm';
@@ -37,11 +37,12 @@ import {
     yellow100,
     grey100,
 } from '@/util/style';
-import ListWrapper from '@/components/ListWrapper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FlatList } from 'react-native-gesture-handler';
 import Divider from '@/components/Divider';
 import MenuButton from '@/components/MenuButton';
+import { move } from 'formik';
+import debounce from 'lodash/debounce';
 
 export interface ShoppingListProps {
     id: number;
@@ -222,9 +223,22 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         },
     );
 
-    const onListUpdate = (data) => {
-        reorder({
-            order: data.map((item) => item.id),
+    const reorderViaApi = (params: object) => reorder(params);
+
+    const debouncedReorder = useCallback(
+        debounce((params) => reorderViaApi(params), 1000),
+        [],
+    );
+
+    const onItemMove = (index: number, direction: number) => {
+        setListData((state) => {
+            const newState = move(state, index, index + direction);
+
+            debouncedReorder({
+                order: newState.map((item) => item.id),
+            });
+
+            return newState;
         });
     };
 
@@ -238,7 +252,11 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         <ShoppingListItem
             listId={props.id}
             item={item}
+            isFirst={index === 0}
+            isLast={false}
+            index={index}
             key={item.id.toString()}
+            onMove={onItemMove}
         />
     );
 
@@ -412,7 +430,6 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                         renderItem={renderShoppingListItem}
                     />
                 )}
-                {/* onUpdate={onListUpdate} */}
             </View>
             <View style={styles.footer}>
                 <View

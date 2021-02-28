@@ -4,7 +4,6 @@ import BaseText from './BaseText';
 import {
     View,
     TouchableOpacity,
-    Button,
     Animated,
     StyleSheet,
     Image,
@@ -23,12 +22,18 @@ import {
     grey300,
     sizeImage,
     grey500,
+    red400,
+    blue400,
 } from '@/util/style';
 import { showPopup } from '@/util/navigation';
 
 interface Props {
     listId: number;
     item: ShoppingListItemType;
+    isFirst: boolean;
+    isLast: boolean;
+    index: number;
+    onMove: (index: number, direction: number) => void;
 }
 
 const ShoppingListItem: React.FC<Props> = (props) => {
@@ -85,15 +90,45 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         dragX: Animated.AnimatedInterpolation,
     ) => {
         return (
-            <View
-                style={{
-                    backgroundColor: 'red',
-                }}>
-                <Button
-                    color="white"
-                    title="Delete"
-                    onPress={() => deleteItem()}
-                />
+            <View style={styles.deleteWrapper}>
+                <TouchableOpacity
+                    style={styles.deleteButton}
+                    onPress={() => deleteItem()}>
+                    <Image
+                        source={require('@images/trash.png')}
+                        style={styles.trashIcon}
+                    />
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
+    const renderLeftActions = (
+        progress: Animated.AnimatedInterpolation,
+        dragX: Animated.AnimatedInterpolation,
+    ) => {
+        return (
+            <View style={styles.moveWrapper}>
+                {!props.isFirst && (
+                    <TouchableOpacity
+                        style={styles.moveButton}
+                        onPress={() => props.onMove(props.index, -1)}>
+                        <Image
+                            source={require('@images/carat-right.png')}
+                            style={[styles.moveIcon, styles.moveUpIcon]}
+                        />
+                    </TouchableOpacity>
+                )}
+                {!props.isLast && (
+                    <TouchableOpacity
+                        style={styles.moveButton}
+                        onPress={() => props.onMove(props.index, 1)}>
+                        <Image
+                            source={require('@images/carat-right.png')}
+                            style={[styles.moveIcon, styles.moveDownIcon]}
+                        />
+                    </TouchableOpacity>
+                )}
             </View>
         );
     };
@@ -102,7 +137,8 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         <>
             <Swipeable
                 enabled={!props.dragging}
-                renderRightActions={renderRightActions}>
+                renderRightActions={renderRightActions}
+                renderLeftActions={renderLeftActions}>
                 <View style={styles.wrapper}>
                     <SortHandle />
                     <View style={styles.rowContent}>
@@ -192,6 +228,45 @@ const styles = StyleSheet.create({
                 translateY: bsl(2),
             },
         ],
+    },
+    moveWrapper: {
+        backgroundColor: blue400,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    deleteWrapper: {
+        backgroundColor: red400,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    deleteButton: {
+        paddingHorizontal: bsl(30),
+    },
+    moveButton: {
+        paddingHorizontal: bsl(30),
+        paddingVertical: bsl(5),
+    },
+    moveIcon: {
+        ...sizeImage(16, 24, { width: 20 }),
+        tintColor: '#fff',
+    },
+    moveUpIcon: {
+        transform: [
+            {
+                rotate: '-90deg',
+            },
+        ],
+    },
+    moveDownIcon: {
+        transform: [
+            {
+                rotate: '90deg',
+            },
+        ],
+    },
+    trashIcon: {
+        ...sizeImage(61, 68, { width: 40 }),
+        tintColor: '#fff',
     },
 });
 

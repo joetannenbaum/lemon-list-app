@@ -1,5 +1,10 @@
 import React, { useRef, useEffect } from 'react';
-import { Animated, View, StyleSheet } from 'react-native';
+import {
+    Animated,
+    View,
+    StyleSheet,
+    TouchableWithoutFeedback,
+} from 'react-native';
 import { bsl } from '@/util/style';
 import { Screen, ScreenProps } from '@/types/navigation';
 import { Navigation } from 'react-native-navigation';
@@ -47,7 +52,9 @@ const asModal: (component: React.FC) => Screen<asModalProps & ScreenProps> = (
                     },
                 ]}
             />
-            <View style={{ flex: 1 }} />
+            <TouchableWithoutFeedback onPress={dismiss}>
+                <View style={{ flex: 1 }} />
+            </TouchableWithoutFeedback>
             <Animated.View
                 style={[
                     styles.wrapper,
