@@ -115,10 +115,11 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 .map((tag) => {
                     return {
                         tag,
-                        data: listData.filter((item) =>
-                            item.item.store_tags.find(
-                                (storeTag) => storeTag.id === tag.id,
-                            ),
+                        data: listData.filter(
+                            (item) =>
+                                typeof item.item.store_tags.find(
+                                    (storeTag) => storeTag.id === tag.id,
+                                ) !== 'undefined',
                         ),
                     };
                 })
@@ -126,9 +127,9 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
 
             const uncategorizedItems = listData.filter(
                 (item) =>
-                    !item.item.store_tags.find(
+                    typeof item.item.store_tags.find(
                         (storeTag) => storeTag.store_id === current.id,
-                    ),
+                    ) === 'undefined',
             );
 
             if (uncategorizedItems.length > 0) {
