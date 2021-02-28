@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import Share from 'react-native-share';
-import SafeAreaView from 'react-native-safe-area-view';
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
 import BaseText from '@/components/BaseText';
 import useShoppingList from '@/hooks/useShoppingList';
 import Config from 'react-native-config';
-import asModal, { asModalExportedProps, asModalProps } from './asModal';
-import SubmitButton from './form/SubmitButton';
+import asModal from '@/components/asModal';
+import SubmitButton from '@/components/form/SubmitButton';
 import { bsl } from '@/util/style';
-import CancelButton from './form/CancelButton';
+import CancelButton from '@/components/form/CancelButton';
+import { Screen, ModalScreenProps } from '@/types/navigation';
 
 export interface ShareShoppingListProps {
     id: number;
 }
 
-const ShareShoppingList: React.FC<
-    ShareShoppingListProps & asModalExportedProps & asModalProps
-> = (props) => {
+const ShareShoppingList: Screen<ShareShoppingListProps & ModalScreenProps> = (
+    props,
+) => {
     const list = useShoppingList(props.id);
 
     const [processing, setProcessing] = useState(false);

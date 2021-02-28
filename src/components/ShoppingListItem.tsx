@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     Button,
     Animated,
-    useWindowDimensions,
     StyleSheet,
     Image,
 } from 'react-native';
@@ -25,20 +24,16 @@ import {
     sizeImage,
     grey500,
 } from '@/util/style';
-import EditShoppingListItem from './EditShoppingListItem';
+import { showPopup } from '@/util/navigation';
 
 interface Props {
     listId: number;
     item: ShoppingListItemType;
-    onEditPress: () => void;
 }
 
 const ShoppingListItem: React.FC<Props> = (props) => {
-    const { width } = useWindowDimensions();
-
     // This is in state for purposes of optimistic updates
     const [checkedOff, setCheckedOff] = useState(props.item.checked_off);
-    const [editing, setEditing] = useState(false);
 
     useEffect(() => {
         setCheckedOff(props.item.checked_off);
@@ -79,8 +74,10 @@ const ShoppingListItem: React.FC<Props> = (props) => {
     };
 
     const showEditModal = () => {
-        // setEditing(true);
-        props.onEditPress();
+        showPopup('EditShoppingListItem', {
+            listId: props.listId,
+            item: props.item,
+        });
     };
 
     const renderRightActions = (

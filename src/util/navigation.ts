@@ -90,3 +90,19 @@ export const showMenu = () => {
 export const hideMenu = () => {
     RNNDrawer.dismissDrawer();
 };
+
+export const showPopup = (name: screenComponentName, passProps = {}) => {
+    Navigation.showOverlay(
+        screenComponent(name, {
+            passProps,
+            options: {
+                layout: {
+                    componentBackgroundColor: 'transparent',
+                },
+                overlay: {
+                    handleKeyboardEvents: true,
+                },
+            },
+        }),
+    );
+};

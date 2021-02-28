@@ -1,26 +1,20 @@
 import React from 'react';
-import {
-    TouchableOpacity,
-    FlatList,
-    StyleSheet,
-    Image,
-    View,
-} from 'react-native';
-import BaseText from '@/components/BaseText';
-import asModal, { asModalExportedProps, asModalProps } from './asModal';
-import CancelButton from './form/CancelButton';
+import { FlatList, StyleSheet, View } from 'react-native';
+import asModal from '@/components/asModal';
+import CancelButton from '@/components/form/CancelButton';
 import { bsl, sizeImage } from '@/util/style';
-import Divider from './Divider';
+import Divider from '@/components/Divider';
 import useStores from '@/hooks/useStores';
-import ArrowButton from './ArrowButton';
+import ArrowButton from '@/components/ArrowButton';
+import { Screen, ModalScreenProps } from '@/types/navigation';
 
 export interface ShoppingListStoreSelectProps {
     addToListId: number;
     onSelect: (storeId: number | null) => void;
 }
 
-const ShoppingListStoreSelect: React.FC<
-    ShoppingListStoreSelectProps & asModalExportedProps & asModalProps
+const ShoppingListStoreSelect: Screen<
+    ShoppingListStoreSelectProps & ModalScreenProps
 > = (props) => {
     const stores = useStores();
 

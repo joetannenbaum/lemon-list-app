@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
-import { Animated, Modal as RNModal, View, StyleSheet } from 'react-native';
+import { Animated, View, StyleSheet } from 'react-native';
 import { bsl } from '@/util/style';
+import { Screen, ScreenProps } from '@/types/navigation';
+import { Navigation } from 'react-native-navigation';
 
 export interface asModalProps {
     onDismiss: () => void;
@@ -10,7 +12,7 @@ export interface asModalExportedProps {
     dismiss: () => void;
 }
 
-const asModal: (component: React.FC) => React.FC<asModalProps> = (
+const asModal: (component: React.FC) => Screen<asModalProps & ScreenProps> = (
     BaseComponent,
 ) => (props) => {
     const animatedValue = useRef(new Animated.Value(0));
@@ -23,18 +25,17 @@ const asModal: (component: React.FC) => React.FC<asModalProps> = (
     }, []);
 
     const dismiss = () => {
-        Animated.spring(animatedValue.current, {
+        Animated.timing(animatedValue.current, {
             toValue: 0,
             useNativeDriver: true,
-            speed: 10,
-        }).start(props.onDismiss);
+            duration: 250,
+        }).start(() => {
+            Navigation.dismissOverlay(props.componentId);
+        });
     };
 
     return (
-        <RNModal
-            presentationStyle="overFullScreen"
-            transparent={true}
-            onRequestClose={dismiss}>
+        <View style={{ flex: 1 }}>
             <Animated.View
                 style={[
                     styles.overlay,
@@ -63,7 +64,7 @@ const asModal: (component: React.FC) => React.FC<asModalProps> = (
                 ]}>
                 <BaseComponent {...props} dismiss={dismiss} />
             </Animated.View>
-        </RNModal>
+        </View>
     );
 };
 

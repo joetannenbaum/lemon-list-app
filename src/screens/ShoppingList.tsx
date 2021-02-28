@@ -19,7 +19,7 @@ import useStores from '@/hooks/useStores';
 import { StoreTag } from '@/types/StoreTag';
 import { Store } from '@/types/Store';
 import { Navigation } from 'react-native-navigation';
-import { screenComponent } from '@/util/navigation';
+import { screenComponent, showPopup } from '@/util/navigation';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import Pusher from 'pusher-js/react-native';
 import useMe from '@/hooks/useMe';
@@ -39,12 +39,8 @@ import {
 } from '@/util/style';
 import ListWrapper from '@/components/ListWrapper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import ShareShoppingList from '@/components/ShareShoppingList';
-import AddItemsFromListsStart from '@/components/AddItemsFromListsStart';
-import ShoppingListStoreSelect from '@/components/ShoppingListStoreSelect';
 import { FlatList } from 'react-native-gesture-handler';
 import Divider from '@/components/Divider';
-import EditShoppingListItem from '@/components/EditShoppingListItem';
 import MenuButton from '@/components/MenuButton';
 
 export interface ShoppingListProps {
@@ -73,13 +69,6 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         list.data?.active_version?.items || [],
     );
     const [activeStoreId, setActiveStoreId] = useState<number | null>(null);
-    const [scrollEnabled, setScrollEnabled] = useState(true);
-    const [sharing, setSharing] = useState(false);
-    const [addingFromAnotherList, setAddingFromAnotherList] = useState(false);
-    const [changingStore, setChangingStore] = useState(false);
-    const [currentlyEditing, setCurrentlyEditing] = useState<number | null>(
-        null,
-    );
 
     useNavigationButtonPress(
         (e) => {
@@ -250,7 +239,6 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
             listId={props.id}
             item={item}
             key={item.id.toString()}
-            onEditPress={() => setCurrentlyEditing(item.id)}
         />
     );
 
@@ -381,7 +369,13 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
             <View>
                 <TouchableOpacity
                     style={styles.changeStoresButton}
-                    onPress={() => setChangingStore(true)}>
+                    onPress={() =>
+                        showPopup('ShoppingListStoreSelect', {
+                            onSelect: (storeId: number | null) => {
+                                setActiveStoreId(storeId);
+                            },
+                        })
+                    }>
                     <Image
                         style={styles.changeStoresIcon}
                         source={require('@images/shopping-cart.png')}
@@ -412,15 +406,13 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                         stickySectionHeadersEnabled={false}
                     />
                 ) : (
-                    <ListWrapper>
-                        {/* onUpdate={onListUpdate} */}
-                        <FlatList
-                            data={listData}
-                            keyExtractor={(item) => item.id.toString()}
-                            renderItem={renderShoppingListItem}
-                        />
-                    </ListWrapper>
+                    <FlatList
+                        data={listData}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={renderShoppingListItem}
+                    />
                 )}
+                {/* onUpdate={onListUpdate} */}
             </View>
             <View style={styles.footer}>
                 <View
@@ -435,7 +427,11 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     <View style={styles.toolsWrapper}>
                         <TouchableOpacity
                             style={styles.tool}
-                            onPress={() => setSharing(true)}>
+                            onPress={() =>
+                                showPopup('ShareShoppingList', {
+                                    id: list.data?.id,
+                                })
+                            }>
                             <Image
                                 source={require('@images/share.png')}
                                 style={styles.shareIcon}
@@ -450,7 +446,9 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                                 <TouchableOpacity
                                     style={styles.tool}
                                     onPress={() =>
-                                        setAddingFromAnotherList(true)
+                                        showPopup('AddItemsFromListsStart', {
+                                            addToListId: props.id,
+                                        })
                                     }>
                                     <Image
                                         source={require('@images/collection.png')}
@@ -504,35 +502,6 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     </View>
                 </View>
             </View>
-            {sharing && (
-                <ShareShoppingList
-                    id={list.data?.id}
-                    onDismiss={() => setSharing(false)}
-                />
-            )}
-            {addingFromAnotherList && (
-                <AddItemsFromListsStart
-                    addToListId={props.id}
-                    onDismiss={() => setAddingFromAnotherList(false)}
-                />
-            )}
-            {changingStore && (
-                <ShoppingListStoreSelect
-                    onDismiss={() => setChangingStore(false)}
-                    onSelect={(storeId) => {
-                        setActiveStoreId(storeId);
-                    }}
-                />
-            )}
-            {currentlyEditing && (
-                <EditShoppingListItem
-                    listId={list.data?.id}
-                    item={list.data.active_version.items.find(
-                        (item) => item.id === currentlyEditing,
-                    )}
-                    onDismiss={() => setCurrentlyEditing(null)}
-                />
-            )}
         </Wrapper>
     );
 };

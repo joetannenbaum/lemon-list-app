@@ -16,7 +16,11 @@ import Login from '@/screens/Login';
 import Register from '@/screens/Register';
 import ShoppingList from '@/screens/ShoppingList';
 import Store from '@/screens/Store';
-import Menu from './Menu';
+import ShareShoppingList from '@/screens/ShareShoppingList';
+import AddItemsFromListsStart from '@/screens/AddItemsFromListsStart';
+import ShoppingListStoreSelect from '@/screens/ShoppingListStoreSelect';
+import EditShoppingListItem from '@/screens/EditShoppingListItem';
+import Menu from '@/screens/Menu';
 
 const queryClient = new QueryClient();
 
@@ -30,6 +34,10 @@ const screens = {
     Register,
     ShoppingList,
     Store,
+    ShareShoppingList,
+    AddItemsFromListsStart,
+    ShoppingListStoreSelect,
+    EditShoppingListItem,
 };
 
 const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
@@ -46,13 +54,17 @@ const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
 
 export type screenComponentName =
     | 'AcceptShare'
+    | 'AddItemsFromListsStart'
+    | 'ShareShoppingList'
     | 'App'
     | 'EditShoppingList'
     | 'Home'
     | 'IncomingShare'
     | 'Login'
     | 'Register'
+    | 'ShoppingListStoreSelect'
     | 'ShoppingList'
+    | 'EditShoppingListItem'
     | 'Store';
 
 const enhance = flowRight(gestureHandlerRootHOC, WrappedComponent);

@@ -15,9 +15,10 @@ import omit from 'lodash/omit';
 import AutoGrowTextField from '@/components/form/AutoGrowTextField';
 import QuantityControlField from '@/components/QuantityControlField';
 import { bsl, grey300 } from '@/util/style';
-import CancelButton from './form/CancelButton';
+import CancelButton from '@/components/form/CancelButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import asModal, { asModalExportedProps, asModalProps } from './asModal';
+import asModal from '@/components/asModal';
+import { Screen, ModalScreenProps } from '@/types/navigation';
 
 export interface EditShoppingListItemProps {
     listId: number;
@@ -35,8 +36,8 @@ interface FormValues {
     note: string;
 }
 
-const EditShoppingListItem: React.FC<
-    EditShoppingListItemProps & asModalProps & asModalExportedProps
+const EditShoppingListItem: Screen<
+    EditShoppingListItemProps & ModalScreenProps
 > = (props) => {
     const stores = useStores();
 

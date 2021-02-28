@@ -8,17 +8,18 @@ import {
     View,
 } from 'react-native';
 import BaseText from '@/components/BaseText';
-import asModal, { asModalExportedProps, asModalProps } from './asModal';
-import CancelButton from './form/CancelButton';
+import asModal from '@/components/asModal';
+import CancelButton from '@/components/form/CancelButton';
 import AddItemsFromList from '@/components/AddItemsFromList';
 import { bsl, sizeImage, grey300, grey400 } from '@/util/style';
+import { Screen, ModalScreenProps } from '@/types/navigation';
 
 export interface AddItemsFromListsStartProps {
     addToListId: number;
 }
 
-const AddItemsFromListsStart: React.FC<
-    AddItemsFromListsStartProps & asModalExportedProps & asModalProps
+const AddItemsFromListsStart: Screen<
+    AddItemsFromListsStartProps & ModalScreenProps
 > = (props) => {
     const shoppingLists = useShoppingLists();
     const [listId, setListId] = useState<number | null>(null);
@@ -83,9 +84,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
-    carat: {
-        ...sizeImage(16, 24, { width: 16 }),
-    },
+    carat: sizeImage(16, 24, { width: 16 }),
     backButton: {
         flexDirection: 'row',
         alignItems: 'center',
