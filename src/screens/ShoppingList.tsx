@@ -156,7 +156,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 [current.id]: orderedByStore,
             };
         }, {});
-    }, [listData]);
+    }, [listData, stores]);
 
     useEffect(() => {
         setListData(list.data?.active_version?.items || []);
