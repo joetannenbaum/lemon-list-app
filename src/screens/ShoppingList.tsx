@@ -214,6 +214,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         });
     };
 
+    // TODO: Fix the isLast property for sectioned data
     const renderShoppingListItem = ({
         item,
         index,
@@ -225,7 +226,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
             listId={props.id}
             item={item}
             isFirst={index === 0}
-            isLast={false}
+            isLast={index === listData.length - 1}
             index={index}
             key={item.id.toString()}
             onMove={onItemMove}
