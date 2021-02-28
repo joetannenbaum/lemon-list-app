@@ -19,13 +19,11 @@ import useStores from '@/hooks/useStores';
 import { StoreTag } from '@/types/StoreTag';
 import { Store } from '@/types/Store';
 import { Navigation } from 'react-native-navigation';
-import { screenComponent, showPopup } from '@/util/navigation';
+import { showPopup } from '@/util/navigation';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import Pusher from 'pusher-js/react-native';
 import useMe from '@/hooks/useMe';
 import Config from 'react-native-config';
-import { useNavigationButtonPress } from 'react-native-navigation-hooks';
-import { EditShoppingListProps } from './EditShoppingList';
 import Wrapper from '@/components/Wrapper';
 import BaseText from '@/components/BaseText';
 import {
@@ -43,6 +41,8 @@ import Divider from '@/components/Divider';
 import MenuButton from '@/components/MenuButton';
 import { move } from 'formik';
 import debounce from 'lodash/debounce';
+import ShoppingListToolButton from '@/components/ShoppingListToolButton';
+import Loading from '@/components/Loading';
 
 export interface ShoppingListProps {
     id: number;
@@ -71,18 +71,10 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     );
     const [activeStoreId, setActiveStoreId] = useState<number | null>(null);
 
-    useNavigationButtonPress(
-        (e) => {
-            Navigation.showModal(
-                screenComponent<EditShoppingListProps>('EditShoppingList', {
-                    passProps: {
-                        id: list.data?.id,
-                    },
-                }),
-            );
-        },
-        { buttonId: 'edit-shopping-list', componentId: props.componentId },
-    );
+    const canAddFromOtherLists =
+        shoppingLists.data?.filter(
+            (list) => list.id !== props.id && list.total_items > 0,
+        ).length > 0;
 
     useEffect(() => {
         if (!list.data?.is_shared) {
@@ -163,27 +155,6 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
 
         if (list.data === null) {
             queryClient.invalidateQueries('shopping-lists');
-        } else {
-            Navigation.mergeOptions(props.componentId, {
-                topBar: {
-                    title: {
-                        text: list.data?.name,
-                    },
-                },
-            });
-        }
-
-        if (list.data?.is_owner) {
-            Navigation.mergeOptions(props.componentId, {
-                topBar: {
-                    rightButtons: [
-                        {
-                            text: 'Edit',
-                            id: 'edit-shopping-list',
-                        },
-                    ],
-                },
-            });
         }
     }, [list.data]);
 
@@ -342,7 +313,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         );
     };
 
-    if (list.data === null) {
+    if (list.isFetched && list.data === null) {
         return (
             <Wrapper>
                 <View style={{ padding: 20 }}>
@@ -357,6 +328,10 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 </View>
             </Wrapper>
         );
+    }
+
+    if (!list.isFetched) {
+        return <Loading />;
     }
 
     return (
@@ -442,79 +417,69 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     </View>
 
                     <View style={styles.toolsWrapper}>
-                        <TouchableOpacity
-                            style={styles.tool}
+                        <ShoppingListToolButton
                             onPress={() =>
                                 showPopup('ShareShoppingList', {
                                     id: list.data?.id,
                                 })
-                            }>
-                            <Image
-                                source={require('@images/share.png')}
-                                style={styles.shareIcon}
-                            />
-                            <BaseText size={20} bold={true}>
-                                SHARE
-                            </BaseText>
-                        </TouchableOpacity>
+                            }
+                            icon={require('@images/share.png')}
+                            iconWidth={68}>
+                            Share
+                        </ShoppingListToolButton>
 
-                        {shoppingLists.data?.length &&
-                            shoppingLists.data?.length > 0 && (
-                                <TouchableOpacity
-                                    style={styles.tool}
-                                    onPress={() =>
-                                        showPopup('AddItemsFromListsStart', {
-                                            addToListId: props.id,
-                                        })
-                                    }>
-                                    <Image
-                                        source={require('@images/collection.png')}
-                                        style={styles.listAddIcon}
-                                    />
-                                    <BaseText size={20} bold={true}>
-                                        ADD FROM LIST
-                                    </BaseText>
-                                </TouchableOpacity>
-                            )}
+                        {canAddFromOtherLists && (
+                            <ShoppingListToolButton
+                                onPress={() =>
+                                    showPopup('AddItemsFromListsStart', {
+                                        addToListId: props.id,
+                                    })
+                                }
+                                icon={require('@images/collection.png')}
+                                iconWidth={68}>
+                                Import
+                            </ShoppingListToolButton>
+                        )}
 
-                        <TouchableOpacity
-                            style={styles.tool}
-                            onPress={onClearCompletedItemPress}>
-                            <Image
-                                source={require('@images/badge-check.png')}
-                                style={styles.checkIcon}
-                            />
-                            <BaseText size={20} bold={true}>
-                                CLEAR COMPLETED
-                            </BaseText>
-                        </TouchableOpacity>
+                        <ShoppingListToolButton
+                            onPress={onClearCompletedItemPress}
+                            icon={require('@images/badge-check.png')}
+                            iconWidth={68}>
+                            Clear
+                        </ShoppingListToolButton>
 
                         {list.data?.is_owner && (
-                            <TouchableOpacity
-                                style={styles.tool}
-                                onPress={onDeleteShoppingListPress}>
-                                <Image
-                                    source={require('@images/trash.png')}
-                                    style={styles.trashIcon}
-                                />
-                                <BaseText size={20} bold={true}>
-                                    DELETE
-                                </BaseText>
-                            </TouchableOpacity>
+                            <ShoppingListToolButton
+                                onPress={() =>
+                                    showPopup('EditShoppingList', {
+                                        id: props.id,
+                                    })
+                                }
+                                icon={require('@images/pencil.png')}
+                                iconWidth={78}
+                                iconHeight={79}>
+                                Edit
+                            </ShoppingListToolButton>
+                        )}
+
+                        {list.data?.is_owner && (
+                            <ShoppingListToolButton
+                                onPress={onDeleteShoppingListPress}
+                                icon={require('@images/trash.png')}
+                                iconWidth={61}
+                                iconHeight={68}>
+                                Delete
+                            </ShoppingListToolButton>
                         )}
 
                         {!list.data?.is_owner && (
-                            <TouchableOpacity
-                                style={styles.tool}
-                                onPress={onDeleteShoppingListPress}>
-                                <Image
-                                    source={require('@images/leave.png')}
-                                    style={styles.leaveIcon}
-                                />
-                                <BaseText size={20} bold={true}>
-                                    LEAVE
-                                </BaseText>
-                            </TouchableOpacity>
+                            <ShoppingListToolButton
+                                onPress={onDeleteShoppingListPress}
+                                icon={require('@images/leave.png')}
+                                iconWidth={68}
+                                iconHeight={61}>
+                                Leave
+                            </ShoppingListToolButton>
                         )}
                     </View>
                 </View>
@@ -563,29 +528,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: bsl(40),
         paddingVertical: bsl(20),
         justifyContent: 'space-between',
-    },
-    tool: {
-        ...flexCenter,
-    },
-    listAddIcon: {
-        ...sizeImage(60, 60, { height: 40 }),
-        marginBottom: bsl(15),
-    },
-    checkIcon: {
-        ...sizeImage(60, 60, { height: 40 }),
-        marginBottom: bsl(15),
-    },
-    trashIcon: {
-        ...sizeImage(61, 68, { height: 40 }),
-        marginBottom: bsl(15),
-    },
-    shareIcon: {
-        ...sizeImage(68, 68, { height: 40 }),
-        marginBottom: bsl(15),
-    },
-    leaveIcon: {
-        ...sizeImage(68, 61, { height: 40 }),
-        marginBottom: bsl(15),
     },
     changeStoresButton: {
         backgroundColor: yellow100,
