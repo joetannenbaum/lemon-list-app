@@ -24,7 +24,6 @@
     "fuse.js": "6.4.6",
     "hoist-non-react-statics": "3.3.2",
     "lodash": "4.17.21",
-    "move-position": "1.0.4",
     "pusher-js": "7.0.3",
     "react": "16.13.1",
     "react-native": "0.63.4",
