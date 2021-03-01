@@ -27,7 +27,7 @@ const ShareShoppingList: Screen<ShareShoppingListProps & ModalScreenProps> = (
 
         const link = await dynamicLinks().buildShortLink({
             link: `${Config.API_URL}/list/${list.data?.uuid}`,
-            domainUriPrefix: 'https://grocerylistlocal.page.link',
+            domainUriPrefix: 'https://lemonlistlocal.page.link',
         });
 
         Share.open({

@@ -17,7 +17,7 @@ const saveInKeychain = (
 ): Promise<false | Keychain.Result> =>
     Keychain.setGenericPassword(
         // Should we make this specific from app-to-app? Or better that we have universal login here?
-        'GroceryListUser',
+        'LemonListUser',
         value,
         getOptions(service),
     );

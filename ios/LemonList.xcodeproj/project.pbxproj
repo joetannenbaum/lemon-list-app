@@ -7,32 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* GroceryListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GroceryListTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		17877B5D146F4BE6AB064950 /* Karla-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1886D951D9764314A6B55862 /* Karla-LightItalic.ttf */; };
 		1B56F123D22A4B9DB3C40003 /* Karla-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4AA4BE5D9C94FBF91F3CC4D /* Karla-ExtraLight.ttf */; };
-		1FCF441CD1AA89B504FD3C2B /* libPods-GroceryList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81737AF30D8966B1F26ABE17 /* libPods-GroceryList.a */; };
+		1FCF441CD1AA89B504FD3C2B /* libPods-LemonList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81737AF30D8966B1F26ABE17 /* libPods-LemonList.a */; };
 		212266EDC2F640B7BE7CA2F6 /* Karla-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF4137CD5DB04C73B6575B1C /* Karla-Italic.ttf */; };
-		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* GroceryListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GroceryListTests.m */; };
 		317989F1B48742AABEDB9012 /* Karla-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A579B51F93BE41B089470AAF /* Karla-MediumItalic.ttf */; };
 		45ACB20AA2EB401AA9014070 /* Karla-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB84333A00514F0793829BB6 /* Karla-BoldItalic.ttf */; };
 		493AA7974D9F4F1A99A9A0D2 /* Karla-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76B6EE5FE35F4F428576DCC3 /* Karla-ExtraBoldItalic.ttf */; };
 		54B52BAF7FF2416699BA491B /* Karla-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D48C5CC318AA45D9861A98AA /* Karla-Medium.ttf */; };
 		54CD7C71AD2742C299026350 /* Karla-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E299824BA46E47E0A6E4E59F /* Karla-SemiBoldItalic.ttf */; };
 		636A10529A194909B7106F9B /* Karla-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3A2234B3418425D858FD65C /* Karla-SemiBold.ttf */; };
-		680A8B15CD2BF91142D0B2D1 /* libPods-GroceryList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB7959F256DD9D500B2141E /* libPods-GroceryList.a */; };
+		680A8B15CD2BF91142D0B2D1 /* libPods-LemonList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB7959F256DD9D500B2141E /* libPods-LemonList.a */; };
 		6A42E3F6362946E7A2A33350 /* Karla-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5826E960D09420A9CBB953C /* Karla-ExtraLightItalic.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B212FCFDF4D8412EB1174CCC /* Karla-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5247DC9D2A844DE99123619 /* Karla-ExtraBold.ttf */; };
 		B9B21C10C94A4463B1EC8221 /* Karla-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D03CEF8C33DD48CE96F06554 /* Karla-Light.ttf */; };
 		CFB79592256DD7F500B2141E /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB79591256DD7F500B2141E /* ShareViewController.swift */; };
 		CFB79595256DD7F500B2141E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFB79593256DD7F500B2141E /* MainInterface.storyboard */; };
-		CFB79599256DD7F500B2141E /* GroceryListShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CFB7958F256DD7F500B2141E /* GroceryListShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CFB79599256DD7F500B2141E /* LemonListShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CFB7958F256DD7F500B2141E /* LemonListShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CFC26471256AA70500AFC206 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFC26470256AA70500AFC206 /* GoogleService-Info.plist */; };
 		CFED16EA25C5D4F30066AFC9 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFED16E925C5D4F30066AFC9 /* Dummy.swift */; };
 		CFED16EB25C5D4F30066AFC9 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFED16E925C5D4F30066AFC9 /* Dummy.swift */; };
@@ -41,26 +36,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = GroceryList;
-		};
-		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "GroceryList-tvOS";
-		};
 		CFB79597256DD7F500B2141E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = CFB7958E256DD7F500B2141E;
-			remoteInfo = GroceryListShare;
+			remoteInfo = LemonListShare;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -71,7 +52,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				CFB79599256DD7F500B2141E /* GroceryListShare.appex in Embed App Extensions */,
+				CFB79599256DD7F500B2141E /* LemonListShare.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,39 +61,36 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* GroceryListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GroceryListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* GroceryListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroceryListTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* GroceryList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroceryList.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GroceryList/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = GroceryList/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = GroceryList/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = GroceryList/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GroceryList/main.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* LemonListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LemonListTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* LemonList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LemonList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LemonList/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = LemonList/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LemonList/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LemonList/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LemonList/main.m; sourceTree = "<group>"; };
 		1886D951D9764314A6B55862 /* Karla-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-LightItalic.ttf"; path = "../assets/fonts/Karla-LightItalic.ttf"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* GroceryList-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GroceryList-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* GroceryList-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GroceryList-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B1D0E80F3C5B4CAD2EE388D /* Pods-GroceryList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroceryList.debug.xcconfig"; path = "Target Support Files/Pods-GroceryList/Pods-GroceryList.debug.xcconfig"; sourceTree = "<group>"; };
+		4B1D0E80F3C5B4CAD2EE388D /* Pods-LemonList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LemonList.debug.xcconfig"; path = "Target Support Files/Pods-LemonList/Pods-LemonList.debug.xcconfig"; sourceTree = "<group>"; };
 		76B6EE5FE35F4F428576DCC3 /* Karla-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-ExtraBoldItalic.ttf"; path = "../assets/fonts/Karla-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		80430A44CB2A4644A07015A6 /* Karla-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Bold.ttf"; path = "../assets/fonts/Karla-Bold.ttf"; sourceTree = "<group>"; };
-		81737AF30D8966B1F26ABE17 /* libPods-GroceryList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GroceryList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GroceryList/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		81737AF30D8966B1F26ABE17 /* libPods-LemonList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LemonList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LemonList/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87E31EA15A51477685AF68DA /* Karla-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Regular.ttf"; path = "../assets/fonts/Karla-Regular.ttf"; sourceTree = "<group>"; };
 		A579B51F93BE41B089470AAF /* Karla-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-MediumItalic.ttf"; path = "../assets/fonts/Karla-MediumItalic.ttf"; sourceTree = "<group>"; };
 		B4AA4BE5D9C94FBF91F3CC4D /* Karla-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-ExtraLight.ttf"; path = "../assets/fonts/Karla-ExtraLight.ttf"; sourceTree = "<group>"; };
 		C3A2234B3418425D858FD65C /* Karla-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-SemiBold.ttf"; path = "../assets/fonts/Karla-SemiBold.ttf"; sourceTree = "<group>"; };
-		C7E7E7125A1E5294561C03F0 /* Pods-GroceryList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroceryList.release.xcconfig"; path = "Target Support Files/Pods-GroceryList/Pods-GroceryList.release.xcconfig"; sourceTree = "<group>"; };
+		C7E7E7125A1E5294561C03F0 /* Pods-LemonList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LemonList.release.xcconfig"; path = "Target Support Files/Pods-LemonList/Pods-LemonList.release.xcconfig"; sourceTree = "<group>"; };
 		CB84333A00514F0793829BB6 /* Karla-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-BoldItalic.ttf"; path = "../assets/fonts/Karla-BoldItalic.ttf"; sourceTree = "<group>"; };
 		CF4137CD5DB04C73B6575B1C /* Karla-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Italic.ttf"; path = "../assets/fonts/Karla-Italic.ttf"; sourceTree = "<group>"; };
-		CFB7958F256DD7F500B2141E /* GroceryListShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GroceryListShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFB7958F256DD7F500B2141E /* LemonListShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LemonListShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFB79591256DD7F500B2141E /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		CFB79594256DD7F500B2141E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		CFB79596256DD7F500B2141E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CFB7959E256DD8D900B2141E /* GroceryListShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GroceryListShare.entitlements; sourceTree = "<group>"; };
-		CFB7959F256DD9D500B2141E /* libPods-GroceryList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-GroceryList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CFC26470256AA70500AFC206 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "GroceryList/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CFC26472256AA89800AFC206 /* GroceryList.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = GroceryList.entitlements; path = GroceryList/GroceryList.entitlements; sourceTree = "<group>"; };
-		CFED16D625C5D42E0066AFC9 /* GroceryList-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GroceryList-Bridging-Header.h"; sourceTree = "<group>"; };
+		CFB7959E256DD8D900B2141E /* LemonListShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LemonListShare.entitlements; sourceTree = "<group>"; };
+		CFB7959F256DD9D500B2141E /* libPods-LemonList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-LemonList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFC26470256AA70500AFC206 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "LemonList/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CFC26472256AA89800AFC206 /* LemonList.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LemonList.entitlements; path = LemonList/LemonList.entitlements; sourceTree = "<group>"; };
+		CFED16D625C5D42E0066AFC9 /* LemonList-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LemonList-Bridging-Header.h"; sourceTree = "<group>"; };
 		CFED16E925C5D4F30066AFC9 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		D03CEF8C33DD48CE96F06554 /* Karla-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Light.ttf"; path = "../assets/fonts/Karla-Light.ttf"; sourceTree = "<group>"; };
 		D48C5CC318AA45D9861A98AA /* Karla-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Medium.ttf"; path = "../assets/fonts/Karla-Medium.ttf"; sourceTree = "<group>"; };
@@ -124,33 +102,12 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		00E356EB1AD99517003FC87E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FCF441CD1AA89B504FD3C2B /* libPods-GroceryList.a in Frameworks */,
-				680A8B15CD2BF91142D0B2D1 /* libPods-GroceryList.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D02E4781E0B4A5D006451C7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D02E48D1E0B4A5D006451C7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				1FCF441CD1AA89B504FD3C2B /* libPods-LemonList.a in Frameworks */,
+				680A8B15CD2BF91142D0B2D1 /* libPods-LemonList.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,13 +121,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* GroceryListTests */ = {
+		00E356EF1AD99517003FC87E /* LemonListTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* GroceryListTests.m */,
+				00E356F21AD99517003FC87E /* LemonListTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = GroceryListTests;
+			path = LemonListTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -181,10 +138,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* GroceryList */ = {
+		13B07FAE1A68108700A75B9A /* LemonList */ = {
 			isa = PBXGroup;
 			children = (
-				CFC26472256AA89800AFC206 /* GroceryList.entitlements */,
+				CFC26472256AA89800AFC206 /* LemonList.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -192,19 +149,19 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				CFED16D625C5D42E0066AFC9 /* GroceryList-Bridging-Header.h */,
+				CFED16D625C5D42E0066AFC9 /* LemonList-Bridging-Header.h */,
 				CFED16E925C5D4F30066AFC9 /* Dummy.swift */,
 			);
-			name = GroceryList;
+			name = LemonList;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CFB7959F256DD9D500B2141E /* libPods-GroceryList.a */,
+				CFB7959F256DD9D500B2141E /* libPods-LemonList.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				81737AF30D8966B1F26ABE17 /* libPods-GroceryList.a */,
+				81737AF30D8966B1F26ABE17 /* libPods-LemonList.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -220,10 +177,10 @@
 			isa = PBXGroup;
 			children = (
 				CFC26470256AA70500AFC206 /* GoogleService-Info.plist */,
-				13B07FAE1A68108700A75B9A /* GroceryList */,
+				13B07FAE1A68108700A75B9A /* LemonList */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* GroceryListTests */,
-				CFB79590256DD7F500B2141E /* GroceryListShare */,
+				00E356EF1AD99517003FC87E /* LemonListTests */,
+				CFB79590256DD7F500B2141E /* LemonListShare */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				8A137933A303B0CCC3F40A57 /* Pods */,
@@ -237,11 +194,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* GroceryList.app */,
-				00E356EE1AD99517003FC87E /* GroceryListTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* GroceryList-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* GroceryList-tvOSTests.xctest */,
-				CFB7958F256DD7F500B2141E /* GroceryListShare.appex */,
+				13B07F961A680F5B00A75B9A /* LemonList.app */,
+				CFB7958F256DD7F500B2141E /* LemonListShare.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,8 +203,8 @@
 		8A137933A303B0CCC3F40A57 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4B1D0E80F3C5B4CAD2EE388D /* Pods-GroceryList.debug.xcconfig */,
-				C7E7E7125A1E5294561C03F0 /* Pods-GroceryList.release.xcconfig */,
+				4B1D0E80F3C5B4CAD2EE388D /* Pods-LemonList.debug.xcconfig */,
+				C7E7E7125A1E5294561C03F0 /* Pods-LemonList.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -276,41 +230,23 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		CFB79590256DD7F500B2141E /* GroceryListShare */ = {
+		CFB79590256DD7F500B2141E /* LemonListShare */ = {
 			isa = PBXGroup;
 			children = (
-				CFB7959E256DD8D900B2141E /* GroceryListShare.entitlements */,
+				CFB7959E256DD8D900B2141E /* LemonListShare.entitlements */,
 				CFB79591256DD7F500B2141E /* ShareViewController.swift */,
 				CFB79593256DD7F500B2141E /* MainInterface.storyboard */,
 				CFB79596256DD7F500B2141E /* Info.plist */,
 			);
-			path = GroceryListShare;
+			path = LemonListShare;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* GroceryListTests */ = {
+		13B07F861A680F5B00A75B9A /* LemonList */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "GroceryListTests" */;
-			buildPhases = (
-				00E356EA1AD99517003FC87E /* Sources */,
-				00E356EB1AD99517003FC87E /* Frameworks */,
-				00E356EC1AD99517003FC87E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				00E356F51AD99517003FC87E /* PBXTargetDependency */,
-			);
-			name = GroceryListTests;
-			productName = GroceryListTests;
-			productReference = 00E356EE1AD99517003FC87E /* GroceryListTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		13B07F861A680F5B00A75B9A /* GroceryList */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "GroceryList" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LemonList" */;
 			buildPhases = (
 				A66319531848F45B8971A8F4 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -327,51 +263,14 @@
 			dependencies = (
 				CFB79598256DD7F500B2141E /* PBXTargetDependency */,
 			);
-			name = GroceryList;
-			productName = GroceryList;
-			productReference = 13B07F961A680F5B00A75B9A /* GroceryList.app */;
+			name = LemonList;
+			productName = LemonList;
+			productReference = 13B07F961A680F5B00A75B9A /* LemonList.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* GroceryList-tvOS */ = {
+		CFB7958E256DD7F500B2141E /* LemonListShare */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "GroceryList-tvOS" */;
-			buildPhases = (
-				FD10A7F122414F3F0027D42C /* Start Packager */,
-				2D02E4771E0B4A5D006451C7 /* Sources */,
-				2D02E4781E0B4A5D006451C7 /* Frameworks */,
-				2D02E4791E0B4A5D006451C7 /* Resources */,
-				2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "GroceryList-tvOS";
-			productName = "GroceryList-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* GroceryList-tvOS.app */;
-			productType = "com.apple.product-type.application";
-		};
-		2D02E48F1E0B4A5D006451C7 /* GroceryList-tvOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "GroceryList-tvOSTests" */;
-			buildPhases = (
-				2D02E48C1E0B4A5D006451C7 /* Sources */,
-				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
-				2D02E48E1E0B4A5D006451C7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
-			);
-			name = "GroceryList-tvOSTests";
-			productName = "GroceryList-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* GroceryList-tvOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		CFB7958E256DD7F500B2141E /* GroceryListShare */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CFB7959D256DD7F600B2141E /* Build configuration list for PBXNativeTarget "GroceryListShare" */;
+			buildConfigurationList = CFB7959D256DD7F600B2141E /* Build configuration list for PBXNativeTarget "LemonListShare" */;
 			buildPhases = (
 				CFB7958B256DD7F500B2141E /* Sources */,
 				CFB7958C256DD7F500B2141E /* Frameworks */,
@@ -381,9 +280,9 @@
 			);
 			dependencies = (
 			);
-			name = GroceryListShare;
-			productName = GroceryListShare;
-			productReference = CFB7958F256DD7F500B2141E /* GroceryListShare.appex */;
+			name = LemonListShare;
+			productName = LemonListShare;
+			productReference = CFB7958F256DD7F500B2141E /* LemonListShare.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -395,22 +294,9 @@
 				LastSwiftUpdateCheck = 1160;
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
-					00E356ED1AD99517003FC87E = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 13B07F861A680F5B00A75B9A;
-					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 3A892R2247;
 						LastSwiftMigration = 1230;
-					};
-					2D02E47A1E0B4A5D006451C7 = {
-						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Automatic;
-					};
-					2D02E48F1E0B4A5D006451C7 = {
-						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
 					CFB7958E256DD7F500B2141E = {
 						CreatedOnToolsVersion = 11.6;
@@ -419,7 +305,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GroceryList" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "LemonList" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -432,23 +318,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* GroceryList */,
-				00E356ED1AD99517003FC87E /* GroceryListTests */,
-				2D02E47A1E0B4A5D006451C7 /* GroceryList-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* GroceryList-tvOSTests */,
-				CFB7958E256DD7F500B2141E /* GroceryListShare */,
+				13B07F861A680F5B00A75B9A /* LemonList */,
+				CFB7958E256DD7F500B2141E /* LemonListShare */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		00E356EC1AD99517003FC87E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -470,21 +346,6 @@
 				EA811FF9FB114B7AA6256AD8 /* Karla-Regular.ttf in Resources */,
 				636A10529A194909B7106F9B /* Karla-SemiBold.ttf in Resources */,
 				54CD7C71AD2742C299026350 /* Karla-SemiBoldItalic.ttf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D02E4791E0B4A5D006451C7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D02E48E1E0B4A5D006451C7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,20 +374,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
 		4EEC55F89C37AC90624A4E53 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -543,7 +390,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GroceryList/Pods-GroceryList-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-LemonList/Pods-LemonList-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -552,7 +399,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GroceryList/Pods-GroceryList-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LemonList/Pods-LemonList-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A66319531848F45B8971A8F4 /* [CP] Check Pods Manifest.lock */ = {
@@ -570,7 +417,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GroceryList-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-LemonList-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -596,36 +443,9 @@
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		FD10A7F122414F3F0027D42C /* Start Packager */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Start Packager";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		00E356EA1AD99517003FC87E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				00E356F31AD99517003FC87E /* GroceryListTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F871A680F5B00A75B9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -633,23 +453,6 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				CFED16EA25C5D4F30066AFC9 /* Dummy.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D02E4771E0B4A5D006451C7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
-				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D02E48C1E0B4A5D006451C7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2DCD954D1E0B4F2C00145EB5 /* GroceryListTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,19 +468,9 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* GroceryList */;
-			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
-		};
-		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* GroceryList-tvOS */;
-			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
-		};
 		CFB79598256DD7F500B2141E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CFB7958E256DD7F500B2141E /* GroceryListShare */;
+			target = CFB7958E256DD7F500B2141E /* LemonListShare */;
 			targetProxy = CFB79597256DD7F500B2141E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -694,57 +487,14 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		00E356F61AD99517003FC87E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = GroceryListTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GroceryList.app/GroceryList";
-			};
-			name = Debug;
-		};
-		00E356F71AD99517003FC87E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = GroceryListTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GroceryList.app/GroceryList";
-			};
-			name = Release;
-		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B1D0E80F3C5B4CAD2EE388D /* Pods-GroceryList.debug.xcconfig */;
+			baseConfigurationReference = 4B1D0E80F3C5B4CAD2EE388D /* Pods-LemonList.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = GroceryList/GroceryList.entitlements;
+				CODE_SIGN_ENTITLEMENTS = LemonList/LemonList.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3A892R2247;
 				ENABLE_BITCODE = NO;
@@ -809,16 +559,16 @@
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 				);
-				INFOPLIST_FILE = GroceryList/Info.plist;
+				INFOPLIST_FILE = LemonList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.grocerylist.app.local;
-				PRODUCT_NAME = GroceryList;
-				SWIFT_OBJC_BRIDGING_HEADER = "GroceryList-Bridging-Header.h";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lemonlistapp.app.local;
+				PRODUCT_NAME = LemonList;
+				SWIFT_OBJC_BRIDGING_HEADER = "LemonList-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -827,12 +577,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C7E7E7125A1E5294561C03F0 /* Pods-GroceryList.release.xcconfig */;
+			baseConfigurationReference = C7E7E7125A1E5294561C03F0 /* Pods-LemonList.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = GroceryList/GroceryList.entitlements;
+				CODE_SIGN_ENTITLEMENTS = LemonList/LemonList.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3A892R2247;
 				HEADER_SEARCH_PATHS = (
@@ -896,124 +646,18 @@
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 				);
-				INFOPLIST_FILE = GroceryList/Info.plist;
+				INFOPLIST_FILE = LemonList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.grocerylist.app.local;
-				PRODUCT_NAME = GroceryList;
-				SWIFT_OBJC_BRIDGING_HEADER = "GroceryList-Bridging-Header.h";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lemonlistapp.app.local;
+				PRODUCT_NAME = LemonList;
+				SWIFT_OBJC_BRIDGING_HEADER = "LemonList-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Release;
-		};
-		2D02E4971E0B4A5E006451C7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_TESTABILITY = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "GroceryList-tvOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.GroceryList-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Debug;
-		};
-		2D02E4981E0B4A5E006451C7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "GroceryList-tvOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.GroceryList-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Release;
-		};
-		2D02E4991E0B4A5E006451C7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_TESTABILITY = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "GroceryList-tvOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.GroceryList-tvOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GroceryList-tvOS.app/GroceryList-tvOS";
-				TVOS_DEPLOYMENT_TARGET = 10.1;
-			};
-			name = Debug;
-		};
-		2D02E49A1E0B4A5E006451C7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "GroceryList-tvOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.GroceryList-tvOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GroceryList-tvOS.app/GroceryList-tvOS";
-				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
 		};
@@ -1139,18 +783,18 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = GroceryListShare/GroceryListShare.entitlements;
+				CODE_SIGN_ENTITLEMENTS = LemonListShare/LemonListShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 3A892R2247;
 				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = GroceryListShare/Info.plist;
+				INFOPLIST_FILE = LemonListShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.grocerylist.app.local.GroceryListShare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lemonlistapp.app.local.LemonListShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1169,18 +813,18 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = GroceryListShare/GroceryListShare.entitlements;
+				CODE_SIGN_ENTITLEMENTS = LemonListShare/LemonListShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3A892R2247;
 				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = GroceryListShare/Info.plist;
+				INFOPLIST_FILE = LemonListShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.grocerylist.app.local.GroceryListShare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lemonlistapp.app.local.LemonListShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1192,16 +836,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "GroceryListTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				00E356F61AD99517003FC87E /* Debug */,
-				00E356F71AD99517003FC87E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "GroceryList" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LemonList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1210,25 +845,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "GroceryList-tvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2D02E4971E0B4A5E006451C7 /* Debug */,
-				2D02E4981E0B4A5E006451C7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "GroceryList-tvOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2D02E4991E0B4A5E006451C7 /* Debug */,
-				2D02E49A1E0B4A5E006451C7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GroceryList" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "LemonList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
@@ -1237,7 +854,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CFB7959D256DD7F600B2141E /* Build configuration list for PBXNativeTarget "GroceryListShare" */ = {
+		CFB7959D256DD7F600B2141E /* Build configuration list for PBXNativeTarget "LemonListShare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CFB7959B256DD7F600B2141E /* Debug */,

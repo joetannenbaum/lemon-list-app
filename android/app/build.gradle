@@ -131,14 +131,14 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.grocerylist.app"
+        applicationId "com.lemonlistapp.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         applicationIdSuffix ".local"
         multiDexEnabled true
-        resValue "string", "build_config_package", "com.grocerylist"
+        resValue "string", "build_config_package", "com.lemonlist"
     }
     splits {
         abi {

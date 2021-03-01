@@ -1,4 +1,4 @@
-package com.grocerylist;
+package com.lemonlist;
 
 import com.reactnativenavigation.NavigationActivity;
 import com.facebook.react.ReactActivityDelegate;

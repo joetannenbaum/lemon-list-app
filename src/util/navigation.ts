@@ -11,7 +11,7 @@ import { FirebaseDynamicLinksTypes } from '@react-native-firebase/dynamic-links'
 import { AcceptShareProps } from '@/screens/AcceptShare';
 import { RNNDrawer } from 'react-native-navigation-drawer-extension';
 
-export const mainStackId = 'MainGroceryListStack';
+export const mainStackId = 'MainLemonListStack';
 export const screenPrefix = 'groceryList';
 
 export const screenName = (name: string) => `${screenPrefix}.${name}`;

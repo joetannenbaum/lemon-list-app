@@ -3,12 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '11.0'
 
-target 'GroceryList' do
+target 'LemonList' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
 
-  # target 'GroceryListTests' do
+  # target 'LemonListTests' do
   #   inherit! :complete
   #   # Pods for testing
   # end
@@ -32,10 +32,10 @@ post_install do |installer|
 end
 
 
-# target 'GroceryList-tvOS' do
-#   # Pods for GroceryList-tvOS
+# target 'LemonList-tvOS' do
+#   # Pods for LemonList-tvOS
 
-#   target 'GroceryList-tvOSTests' do
+#   target 'LemonList-tvOSTests' do
 #     inherit! :search_paths
 #     # Pods for testing
 #   end

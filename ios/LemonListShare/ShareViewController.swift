@@ -12,7 +12,7 @@ import Photos
 
 class ShareViewController: UIViewController {
   // TODO: IMPORTANT: This should be your host app bundle identifier
-  let hostAppBundleIdentifier = "com.grocerylist.app.local"
+  let hostAppBundleIdentifier = "com.lemonlistapp.app.local"
   let sharedKey = "ShareKey"
   var sharedMedia: [SharedMediaFile] = []
   var sharedText: [String] = []

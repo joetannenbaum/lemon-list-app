@@ -1,4 +1,4 @@
-package com.grocerylist;
+package com.lemonlist;
 
 import android.content.Context;
 
@@ -46,7 +46,7 @@ public class MainApplication extends NavigationApplication {
   public void onCreate() {
     super.onCreate();
     Bugsnag.start(this);
-    
+
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
 
@@ -65,7 +65,7 @@ public class MainApplication extends NavigationApplication {
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("com.grocerylist.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.lemonlist.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);

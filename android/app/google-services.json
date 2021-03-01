@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:602092013416:android:419497d74b62143dd1f8dd",
         "android_client_info": {
-          "package_name": "com.grocerylist.app.local"
+          "package_name": "com.lemonlistapp.app.local"
         }
       },
       "oauth_client": [
@@ -35,7 +35,7 @@
               "client_id": "602092013416-q99the34q7jqumhb4k8sk25d4hq19gcm.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.grocerylist.app.local"
+                "bundle_id": "com.lemonlistapp.app.local"
               }
             }
           ]
