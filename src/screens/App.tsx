@@ -8,9 +8,8 @@ import useShoppingLists from '@/hooks/useShoppingLists';
 interface Props extends ScreenProps {}
 
 const App: Screen<Props> = (props) => {
-    const lists = useShoppingLists();
-
     const [hasToken, setHasToken] = useState<boolean | null>(null);
+    const lists = useShoppingLists(hasToken === true);
 
     useEffect(() => {
         getAccessTokenFromKeychain().then((token) => {
@@ -20,7 +19,7 @@ const App: Screen<Props> = (props) => {
 
     useEffect(() => {
         if (hasToken === false) {
-            return setStackRootWithoutAnimating('Home');
+            return setStackRootWithoutAnimating('Login');
         }
 
         if (lists.isFetched) {
