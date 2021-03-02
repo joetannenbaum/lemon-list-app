@@ -61,8 +61,6 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* LemonListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LemonListTests.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* LemonList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LemonList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LemonList/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = LemonList/AppDelegate.m; sourceTree = "<group>"; };
@@ -121,23 +119,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* LemonListTests */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F21AD99517003FC87E /* LemonListTests.m */,
-				00E356F01AD99517003FC87E /* Supporting Files */,
-			);
-			path = LemonListTests;
-			sourceTree = "<group>";
-		};
-		00E356F01AD99517003FC87E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F11AD99517003FC87E /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* LemonList */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,7 +160,6 @@
 				CFC26470256AA70500AFC206 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* LemonList */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* LemonListTests */,
 				CFB79590256DD7F500B2141E /* LemonListShare */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
