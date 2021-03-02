@@ -6143,11 +6143,6 @@ react-native-keychain@6.2.0:
   resolved "https://registry.yarnpkg.com/react-native-keychain/-/react-native-keychain-6.2.0.tgz#8f4cff503aad367141db5aea0189ead9240c28ff"
   integrity sha512-U6fnOQRJPq+c0Abl+FoYy9v0H3kQU587tMamU/o+MoBSUScFLE3DQpkyT1PW4NF5IObgiGuqQdmjC2KgtBpjGA==
 
-react-native-navigation-drawer-extension@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-navigation-drawer-extension/-/react-native-navigation-drawer-extension-4.0.0.tgz#9eac99e2323f50543296d85be2262fd08ca4741c"
-  integrity sha512-MkxHgA9qYLv6Dpd+HsZbnrqd9kyeJvdY1yob40ixeNiW1u/Ergnm+gKRVVHr0/XT9X4/yA0fGkv/x3ims1pFYw==
-
 react-native-navigation-hooks@6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/react-native-navigation-hooks/-/react-native-navigation-hooks-6.3.0.tgz#468e1f80065fd5e8d0ad0a23671656ee06ba21cf"
@@ -7197,11 +7192,6 @@ time-stamp@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/time-stamp/-/time-stamp-1.1.0.tgz#764a5a11af50561921b133f3b44e618687e0f5c3"
   integrity sha1-dkpaEa9QVhkhsTPztE5hhofg9cM=
-
-tiny-emitter@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
-  integrity sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
 
 tiny-warning@^1.0.2:
   version "1.0.3"

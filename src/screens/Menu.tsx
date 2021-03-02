@@ -9,7 +9,7 @@ import {
 import useMe from '@/hooks/useMe';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import useStores from '@/hooks/useStores';
-import { setStackRootWithoutAnimating, hideMenu } from '@/util/navigation';
+import { setStackRootWithoutAnimating } from '@/util/navigation';
 import { bsl, yellow100 } from '@/util/style';
 import ArrowButton from '@/components/ArrowButton';
 import LogoutButton from '@/components/LogoutButton';

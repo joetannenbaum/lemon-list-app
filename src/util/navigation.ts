@@ -9,7 +9,6 @@ import Url from 'url-parse';
 import createMatcher from 'feather-route-matcher';
 import { FirebaseDynamicLinksTypes } from '@react-native-firebase/dynamic-links';
 import { AcceptShareProps } from '@/screens/AcceptShare';
-import { RNNDrawer } from 'react-native-navigation-drawer-extension';
 
 export const mainStackId = 'MainLemonListStack';
 export const screenPrefix = 'lemonList';
@@ -72,24 +71,6 @@ export const handleDynamicLink = (
 
 export const showMenu = () => {
     Navigation.showOverlay(screenComponent('Menu'));
-    // RNNDrawer.showDrawer({
-    //     component: {
-    //         name: 'Menu',
-    //         passProps: {
-    //             animationOpenTime: 300,
-    //             animationCloseTime: 300,
-    //             direction: 'left',
-    //             dismissWhenTouchOutside: true,
-    //             fadeOpacity: 0.6,
-    //             drawerScreenWidth: '75%',
-    //             drawerScreenHeight: '100%',
-    //         },
-    //     },
-    // });
-};
-
-export const hideMenu = () => {
-    RNNDrawer.dismissDrawer();
 };
 
 export const showPopup = (name: screenComponentName, passProps = {}) => {
