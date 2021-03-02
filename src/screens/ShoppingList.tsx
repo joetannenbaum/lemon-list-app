@@ -43,6 +43,7 @@ import { move } from 'formik';
 import debounce from 'lodash/debounce';
 import ShoppingListToolButton from '@/components/ShoppingListToolButton';
 import Loading from '@/components/Loading';
+import EmptyState from '@/components/EmptyState';
 
 export interface ShoppingListProps {
     id: number;
@@ -386,35 +387,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
             </View>
             <View style={{ flex: 1 }}>
                 {listData.length === 0 && (
-                    <View
-                        style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            flex: 1,
-                        }}>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                paddingBottom: bsl(20),
-                            }}>
-                            <BaseText size={55}>N</BaseText>
-                            <Image
-                                style={[
-                                    sizeImage(10, 10, { width: 45 }),
-                                    {
-                                        marginTop: bsl(14),
-                                        // marginLeft: bsl(-6),
-                                        marginRight: bsl(2),
-                                    },
-                                ]}
-                                source={require('@images/lemon-slice-small.png')}
-                            />
-                            <BaseText size={55}>thing to see here.</BaseText>
-                        </View>
-                        <BaseText>
-                            Add the first item to your list below!
-                        </BaseText>
-                    </View>
+                    <EmptyState subtitle="Add the first item to your list below!" />
                 )}
 
                 {listData.length > 0 && activeStoreId && (
