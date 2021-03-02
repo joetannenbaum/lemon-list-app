@@ -385,7 +385,39 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 </TouchableOpacity>
             </View>
             <View style={{ flex: 1 }}>
-                {activeStoreId ? (
+                {listData.length === 0 && (
+                    <View
+                        style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flex: 1,
+                        }}>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                paddingBottom: bsl(20),
+                            }}>
+                            <BaseText size={55}>N</BaseText>
+                            <Image
+                                style={[
+                                    sizeImage(10, 10, { width: 55 }),
+                                    {
+                                        marginTop: bsl(8),
+                                        marginLeft: bsl(-6),
+                                        marginRight: bsl(-3),
+                                    },
+                                ]}
+                                source={require('@images/lemon-slice.png')}
+                            />
+                            <BaseText size={55}>thing to see here.</BaseText>
+                        </View>
+                        <BaseText>
+                            Add the first item to your list below!
+                        </BaseText>
+                    </View>
+                )}
+
+                {listData.length > 0 && activeStoreId && (
                     <SectionList
                         sections={storeOrder[activeStoreId]}
                         renderItem={renderShoppingListItem}
@@ -402,7 +434,9 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                         )}
                         stickySectionHeadersEnabled={false}
                     />
-                ) : (
+                )}
+
+                {listData.length > 0 && !activeStoreId && (
                     <FlatList
                         data={listData}
                         keyExtractor={shoppingListKeyExtractor}

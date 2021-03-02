@@ -9,7 +9,6 @@ import flowRight from 'lodash/flowRight';
 import AcceptShare from '@/screens/AcceptShare';
 import App from '@/screens/App';
 import EditShoppingList from '@/screens/EditShoppingList';
-import Home from '@/screens/Home';
 import IncomingShare from '@/screens/IncomingShare';
 import Login from '@/screens/Login';
 import Register from '@/screens/Register';
@@ -27,7 +26,6 @@ const screens = {
     AcceptShare,
     App,
     EditShoppingList,
-    Home,
     Menu,
     IncomingShare,
     Login,
@@ -58,7 +56,6 @@ export type screenComponentName =
     | 'ShareShoppingList'
     | 'App'
     | 'EditShoppingList'
-    | 'Home'
     | 'IncomingShare'
     | 'Login'
     | 'Register'

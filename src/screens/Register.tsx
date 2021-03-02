@@ -49,7 +49,7 @@ const Register: Screen<Props> = (props) => {
         api.post('/auth/register', values)
             .then((res) => requestAccessToken(values.email, values.password))
             .then((res) => {
-                setStackRootWithoutAnimating('Home');
+                setStackRootWithoutAnimating('App');
             })
             .catch((error) => {
                 form.setSubmitting(false);
