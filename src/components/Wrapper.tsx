@@ -1,7 +1,6 @@
 import React from 'react';
 import SafeAreaView, { ForceInsetProp } from 'react-native-safe-area-view';
 import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import { grey100 } from '@/util/style';
 
 export interface WrapperProps {
     forceInset?: ForceInsetProp;
