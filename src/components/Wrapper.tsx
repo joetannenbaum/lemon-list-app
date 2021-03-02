@@ -21,7 +21,7 @@ const Wrapper: React.FC<WrapperProps> = (props) => {
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
-        backgroundColor: grey100,
+        backgroundColor: '#fff',
     },
 });
 
