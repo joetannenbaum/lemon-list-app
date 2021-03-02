@@ -3,7 +3,7 @@ module.exports = {
         'module:metro-react-native-babel-preset',
         {
             runtime: 'automatic',
-            development: __DEV__,
+            development: process.env.NODE_ENV === 'development',
             importSource: '@welldone-software/why-did-you-render',
         },
     ],
