@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import {
     TouchableOpacity,
@@ -52,6 +52,23 @@ const AddItemsFromListsStart: Screen<
         );
     }
 
+    const renderItem = useCallback(
+        ({ item }) => (
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setListId(item.id)}>
+                <View style={styles.textWrapper}>
+                    <BaseText>{item.name}</BaseText>
+                </View>
+                <Image
+                    source={require('@images/carat-right.png')}
+                    style={styles.carat}
+                />
+            </TouchableOpacity>
+        ),
+        [],
+    );
+
     return (
         <>
             <FlatList
@@ -59,19 +76,7 @@ const AddItemsFromListsStart: Screen<
                 data={lists}
                 keyExtractor={(item) => item.id.toString()}
                 ItemSeparatorComponent={() => <View style={styles.divider} />}
-                renderItem={({ item }) => (
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => setListId(item.id)}>
-                        <View style={styles.textWrapper}>
-                            <BaseText>{item.name}</BaseText>
-                        </View>
-                        <Image
-                            source={require('@images/carat-right.png')}
-                            style={styles.carat}
-                        />
-                    </TouchableOpacity>
-                )}
+                renderItem={renderItem}
             />
             <CancelButton onPress={props.dismiss} />
         </>

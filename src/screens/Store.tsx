@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import SafeAreaView from 'react-native-safe-area-view';
 import useStore from '@/hooks/useStore';
@@ -43,19 +43,24 @@ const Store: Screen<Props> = (props) => {
         });
     };
 
+    const renderItem = useCallback(
+        (item, index, dragging) => (
+            <StoreTag
+                item={item}
+                key={item.id.toString()}
+                dragging={dragging}
+            />
+        ),
+        [],
+    );
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <CreateStoreTagForm storeId={props.id} />
             <SortableList
                 data={tagData}
                 onUpdate={onDragEnd}
-                renderItem={(item, index, dragging) => (
-                    <StoreTag
-                        item={item}
-                        key={item.id.toString()}
-                        dragging={dragging}
-                    />
-                )}
+                renderItem={renderItem}
             />
         </SafeAreaView>
     );

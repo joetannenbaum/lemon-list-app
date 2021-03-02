@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import asModal from '@/components/asModal';
 import CancelButton from '@/components/form/CancelButton';
@@ -18,6 +18,19 @@ const ShoppingListStoreSelect: Screen<
 > = (props) => {
     const stores = useStores();
 
+    const renderItem = useCallback(
+        ({ item }) => (
+            <ArrowButton
+                onPress={() => {
+                    props.onSelect(item.id);
+                    props.dismiss();
+                }}>
+                {item.name}
+            </ArrowButton>
+        ),
+        [],
+    );
+
     return (
         <>
             <FlatList
@@ -36,15 +49,7 @@ const ShoppingListStoreSelect: Screen<
                         <Divider />
                     </View>
                 )}
-                renderItem={({ item }) => (
-                    <ArrowButton
-                        onPress={() => {
-                            props.onSelect(item.id);
-                            props.dismiss();
-                        }}>
-                        {item.name}
-                    </ArrowButton>
-                )}
+                renderItem={renderItem}
             />
             <CancelButton onPress={props.dismiss} />
         </>

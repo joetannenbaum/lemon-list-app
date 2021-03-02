@@ -1,3 +1,4 @@
+import './wdyr';
 import 'react-native-gesture-handler';
 import { Navigation } from 'react-native-navigation';
 import { registerScreens } from '@/screens';

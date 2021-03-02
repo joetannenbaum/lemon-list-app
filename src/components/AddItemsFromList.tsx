@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
     ScrollView,
     View,
@@ -74,6 +74,21 @@ const AddItemsFromList: React.FC<AddItemsFromListProps> = (props) => {
         addItems(selected).then(props.dismiss);
     };
 
+    const renderItem = useCallback(
+        ({ item }) => (
+            <TouchableOpacity
+                onPress={() => toggleItem(item.id)}
+                key={item.id.toString()}
+                style={styles.row}>
+                <Checkbox checked={selected.includes(item.id)} />
+                <View style={styles.textWrapper}>
+                    <BaseText>{item.item.name}</BaseText>
+                </View>
+            </TouchableOpacity>
+        ),
+        [],
+    );
+
     return (
         <>
             <TouchableOpacity style={styles.selectAllButton}>
@@ -89,17 +104,7 @@ const AddItemsFromList: React.FC<AddItemsFromListProps> = (props) => {
                 contentContainerStyle={styles.list}
                 keyExtractor={(item) => item.id.toString()}
                 data={list.data?.active_version?.items}
-                renderItem={({ item }) => (
-                    <TouchableOpacity
-                        onPress={() => toggleItem(item.id)}
-                        key={item.id.toString()}
-                        style={styles.row}>
-                        <Checkbox checked={selected.includes(item.id)} />
-                        <View style={styles.textWrapper}>
-                            <BaseText>{item.item.name}</BaseText>
-                        </View>
-                    </TouchableOpacity>
-                )}
+                renderItem={renderItem}
             />
             <SubmitButton
                 processing={processing}

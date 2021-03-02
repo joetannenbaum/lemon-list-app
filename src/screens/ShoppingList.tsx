@@ -215,22 +215,24 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     };
 
     // TODO: Fix the isLast property for sectioned data
-    const renderShoppingListItem = ({
-        item,
-        index,
-    }: {
-        item: ShoppingListItemType;
-        index: number;
-    }) => (
-        <ShoppingListItem
-            listId={props.id}
-            item={item}
-            isFirst={index === 0}
-            isLast={index === listData.length - 1}
-            index={index}
-            key={item.id.toString()}
-            onMove={onItemMove}
-        />
+    const renderShoppingListItem = useCallback(
+        ({ item, index }: { item: ShoppingListItemType; index: number }) => (
+            <ShoppingListItem
+                listId={props.id}
+                item={item}
+                isFirst={index === 0}
+                isLast={index === listData.length - 1}
+                index={index}
+                key={item.id.toString()}
+                onMove={onItemMove}
+            />
+        ),
+        [],
+    );
+
+    const shoppingListKeyExtractor = useCallback(
+        (item) => item.id.toString(),
+        [],
     );
 
     const deleteShoppingList = () => {
@@ -403,7 +405,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 ) : (
                     <FlatList
                         data={listData}
-                        keyExtractor={(item) => item.id.toString()}
+                        keyExtractor={shoppingListKeyExtractor}
                         renderItem={renderShoppingListItem}
                     />
                 )}

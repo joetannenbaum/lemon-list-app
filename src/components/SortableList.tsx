@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { ScrollView, FlatList } from 'react-native-gesture-handler';
 import { bsl } from '@/util/style';
@@ -37,14 +37,17 @@ const SortableList: React.FC<SortableListProps> = (props) => {
         setScrollEnabled(false);
     };
 
+    const renderItem = useCallback(
+        ({ item, index }) => props.renderItem(item, index, !scrollEnabled),
+        [],
+    );
+
     return (
         <FlatList
             scrollEnabled={false}
             data={props.data}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item, index }) =>
-                props.renderItem(item, index, !scrollEnabled)
-            }
+            renderItem={renderItem}
         />
     );
 
