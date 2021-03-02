@@ -400,14 +400,14 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                             <BaseText size={55}>N</BaseText>
                             <Image
                                 style={[
-                                    sizeImage(10, 10, { width: 55 }),
+                                    sizeImage(10, 10, { width: 45 }),
                                     {
-                                        marginTop: bsl(8),
-                                        marginLeft: bsl(-6),
-                                        marginRight: bsl(-3),
+                                        marginTop: bsl(14),
+                                        // marginLeft: bsl(-6),
+                                        marginRight: bsl(2),
                                     },
                                 ]}
-                                source={require('@images/lemon-slice.png')}
+                                source={require('@images/lemon-slice-small.png')}
                             />
                             <BaseText size={55}>thing to see here.</BaseText>
                         </View>
