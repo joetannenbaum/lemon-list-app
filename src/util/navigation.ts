@@ -12,7 +12,7 @@ import { AcceptShareProps } from '@/screens/AcceptShare';
 import { RNNDrawer } from 'react-native-navigation-drawer-extension';
 
 export const mainStackId = 'MainLemonListStack';
-export const screenPrefix = 'groceryList';
+export const screenPrefix = 'lemonList';
 
 export const screenName = (name: string) => `${screenPrefix}.${name}`;
 
@@ -71,20 +71,21 @@ export const handleDynamicLink = (
 };
 
 export const showMenu = () => {
-    RNNDrawer.showDrawer({
-        component: {
-            name: 'Menu',
-            passProps: {
-                animationOpenTime: 300,
-                animationCloseTime: 300,
-                direction: 'left',
-                dismissWhenTouchOutside: true,
-                fadeOpacity: 0.6,
-                drawerScreenWidth: '75%',
-                drawerScreenHeight: '100%',
-            },
-        },
-    });
+    Navigation.showOverlay(screenComponent('Menu'));
+    // RNNDrawer.showDrawer({
+    //     component: {
+    //         name: 'Menu',
+    //         passProps: {
+    //             animationOpenTime: 300,
+    //             animationCloseTime: 300,
+    //             direction: 'left',
+    //             dismissWhenTouchOutside: true,
+    //             fadeOpacity: 0.6,
+    //             drawerScreenWidth: '75%',
+    //             drawerScreenHeight: '100%',
+    //         },
+    //     },
+    // });
 };
 
 export const hideMenu = () => {

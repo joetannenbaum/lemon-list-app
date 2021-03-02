@@ -29,6 +29,7 @@ const screens = {
     App,
     EditShoppingList,
     Home,
+    Menu,
     IncomingShare,
     Login,
     Register,
@@ -68,12 +69,12 @@ export type screenComponentName =
     | 'Store';
 
 const enhance = flowRight(gestureHandlerRootHOC, WrappedComponent);
-const enhanceDrawer = flowRight(WrappedComponent);
+// const enhanceDrawer = flowRight(WrappedComponent);
 
 export const registerScreens = () => {
-    Navigation.registerComponent('Menu', () =>
-        RNNDrawer.create(enhanceDrawer(Menu)),
-    );
+    // Navigation.registerComponent('Menu', () =>
+    //     RNNDrawer.create(enhanceDrawer(Menu)),
+    // );
 
     for (const screenName in screens) {
         Navigation.registerComponent(getScreenName(screenName), () =>

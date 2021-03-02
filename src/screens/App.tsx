@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import { ActivityIndicator } from 'react-native';
 import { getAccessTokenFromKeychain } from '@/util/keychain';
-import { setStackRootWithoutAnimating } from '@/util/navigation';
+import {
+    setStackRootWithoutAnimating,
+    screenComponent,
+} from '@/util/navigation';
 import useShoppingLists from '@/hooks/useShoppingLists';
+import { Navigation } from 'react-native-navigation';
 
 interface Props extends ScreenProps {}
 

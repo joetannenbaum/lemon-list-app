@@ -1,11 +1,13 @@
 import React from 'react';
 import { Formik, FormikHelpers } from 'formik';
-import { View } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import * as Yup from 'yup';
 import SubmitButton from './form/SubmitButton';
 import TextField from './form/TextField';
 import useAddShoppingList from '@/hooks/useAddShoppingList';
 import logger from '@/util/logger';
+import { bsl, sizeImage } from '@/util/style';
+import Processing from './Processing';
 
 interface Props {}
 
@@ -48,19 +50,37 @@ const CreateListForm: React.FC<Props> = (props) => {
                     <TextField
                         required={true}
                         name="name"
-                        label="List Name"
-                        placeholder="List Name"
+                        placeholder="New List"
+                        hideError={true}
                     />
-                    <SubmitButton
-                        disabled={values.name === ''}
+
+                    <TouchableOpacity
+                        style={styles.addButton}
                         onPress={handleSubmit}
-                        processing={isSubmitting}>
-                        Add
-                    </SubmitButton>
+                        disabled={values.name.trim() === ''}>
+                        {isSubmitting ? (
+                            <Processing />
+                        ) : (
+                            <Image
+                                source={require('@images/plus-circle.png')}
+                                style={styles.addIcon}
+                            />
+                        )}
+                    </TouchableOpacity>
                 </View>
             )}
         </Formik>
     );
 };
+
+const styles = StyleSheet.create({
+    addButton: {
+        position: 'absolute',
+        right: bsl(20),
+        top: bsl(20),
+        ...sizeImage(10, 10, { width: 40 }),
+    },
+    addIcon: sizeImage(76, 78, { width: 40 }),
+});
 
 export default CreateListForm;

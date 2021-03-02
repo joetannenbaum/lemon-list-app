@@ -22,6 +22,7 @@ export interface TextFieldComponentProps {
     editable?: boolean;
     additionalStyles?: StyleProp<TextStyle>;
     errorComponent?: string | React.ComponentType;
+    hideError?: boolean;
 }
 
 export type TextFieldProps = TextFieldComponentProps & TextInputProps;
@@ -29,7 +30,7 @@ export type TextFieldProps = TextFieldComponentProps & TextInputProps;
 const TextField: React.FC<TextFieldProps> = forwardRef((props, ref) => {
     const [field, meta] = useField(props.name);
 
-    const hasError = meta.touched && meta.error;
+    const hasError = props.hideError !== true && meta.touched && meta.error;
 
     return (
         <>
@@ -58,10 +59,14 @@ const TextField: React.FC<TextFieldProps> = forwardRef((props, ref) => {
                         name={props.name}
                     />
                 </View>
-                <ErrorMessage
-                    name={props.name}
-                    component={props.errorComponent || ErrorMessageComponent}
-                />
+                {props.hideError !== true && (
+                    <ErrorMessage
+                        name={props.name}
+                        component={
+                            props.errorComponent || ErrorMessageComponent
+                        }
+                    />
+                )}
             </View>
         </>
     );
