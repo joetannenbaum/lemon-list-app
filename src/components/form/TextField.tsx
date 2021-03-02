@@ -1,4 +1,4 @@
-import React, { useRef, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import {
     TextInput,
     View,
@@ -12,7 +12,7 @@ import { ErrorMessage } from 'formik';
 import ErrorMessageComponent from '@/components/form/ErrorMessage';
 import FieldRequiredIndicator from './FieldRequiredIndicator';
 import FieldLabel from './FieldLabel';
-import { grey300, bsl, paddingY, paddingX } from '@/util/style';
+import { grey300, bsl, paddingY, paddingX, red400 } from '@/util/style';
 
 export interface TextFieldComponentProps {
     name: string;
@@ -28,7 +28,6 @@ export type TextFieldProps = TextFieldComponentProps & TextInputProps;
 
 const TextField: React.FC<TextFieldProps> = forwardRef((props, ref) => {
     const [field, meta] = useField(props.name);
-    const inputRef = useRef<TextInput>();
 
     const hasError = meta.touched && meta.error;
 
@@ -47,7 +46,11 @@ const TextField: React.FC<TextFieldProps> = forwardRef((props, ref) => {
                         underlineColorAndroid="transparent"
                         value={field.value}
                         testID={field.name}
-                        style={[styles.input, props.additionalStyles]}
+                        style={[
+                            styles.input,
+                            props.additionalStyles,
+                            hasError ? styles.inputWithError : null,
+                        ]}
                         {...props}
                     />
                     <FieldRequiredIndicator
@@ -74,6 +77,9 @@ const styles = StyleSheet.create({
         fontSize: bsl(30),
         backgroundColor: '#fff',
         borderRadius: bsl(50),
+    },
+    inputWithError: {
+        borderColor: red400,
     },
 });
 

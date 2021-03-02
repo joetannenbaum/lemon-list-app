@@ -1,14 +1,14 @@
 import React from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import BaseText from '@/components/BaseText';
+import { View, StyleSheet } from 'react-native';
 import useMe from '@/hooks/useMe';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import useStores from '@/hooks/useStores';
 import { setStackRootWithoutAnimating, hideMenu } from '@/util/navigation';
-import { getColorFromString, bsl } from '@/util/style';
+import { bsl } from '@/util/style';
 import Wrapper from '@/components/Wrapper';
 import ArrowButton from '@/components/ArrowButton';
+import LogoutButton from '@/components/LogoutButton';
 
 export interface MenuProps {}
 
@@ -36,6 +36,7 @@ const Menu: Screen<MenuProps & ScreenProps> = (props) => {
                     );
                 })}
             </View>
+            <LogoutButton />
         </Wrapper>
     );
 };
