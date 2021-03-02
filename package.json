@@ -20,6 +20,7 @@
     "axios": "0.21.1",
     "axios-retry": "3.1.9",
     "babel-plugin-module-resolver": "4.1.0",
+    "babel-plugin-transform-remove-console": "6.9.4",
     "feather-route-matcher": "4.0.0",
     "formik": "2.2.6",
     "fuse.js": "6.4.6",
