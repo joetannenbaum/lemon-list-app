@@ -6,7 +6,9 @@ import { useQueryClient } from 'react-query';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import BaseText from './BaseText';
 
-interface Props {}
+interface Props {
+    onLogout: () => void;
+}
 
 const LogoutButton: React.FC<Props> = (props) => {
     const queryClient = useQueryClient();
@@ -15,6 +17,7 @@ const LogoutButton: React.FC<Props> = (props) => {
         clearAllTokensFromKeychain().then(() => {
             queryClient.clear();
             setStackRootWithoutAnimating('App');
+            props.onLogout();
         });
     }, []);
 

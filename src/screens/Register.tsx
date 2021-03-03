@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import SafeAreaView from 'react-native-safe-area-view';
-import { Formik, FormikHelpers } from 'formik';
-import { View, Button } from 'react-native';
+import { Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
+import { View, Button, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 import TextField from '@/components/form/TextField';
 import EmailField from '@/components/form/EmailField';
@@ -13,6 +13,7 @@ import logger from '@/util/logger';
 import { requestAccessToken } from '@/api/token';
 import BaseText from '@/components/BaseText';
 import { setStackRootWithoutAnimating } from '@/util/navigation';
+import { bsl, flexCenter } from '@/util/style';
 
 interface Props extends ScreenProps {}
 
@@ -57,59 +58,88 @@ const Register: Screen<Props> = (props) => {
             });
     };
 
+    const renderForm = useCallback(
+        ({ handleSubmit, isSubmitting }: FormikProps<FormikValues>) => (
+            <View style={styles.form}>
+                <View style={styles.formFieldsWrapper}>
+                    <View style={styles.formFieldsInner}>
+                        <View style={styles.inputWrapper}>
+                            <TextField
+                                name="name"
+                                required={true}
+                                placeholder="Name"
+                            />
+                        </View>
+                        <View style={styles.inputWrapper}>
+                            <EmailField name="email" placeholder="Email" />
+                        </View>
+                        <View style={styles.inputWrapper}>
+                            <PasswordField
+                                name="password"
+                                placeholder="Password"
+                            />
+                        </View>
+                        <View style={styles.inputWrapper}>
+                            <PasswordField
+                                name="passwordConfirmation"
+                                placeholder="Confirm Password"
+                            />
+                        </View>
+
+                        <View style={styles.inputWrapper}>
+                            <SubmitButton
+                                processing={isSubmitting}
+                                onPress={handleSubmit}>
+                                Register
+                            </SubmitButton>
+                        </View>
+                    </View>
+                </View>
+
+                <View>
+                    <BaseText align="center">Already have an account?</BaseText>
+                    <Button
+                        title="Login"
+                        onPress={() => {
+                            setStackRootWithoutAnimating('Login');
+                        }}
+                    />
+                </View>
+            </View>
+        ),
+        [],
+    );
+
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.safearea}>
             <Formik
                 initialValues={initialFormValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}>
-                {({ handleSubmit, isSubmitting }) => (
-                    <View>
-                        <TextField
-                            name="name"
-                            label="Name"
-                            required={true}
-                            placeholder="Name"
-                        />
-
-                        <EmailField
-                            name="email"
-                            placeholder="Email"
-                            label="Email"
-                        />
-
-                        <PasswordField
-                            name="password"
-                            placeholder="Password"
-                            label="Password"
-                        />
-
-                        <PasswordField
-                            name="passwordConfirmation"
-                            placeholder="Confirm Password"
-                            label="Confirm Password"
-                        />
-
-                        <SubmitButton
-                            processing={isSubmitting}
-                            onPress={handleSubmit}>
-                            Register
-                        </SubmitButton>
-
-                        <View>
-                            <BaseText>Already have an account?</BaseText>
-                            <Button
-                                title="Login"
-                                onPress={() => {
-                                    setStackRootWithoutAnimating('Login');
-                                }}
-                            />
-                        </View>
-                    </View>
-                )}
+                {renderForm}
             </Formik>
         </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    safearea: {
+        flex: 1,
+        paddingHorizontal: bsl(60),
+    },
+    inputWrapper: {
+        paddingVertical: bsl(20),
+    },
+    form: {
+        flex: 1,
+    },
+    formFieldsWrapper: {
+        flex: 1,
+        ...flexCenter,
+    },
+    formFieldsInner: {
+        width: '100%',
+    },
+});
 
 export default Register;

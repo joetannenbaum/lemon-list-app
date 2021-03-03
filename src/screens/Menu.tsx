@@ -80,7 +80,7 @@ const Menu: Screen<MenuProps & ScreenProps> = (props) => {
                         <BaseText>
                             Hi, {me.data?.name.split(' ').shift()}
                         </BaseText>
-                        <LogoutButton />
+                        <LogoutButton onLogout={closeMenu} />
                     </View>
                 </View>
                 <View style={styles.section}>

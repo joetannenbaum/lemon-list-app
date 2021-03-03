@@ -21,7 +21,7 @@ interface FormValues {
     password: string;
 }
 
-const Register: Screen<Props> = (props) => {
+const Login: Screen<Props> = (props) => {
     const initialFormValues: FormValues = {
         email: '',
         password: '',
@@ -115,4 +115,5 @@ const styles = StyleSheet.create({
         width: '100%',
     },
 });
-export default Register;
+
+export default Login;
