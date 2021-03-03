@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import BaseText from '@/components/BaseText';
 import Fuse from 'fuse.js';
-import { bsl } from '@/util/style';
+import { bsl, grey100 } from '@/util/style';
 
 interface AutoCompleteData {
     label: string;
@@ -56,28 +56,16 @@ const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
 const styles = StyleSheet.create({
     wrapper: {
         position: 'relative',
-        backgroundColor: '#fff',
-        shadowOffset: {
-            width: 0,
-            height: bsl(1),
-        },
-        shadowRadius: bsl(3),
-        shadowOpacity: 0.1,
-        elevation: 3,
     },
     innerWrapper: {
+        paddingBottom: bsl(50),
         position: 'absolute',
-        left: bsl(21),
-        right: bsl(21),
-        top: bsl(-10),
-        backgroundColor: '#fff',
-        shadowOpacity: 0.06,
-        shadowOffset: {
-            width: 0,
-            height: bsl(2),
-        },
-        shadowRadius: 0,
-        zIndex: 100,
+        left: bsl(20),
+        right: bsl(20),
+        bottom: bsl(30),
+        backgroundColor: grey100,
+        borderTopRightRadius: bsl(20),
+        borderTopLeftRadius: bsl(20),
     },
     buffer: {
         height: bsl(10),
