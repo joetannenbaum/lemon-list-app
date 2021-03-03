@@ -12,7 +12,6 @@ import debounce from 'lodash/debounce';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
 import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import SortHandle from './SortHandle';
 import Checkbox from './Checkbox';
 import ShoppingListItemQuantityControl from './ShoppingListItemQuantityControl';
 import {
@@ -22,10 +21,10 @@ import {
     grey300,
     sizeImage,
     grey500,
-    red400,
-    blue400,
 } from '@/util/style';
 import { showPopup } from '@/util/navigation';
+import SwipeDelete from './SwipeDelete';
+import SwipeMove from './SwipeMove';
 
 interface Props {
     listId: number;
@@ -89,18 +88,7 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         progress: Animated.AnimatedInterpolation,
         dragX: Animated.AnimatedInterpolation,
     ) => {
-        return (
-            <View style={styles.deleteWrapper}>
-                <TouchableOpacity
-                    style={styles.deleteButton}
-                    onPress={() => deleteItem()}>
-                    <Image
-                        source={require('@images/trash.png')}
-                        style={styles.trashIcon}
-                    />
-                </TouchableOpacity>
-            </View>
-        );
+        return <SwipeDelete onPress={() => deleteItem()} />;
     };
 
     const renderLeftActions = (
@@ -108,39 +96,20 @@ const ShoppingListItem: React.FC<Props> = (props) => {
         dragX: Animated.AnimatedInterpolation,
     ) => {
         return (
-            <View style={styles.moveWrapper}>
-                {!props.isFirst && (
-                    <TouchableOpacity
-                        style={styles.moveButton}
-                        onPress={() => props.onMove(props.index, -1)}>
-                        <Image
-                            source={require('@images/arrow-down.png')}
-                            style={[styles.moveIcon, styles.moveUpIcon]}
-                        />
-                    </TouchableOpacity>
-                )}
-                {!props.isLast && (
-                    <TouchableOpacity
-                        style={styles.moveButton}
-                        onPress={() => props.onMove(props.index, 1)}>
-                        <Image
-                            source={require('@images/arrow-down.png')}
-                            style={styles.moveIcon}
-                        />
-                    </TouchableOpacity>
-                )}
-            </View>
+            <SwipeMove
+                isFirst={props.isFirst}
+                isLast={props.isLast}
+                onMove={(direction) => props.onMove(props.index, direction)}
+            />
         );
     };
 
     return (
         <>
             <Swipeable
-                enabled={!props.dragging}
                 renderRightActions={renderRightActions}
                 renderLeftActions={renderLeftActions}>
                 <View style={styles.wrapper}>
-                    <SortHandle />
                     <View style={styles.rowContent}>
                         <View style={styles.checkboxWrapper}>
                             <Checkbox
@@ -229,38 +198,6 @@ const styles = StyleSheet.create({
                 translateY: bsl(2),
             },
         ],
-    },
-    moveWrapper: {
-        backgroundColor: blue400,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    deleteWrapper: {
-        backgroundColor: red400,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    deleteButton: {
-        paddingHorizontal: bsl(30),
-    },
-    moveButton: {
-        paddingHorizontal: bsl(30),
-        paddingVertical: bsl(10),
-    },
-    moveIcon: {
-        ...sizeImage(80, 100, { width: 20 }),
-        tintColor: '#fff',
-    },
-    moveUpIcon: {
-        transform: [
-            {
-                rotate: '-180deg',
-            },
-        ],
-    },
-    trashIcon: {
-        ...sizeImage(61, 68, { width: 40 }),
-        tintColor: '#fff',
     },
 });
 

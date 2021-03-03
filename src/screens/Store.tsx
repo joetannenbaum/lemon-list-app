@@ -8,6 +8,12 @@ import StoreTag from '@/components/StoreTag';
 import { StoreTag as StoreTagType } from '@/types/StoreTag';
 import CreateStoreTagForm from '@/components/CreateStoreTagForm';
 import SortableList from '@/components/SortableList';
+import Loading from '@/components/Loading';
+import Wrapper from '@/components/Wrapper';
+import { getColorFromString, bsl } from '@/util/style';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 interface Props extends ScreenProps {
     id: number;
@@ -15,6 +21,8 @@ interface Props extends ScreenProps {
 
 const Store: Screen<Props> = (props) => {
     const store = useStore(props.id);
+
+    const storeColor = getColorFromString(store.data?.name);
 
     const [tagData, setTagData] = useState(store.data?.tags || []);
 
@@ -44,26 +52,42 @@ const Store: Screen<Props> = (props) => {
     };
 
     const renderItem = useCallback(
-        (item, index, dragging) => (
-            <StoreTag
-                item={item}
-                key={item.id.toString()}
-                dragging={dragging}
-            />
-        ),
+        ({ item, index }) => <StoreTag item={item} key={item.id.toString()} />,
         [],
     );
 
+    const keyExtractor = useCallback((item) => item.id.toString(), []);
+
+    if (!store.isFetched) {
+        return <Loading />;
+    }
+
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <CreateStoreTagForm storeId={props.id} />
-            <SortableList
+        <Wrapper forceInset={{ top: 'never', bottom: 'never' }}>
+            <Header color={storeColor}>{store.data?.name}</Header>
+            <FlatList
+                style={styles.list}
                 data={tagData}
-                onUpdate={onDragEnd}
                 renderItem={renderItem}
+                keyExtractor={keyExtractor}
             />
-        </SafeAreaView>
+            <Footer color={storeColor}>
+                <View style={styles.footer}>
+                    <CreateStoreTagForm storeId={props.id} />
+                </View>
+            </Footer>
+        </Wrapper>
     );
 };
+
+const styles = StyleSheet.create({
+    list: {
+        flex: 1,
+    },
+    footer: {
+        paddingHorizontal: bsl(20),
+        paddingVertical: bsl(40),
+    },
+});
 
 export default Store;

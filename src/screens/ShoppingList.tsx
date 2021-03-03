@@ -44,6 +44,8 @@ import debounce from 'lodash/debounce';
 import ShoppingListToolButton from '@/components/ShoppingListToolButton';
 import Loading from '@/components/Loading';
 import EmptyState from '@/components/EmptyState';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export interface ShoppingListProps {
     id: number;
@@ -340,29 +342,8 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     }
 
     return (
-        <Wrapper
-            style={{ backgroundColor: '#fff' }}
-            forceInset={{ top: 'never', bottom: 'never' }}>
-            <View
-                style={[
-                    styles.headerWrapper,
-                    {
-                        paddingTop: inset.top,
-                        backgroundColor: listColor,
-                    },
-                ]}>
-                <View
-                    style={{
-                        position: 'absolute',
-                        left: bsl(20),
-                        top: bsl(20) + inset.top,
-                    }}>
-                    <MenuButton />
-                </View>
-                <View style={styles.header}>
-                    <BaseText size={50}>{list.data?.name}</BaseText>
-                </View>
-            </View>
+        <Wrapper forceInset={{ top: 'never', bottom: 'never' }}>
+            <Header color={listColor}>{list.data?.name}</Header>
 
             <View>
                 <TouchableOpacity
@@ -417,104 +398,83 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     />
                 )}
             </View>
-            <View style={styles.footer}>
-                <View
-                    style={{
-                        backgroundColor: listColor,
-                        paddingBottom: inset.bottom,
-                    }}>
-                    <View style={styles.addFormWrapper}>
-                        <CreateItemForm listId={props.id} />
-                    </View>
+            <Footer color={listColor}>
+                <View style={styles.addFormWrapper}>
+                    <CreateItemForm listId={props.id} />
+                </View>
 
-                    <View style={styles.toolsWrapper}>
+                <View style={styles.toolsWrapper}>
+                    <ShoppingListToolButton
+                        onPress={() =>
+                            showPopup('ShareShoppingList', {
+                                id: list.data?.id,
+                            })
+                        }
+                        icon={require('@images/share.png')}
+                        iconWidth={68}>
+                        Share
+                    </ShoppingListToolButton>
+
+                    {canAddFromOtherLists && (
                         <ShoppingListToolButton
                             onPress={() =>
-                                showPopup('ShareShoppingList', {
-                                    id: list.data?.id,
+                                showPopup('AddItemsFromListsStart', {
+                                    addToListId: props.id,
                                 })
                             }
-                            icon={require('@images/share.png')}
+                            icon={require('@images/collection.png')}
                             iconWidth={68}>
-                            Share
+                            Import
                         </ShoppingListToolButton>
+                    )}
 
-                        {canAddFromOtherLists && (
-                            <ShoppingListToolButton
-                                onPress={() =>
-                                    showPopup('AddItemsFromListsStart', {
-                                        addToListId: props.id,
-                                    })
-                                }
-                                icon={require('@images/collection.png')}
-                                iconWidth={68}>
-                                Import
-                            </ShoppingListToolButton>
-                        )}
+                    <ShoppingListToolButton
+                        onPress={onClearCompletedItemPress}
+                        icon={require('@images/badge-check.png')}
+                        iconWidth={68}>
+                        Clear
+                    </ShoppingListToolButton>
 
+                    {list.data?.is_owner && (
                         <ShoppingListToolButton
-                            onPress={onClearCompletedItemPress}
-                            icon={require('@images/badge-check.png')}
-                            iconWidth={68}>
-                            Clear
+                            onPress={() =>
+                                showPopup('EditShoppingList', {
+                                    id: props.id,
+                                })
+                            }
+                            icon={require('@images/pencil.png')}
+                            iconWidth={78}
+                            iconHeight={79}>
+                            Edit
                         </ShoppingListToolButton>
+                    )}
 
-                        {list.data?.is_owner && (
-                            <ShoppingListToolButton
-                                onPress={() =>
-                                    showPopup('EditShoppingList', {
-                                        id: props.id,
-                                    })
-                                }
-                                icon={require('@images/pencil.png')}
-                                iconWidth={78}
-                                iconHeight={79}>
-                                Edit
-                            </ShoppingListToolButton>
-                        )}
+                    {list.data?.is_owner && (
+                        <ShoppingListToolButton
+                            onPress={onDeleteShoppingListPress}
+                            icon={require('@images/trash.png')}
+                            iconWidth={61}
+                            iconHeight={68}>
+                            Delete
+                        </ShoppingListToolButton>
+                    )}
 
-                        {list.data?.is_owner && (
-                            <ShoppingListToolButton
-                                onPress={onDeleteShoppingListPress}
-                                icon={require('@images/trash.png')}
-                                iconWidth={61}
-                                iconHeight={68}>
-                                Delete
-                            </ShoppingListToolButton>
-                        )}
-
-                        {!list.data?.is_owner && (
-                            <ShoppingListToolButton
-                                onPress={onDeleteShoppingListPress}
-                                icon={require('@images/leave.png')}
-                                iconWidth={68}
-                                iconHeight={61}>
-                                Leave
-                            </ShoppingListToolButton>
-                        )}
-                    </View>
+                    {!list.data?.is_owner && (
+                        <ShoppingListToolButton
+                            onPress={onDeleteShoppingListPress}
+                            icon={require('@images/leave.png')}
+                            iconWidth={68}
+                            iconHeight={61}>
+                            Leave
+                        </ShoppingListToolButton>
+                    )}
                 </View>
-            </View>
+            </Footer>
         </Wrapper>
     );
 };
 
 const styles = StyleSheet.create({
-    headerWrapper: {
-        ...flexCenter,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: bsl(1),
-        },
-        shadowRadius: bsl(3),
-        shadowOpacity: 0.1,
-        zIndex: 50,
-    },
-    header: {
-        paddingHorizontal: bsl(20),
-        paddingVertical: bsl(30),
-    },
     sectionHeader: {
         paddingHorizontal: bsl(20),
         paddingVertical: bsl(20),
@@ -530,9 +490,6 @@ const styles = StyleSheet.create({
     },
     listScrollViewContent: {
         padding: bsl(20),
-    },
-    headerUnderline: {
-        height: bsl(10),
     },
     toolsWrapper: {
         ...centeredRow,

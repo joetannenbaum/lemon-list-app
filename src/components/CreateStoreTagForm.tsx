@@ -66,7 +66,14 @@ const CreateStoreTagForm: React.FC<Props> = (props) => {
                         required={true}
                         name="name"
                         placeholder="Add Item Here"
-                        onSubmitEditing={handleSubmit}
+                        onSubmitEditing={() => {
+                            if (values.name.trim().length > 0) {
+                                handleSubmit();
+                            }
+                        }}
+                        additionalStyles={{
+                            borderWidth: 0,
+                        }}
                     />
                     <MiniAddButton
                         disabled={values.name === ''}
