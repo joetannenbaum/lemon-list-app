@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import useStore from '@/hooks/useStore';
 import { useQueryClient, useMutation } from 'react-query';
@@ -25,8 +25,20 @@ const Store: Screen<Props> = (props) => {
 
     const [tagData, setTagData] = useState(store.data?.tags || []);
 
+    const listRef = useRef<null | FlatList>();
+
     useEffect(() => {
-        setTagData(store.data?.tags || []);
+        const newState = store.data?.tags || [];
+
+        const itemAdded = newState.length > tagData.length;
+
+        setTagData(newState);
+
+        if (itemAdded) {
+            setTimeout(() => {
+                listRef.current?.scrollToEnd();
+            }, 500);
+        }
     }, [store.data]);
 
     const queryClient = useQueryClient();
@@ -85,6 +97,7 @@ const Store: Screen<Props> = (props) => {
         <Wrapper forceInset={{ top: 'never', bottom: 'never' }}>
             <Header color={storeColor}>{store.data?.name}</Header>
             <FlatList
+                ref={listRef}
                 style={styles.list}
                 data={tagData}
                 renderItem={renderItem}

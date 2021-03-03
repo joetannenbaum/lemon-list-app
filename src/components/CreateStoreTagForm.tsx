@@ -7,7 +7,7 @@ import api from '@/api';
 import { useMutation, useQueryClient } from 'react-query';
 import MiniAddButton from './MiniAddButton';
 
-interface Props {
+interface CreateStoreTagFormProps {
     storeId: number;
 }
 
@@ -15,7 +15,7 @@ interface FormValues {
     name: string;
 }
 
-const CreateStoreTagForm: React.FC<Props> = (props) => {
+const CreateStoreTagForm: React.FC<CreateStoreTagFormProps> = (props) => {
     const queryClient = useQueryClient();
 
     const inputRef = useRef<TextInput>(null);
@@ -74,6 +74,7 @@ const CreateStoreTagForm: React.FC<Props> = (props) => {
                         additionalStyles={{
                             borderWidth: 0,
                         }}
+                        hideError={true}
                     />
                     <MiniAddButton
                         disabled={values.name === ''}

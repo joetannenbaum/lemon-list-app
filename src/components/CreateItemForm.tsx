@@ -99,6 +99,7 @@ const CreateItemForm: React.FC<Props> = (props) => {
                                 additionalStyles={{
                                     borderWidth: 0,
                                 }}
+                                hideError={true}
                             />
                             <MiniAddButton
                                 onPress={handleSubmit}
