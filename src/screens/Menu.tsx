@@ -19,6 +19,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Navigation } from 'react-native-navigation';
 import CreateStoreForm from '@/components/CreateStoreForm';
 import CreateListForm from '@/components/CreateListForm';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export interface MenuProps {}
 
@@ -83,53 +84,57 @@ const Menu: Screen<MenuProps & ScreenProps> = (props) => {
                         <LogoutButton onLogout={closeMenu} />
                     </View>
                 </View>
-                <View style={styles.section}>
-                    <BaseText bold={true}>My Lists</BaseText>
-                    <Divider marginTop={20} />
-                    {lists?.data?.map((list) => {
-                        return (
-                            <ArrowButton
-                                key={list.id.toString()}
-                                onPress={() => {
-                                    setStackRootWithoutAnimating(
-                                        'ShoppingList',
-                                        {
-                                            id: list.id,
-                                        },
-                                    );
+                <ScrollView
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}>
+                    <View style={styles.section}>
+                        <BaseText bold={true}>My Lists</BaseText>
+                        <Divider marginTop={20} />
+                        {lists?.data?.map((list) => {
+                            return (
+                                <ArrowButton
+                                    key={list.id.toString()}
+                                    onPress={() => {
+                                        setStackRootWithoutAnimating(
+                                            'ShoppingList',
+                                            {
+                                                id: list.id,
+                                            },
+                                        );
 
-                                    closeMenu();
-                                }}>
-                                {list.name}
-                            </ArrowButton>
-                        );
-                    })}
-                    <View style={styles.formWrapper}>
-                        <CreateListForm />
+                                        closeMenu();
+                                    }}>
+                                    {list.name}
+                                </ArrowButton>
+                            );
+                        })}
+                        <View style={styles.formWrapper}>
+                            <CreateListForm />
+                        </View>
                     </View>
-                </View>
-                <View style={styles.section}>
-                    <BaseText bold={true}>My Stores</BaseText>
-                    <Divider marginTop={20} />
-                    {stores?.data?.map((store) => {
-                        return (
-                            <ArrowButton
-                                key={store.id.toString()}
-                                onPress={() => {
-                                    setStackRootWithoutAnimating('Store', {
-                                        id: store.id,
-                                    });
+                    <View style={styles.section}>
+                        <BaseText bold={true}>My Stores</BaseText>
+                        <Divider marginTop={20} />
+                        {stores?.data?.map((store) => {
+                            return (
+                                <ArrowButton
+                                    key={store.id.toString()}
+                                    onPress={() => {
+                                        setStackRootWithoutAnimating('Store', {
+                                            id: store.id,
+                                        });
 
-                                    closeMenu();
-                                }}>
-                                {store.name}
-                            </ArrowButton>
-                        );
-                    })}
-                    <View style={styles.formWrapper}>
-                        <CreateStoreForm />
+                                        closeMenu();
+                                    }}>
+                                    {store.name}
+                                </ArrowButton>
+                            );
+                        })}
+                        <View style={styles.formWrapper}>
+                            <CreateStoreForm />
+                        </View>
                     </View>
-                </View>
+                </ScrollView>
             </Animated.View>
         </>
     );
@@ -150,7 +155,6 @@ const styles = StyleSheet.create({
     headerWrapper: {
         backgroundColor: yellow100,
         marginHorizontal: bsl(-20),
-        marginBottom: bsl(20),
     },
     header: {
         flexDirection: 'row',
@@ -165,6 +169,9 @@ const styles = StyleSheet.create({
     },
     formWrapper: {
         marginTop: bsl(20),
+    },
+    scrollContent: {
+        paddingTop: bsl(20),
     },
 });
 
