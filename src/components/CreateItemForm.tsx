@@ -136,7 +136,6 @@ const CreateItemForm: React.FC<Props> = (props) => {
 
 const styles = StyleSheet.create({
     inputWrapper: {
-        ...paddingX(20),
         zIndex: 100,
     },
     inputInnerWrapper: {

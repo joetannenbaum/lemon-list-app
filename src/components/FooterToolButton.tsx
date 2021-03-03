@@ -8,16 +8,14 @@ import {
 import BaseText from './BaseText';
 import { flexCenter, bsl, sizeImage } from '@/util/style';
 
-export interface ShoppingListToolButtonProps {
+export interface FooterToolButtonProps {
     onPress: () => void;
     icon: ImageSourcePropType;
     iconWidth: number;
     iconHeight?: number;
 }
 
-const ShoppingListToolButton: React.FC<ShoppingListToolButtonProps> = (
-    props,
-) => {
+const FooterToolButton: React.FC<FooterToolButtonProps> = (props) => {
     return (
         <TouchableOpacity style={styles.tool} onPress={props.onPress}>
             <Image
@@ -49,4 +47,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ShoppingListToolButton;
+export default FooterToolButton;

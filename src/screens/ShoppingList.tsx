@@ -19,7 +19,7 @@ import useStores from '@/hooks/useStores';
 import { StoreTag } from '@/types/StoreTag';
 import { Store } from '@/types/Store';
 import { Navigation } from 'react-native-navigation';
-import { showPopup } from '@/util/navigation';
+import { showPopup, setStackRootWithoutAnimating } from '@/util/navigation';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import Pusher from 'pusher-js/react-native';
 import useMe from '@/hooks/useMe';
@@ -41,11 +41,13 @@ import Divider from '@/components/Divider';
 import MenuButton from '@/components/MenuButton';
 import { move } from 'formik';
 import debounce from 'lodash/debounce';
-import ShoppingListToolButton from '@/components/ShoppingListToolButton';
+import FooterToolButton from '@/components/FooterToolButton';
 import Loading from '@/components/Loading';
 import EmptyState from '@/components/EmptyState';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FooterTools from '@/components/FooterTools';
+import FooterForm from '@/components/FooterForm';
 
 export interface ShoppingListProps {
     id: number;
@@ -240,7 +242,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
 
     const deleteShoppingList = () => {
         deleteList().then(() => {
-            Navigation.pop(props.componentId);
+            setStackRootWithoutAnimating('App');
         });
     };
 
@@ -399,12 +401,12 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 )}
             </View>
             <Footer color={listColor}>
-                <View style={styles.addFormWrapper}>
+                <FooterForm>
                     <CreateItemForm listId={props.id} />
-                </View>
+                </FooterForm>
 
-                <View style={styles.toolsWrapper}>
-                    <ShoppingListToolButton
+                <FooterTools>
+                    <FooterToolButton
                         onPress={() =>
                             showPopup('ShareShoppingList', {
                                 id: list.data?.id,
@@ -413,10 +415,10 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                         icon={require('@images/share.png')}
                         iconWidth={68}>
                         Share
-                    </ShoppingListToolButton>
+                    </FooterToolButton>
 
                     {canAddFromOtherLists && (
-                        <ShoppingListToolButton
+                        <FooterToolButton
                             onPress={() =>
                                 showPopup('AddItemsFromListsStart', {
                                     addToListId: props.id,
@@ -425,18 +427,18 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                             icon={require('@images/collection.png')}
                             iconWidth={68}>
                             Import
-                        </ShoppingListToolButton>
+                        </FooterToolButton>
                     )}
 
-                    <ShoppingListToolButton
+                    <FooterToolButton
                         onPress={onClearCompletedItemPress}
                         icon={require('@images/badge-check.png')}
                         iconWidth={68}>
                         Clear
-                    </ShoppingListToolButton>
+                    </FooterToolButton>
 
                     {list.data?.is_owner && (
-                        <ShoppingListToolButton
+                        <FooterToolButton
                             onPress={() =>
                                 showPopup('EditShoppingList', {
                                     id: props.id,
@@ -446,29 +448,29 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                             iconWidth={78}
                             iconHeight={79}>
                             Edit
-                        </ShoppingListToolButton>
+                        </FooterToolButton>
                     )}
 
                     {list.data?.is_owner && (
-                        <ShoppingListToolButton
+                        <FooterToolButton
                             onPress={onDeleteShoppingListPress}
                             icon={require('@images/trash.png')}
                             iconWidth={61}
                             iconHeight={68}>
                             Delete
-                        </ShoppingListToolButton>
+                        </FooterToolButton>
                     )}
 
                     {!list.data?.is_owner && (
-                        <ShoppingListToolButton
+                        <FooterToolButton
                             onPress={onDeleteShoppingListPress}
                             icon={require('@images/leave.png')}
                             iconWidth={68}
                             iconHeight={61}>
                             Leave
-                        </ShoppingListToolButton>
+                        </FooterToolButton>
                     )}
-                </View>
+                </FooterTools>
             </Footer>
         </Wrapper>
     );
@@ -483,19 +485,8 @@ const styles = StyleSheet.create({
     listScrollView: {
         flex: 1,
     },
-    addFormWrapper: {
-        zIndex: 100,
-        paddingBottom: bsl(20),
-        paddingTop: bsl(40),
-    },
     listScrollViewContent: {
         padding: bsl(20),
-    },
-    toolsWrapper: {
-        ...centeredRow,
-        paddingHorizontal: bsl(40),
-        paddingVertical: bsl(20),
-        justifyContent: 'space-between',
     },
     changeStoresButton: {
         backgroundColor: yellow100,

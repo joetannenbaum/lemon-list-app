@@ -5,13 +5,13 @@ import TextField from '@/components/form/TextField';
 import * as Yup from 'yup';
 import { Screen, ModalScreenProps } from '@/types/navigation';
 import SubmitButton from '@/components/form/SubmitButton';
-import useUpdateShoppingList from '@/hooks/useUpdateShoppingList';
-import useShoppingList from '@/hooks/useShoppingList';
 import asModal from '@/components/asModal';
 import CancelButton from '@/components/form/CancelButton';
 import { bsl } from '@/util/style';
+import useStore from '@/hooks/useStore';
+import useUpdateStore from '@/hooks/useUpdateStore';
 
-export interface EditShoppingListProps {
+export interface EditStoreProps {
     id: number;
 }
 
@@ -19,12 +19,10 @@ interface FormValues {
     name: string;
 }
 
-const EditShoppingList: Screen<EditShoppingListProps & ModalScreenProps> = (
-    props,
-) => {
-    const list = useShoppingList(props.id);
+const EditStore: Screen<EditStoreProps & ModalScreenProps> = (props) => {
+    const list = useStore(props.id);
 
-    const { mutateAsync: updateShoppingList } = useUpdateShoppingList(props.id);
+    const { mutateAsync: updateStore } = useUpdateStore(props.id);
 
     const initialFormValues: FormValues = {
         name: list.data?.name || '',
@@ -35,7 +33,7 @@ const EditShoppingList: Screen<EditShoppingListProps & ModalScreenProps> = (
     });
 
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
-        updateShoppingList(values).then(props.dismiss);
+        updateStore(values).then(props.dismiss);
     };
 
     return (
@@ -67,4 +65,4 @@ const EditShoppingList: Screen<EditShoppingListProps & ModalScreenProps> = (
     );
 };
 
-export default asModal(EditShoppingList);
+export default asModal(EditStore);

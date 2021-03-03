@@ -10,9 +10,13 @@ import Wrapper from '@/components/Wrapper';
 import { getColorFromString, bsl } from '@/util/style';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View, Alert } from 'react-native';
 import { move } from 'formik';
 import debounce from 'lodash/debounce';
+import FooterToolButton from '@/components/FooterToolButton';
+import { showPopup, setStackRootWithoutAnimating } from '@/util/navigation';
+import FooterTools from '@/components/FooterTools';
+import FooterForm from '@/components/FooterForm';
 
 interface Props extends ScreenProps {
     id: number;
@@ -55,10 +59,19 @@ const Store: Screen<Props> = (props) => {
         },
     );
 
-    const reorderViaApi = (params: object) => reorder(params);
+    const { mutateAsync: deleteStore } = useMutation(
+        () => {
+            return api.delete(`stores/${store.data?.id}`);
+        },
+        {
+            onSuccess() {
+                queryClient.invalidateQueries('stores');
+            },
+        },
+    );
 
     const debouncedReorder = useCallback(
-        debounce((params) => reorderViaApi(params), 1000),
+        debounce((params) => () => reorder(params), 1000),
         [],
     );
 
@@ -90,6 +103,28 @@ const Store: Screen<Props> = (props) => {
 
     const keyExtractor = useCallback((item) => item.id.toString(), []);
 
+    const onDeleteShoppingListPress = useCallback(() => {
+        return Alert.alert(
+            `Delete ${store.data?.name}?`,
+            'You cannot undo this action.',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    style: 'destructive',
+                    onPress: () => {
+                        deleteStore().then(() => {
+                            setStackRootWithoutAnimating('App');
+                        });
+                    },
+                },
+            ],
+        );
+    }, []);
+
     if (!store.isFetched) {
         return <Loading />;
     }
@@ -107,7 +142,34 @@ const Store: Screen<Props> = (props) => {
             />
             <Footer color={storeColor}>
                 <View style={styles.footer}>
-                    <CreateStoreTagForm storeId={props.id} />
+                    <FooterForm>
+                        <CreateStoreTagForm storeId={props.id} />
+                    </FooterForm>
+                    <FooterTools center={true}>
+                        <View style={styles.footerToolWrapper}>
+                            <FooterToolButton
+                                onPress={() =>
+                                    showPopup('EditStore', {
+                                        id: props.id,
+                                    })
+                                }
+                                icon={require('@images/pencil.png')}
+                                iconWidth={78}
+                                iconHeight={79}>
+                                Edit
+                            </FooterToolButton>
+                        </View>
+
+                        <View style={styles.footerToolWrapper}>
+                            <FooterToolButton
+                                onPress={onDeleteShoppingListPress}
+                                icon={require('@images/trash.png')}
+                                iconWidth={61}
+                                iconHeight={68}>
+                                Delete
+                            </FooterToolButton>
+                        </View>
+                    </FooterTools>
                 </View>
             </Footer>
         </Wrapper>
@@ -118,9 +180,8 @@ const styles = StyleSheet.create({
     list: {
         flex: 1,
     },
-    footer: {
-        paddingHorizontal: bsl(20),
-        paddingVertical: bsl(40),
+    footerToolWrapper: {
+        marginHorizontal: bsl(40),
     },
 });
 

@@ -7,35 +7,37 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import flowRight from 'lodash/flowRight';
 import AcceptShare from '@/screens/AcceptShare';
+import AddItemsFromListsStart from '@/screens/AddItemsFromListsStart';
 import App from '@/screens/App';
 import EditShoppingList from '@/screens/EditShoppingList';
+import EditShoppingListItem from '@/screens/EditShoppingListItem';
+import EditStore from '@/screens/EditStore';
 import IncomingShare from '@/screens/IncomingShare';
 import Login from '@/screens/Login';
-import Register from '@/screens/Register';
-import ShoppingList from '@/screens/ShoppingList';
-import Store from '@/screens/Store';
-import ShareShoppingList from '@/screens/ShareShoppingList';
-import AddItemsFromListsStart from '@/screens/AddItemsFromListsStart';
-import ShoppingListStoreSelect from '@/screens/ShoppingListStoreSelect';
-import EditShoppingListItem from '@/screens/EditShoppingListItem';
 import Menu from '@/screens/Menu';
+import Register from '@/screens/Register';
+import ShareShoppingList from '@/screens/ShareShoppingList';
+import ShoppingList from '@/screens/ShoppingList';
+import ShoppingListStoreSelect from '@/screens/ShoppingListStoreSelect';
+import Store from '@/screens/Store';
 
 const queryClient = new QueryClient();
 
 const screens = {
     AcceptShare,
+    AddItemsFromListsStart,
     App,
     EditShoppingList,
-    Menu,
+    EditShoppingListItem,
+    EditStore,
     IncomingShare,
     Login,
+    Menu,
     Register,
-    ShoppingList,
-    Store,
     ShareShoppingList,
-    AddItemsFromListsStart,
+    ShoppingList,
     ShoppingListStoreSelect,
-    EditShoppingListItem,
+    Store,
 };
 
 const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
@@ -53,15 +55,16 @@ const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
 export type screenComponentName =
     | 'AcceptShare'
     | 'AddItemsFromListsStart'
-    | 'ShareShoppingList'
     | 'App'
     | 'EditShoppingList'
+    | 'EditShoppingListItem'
+    | 'EditStore'
     | 'IncomingShare'
     | 'Login'
     | 'Register'
-    | 'ShoppingListStoreSelect'
+    | 'ShareShoppingList'
     | 'ShoppingList'
-    | 'EditShoppingListItem'
+    | 'ShoppingListStoreSelect'
     | 'Store';
 
 const enhance = flowRight(gestureHandlerRootHOC, WrappedComponent);
