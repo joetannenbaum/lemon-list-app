@@ -30,7 +30,8 @@ const Store: Screen<Props> = (props) => {
     useEffect(() => {
         const newState = store.data?.tags || [];
 
-        const itemAdded = newState.length > tagData.length;
+        const itemAdded =
+            tagData.length > 0 && newState.length > tagData.length;
 
         setTagData(newState);
 
@@ -102,6 +103,7 @@ const Store: Screen<Props> = (props) => {
                 data={tagData}
                 renderItem={renderItem}
                 keyExtractor={keyExtractor}
+                initialNumToRender={15}
             />
             <Footer color={storeColor}>
                 <View style={styles.footer}>
