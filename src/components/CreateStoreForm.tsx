@@ -1,13 +1,11 @@
 import React from 'react';
 import { Formik, FormikHelpers } from 'formik';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View } from 'react-native';
 import * as Yup from 'yup';
-import SubmitButton from './form/SubmitButton';
 import TextField from './form/TextField';
 import api from '@/api';
 import { useMutation, useQueryClient } from 'react-query';
-import { bsl, sizeImage } from '@/util/style';
-import Processing from './Processing';
+import MiniAddButton from './MiniAddButton';
 
 interface Props {}
 
@@ -64,33 +62,15 @@ const CreateStoreForm: React.FC<Props> = (props) => {
                         placeholder="Store Name"
                         hideError={true}
                     />
-                    <TouchableOpacity
-                        style={styles.addButton}
+                    <MiniAddButton
                         onPress={handleSubmit}
-                        disabled={values.name.trim() === ''}>
-                        {isSubmitting ? (
-                            <Processing />
-                        ) : (
-                            <Image
-                                source={require('@images/plus-circle.png')}
-                                style={styles.addIcon}
-                            />
-                        )}
-                    </TouchableOpacity>
+                        disabled={values.name.trim() === ''}
+                        submitting={isSubmitting}
+                    />
                 </View>
             )}
         </Formik>
     );
 };
-
-const styles = StyleSheet.create({
-    addButton: {
-        position: 'absolute',
-        right: bsl(20),
-        top: bsl(20),
-        ...sizeImage(10, 10, { width: 40 }),
-    },
-    addIcon: sizeImage(76, 78, { width: 40 }),
-});
 
 export default CreateStoreForm;

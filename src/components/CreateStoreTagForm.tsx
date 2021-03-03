@@ -2,10 +2,10 @@ import React, { useRef } from 'react';
 import { Formik, FormikHelpers } from 'formik';
 import { View, TextInput } from 'react-native';
 import * as Yup from 'yup';
-import SubmitButton from './form/SubmitButton';
 import TextField from './form/TextField';
 import api from '@/api';
 import { useMutation, useQueryClient } from 'react-query';
+import MiniAddButton from './MiniAddButton';
 
 interface Props {
     storeId: number;
@@ -68,12 +68,11 @@ const CreateStoreTagForm: React.FC<Props> = (props) => {
                         placeholder="Add Item Here"
                         onSubmitEditing={handleSubmit}
                     />
-                    <SubmitButton
+                    <MiniAddButton
                         disabled={values.name === ''}
                         onPress={handleSubmit}
-                        processing={isSubmitting}>
-                        Add
-                    </SubmitButton>
+                        submitting={isSubmitting}
+                    />
                 </View>
             )}
         </Formik>
