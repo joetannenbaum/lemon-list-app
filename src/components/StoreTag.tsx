@@ -11,7 +11,10 @@ import { grey200, bsl } from '@/util/style';
 
 interface Props {
     item: StoreTagType;
-    dragging: boolean;
+    isFirst: boolean;
+    isLast: boolean;
+    index: number;
+    onMove: (index: number, direction: number) => void;
 }
 
 const StoreTag: React.FC<Props> = (props) => {
