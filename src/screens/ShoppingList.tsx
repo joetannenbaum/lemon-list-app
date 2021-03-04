@@ -47,6 +47,7 @@ import FooterTools from '@/components/FooterTools';
 import FooterForm from '@/components/FooterForm';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { lastShoppingListViewedKey } from '@/util/storage';
+import SubmitButton from '@/components/form/SubmitButton';
 
 export interface ShoppingListProps {
     id: number;
@@ -328,16 +329,24 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     if (list.isFetched && list.data === null) {
         return (
             <Wrapper>
-                <View style={{ padding: 20 }}>
-                    <BaseText>List not found.</BaseText>
-                    <BaseText>This list looks like it's missing.</BaseText>
-                    <Button
-                        title="Back to Home"
-                        onPress={() => {
-                            Navigation.pop(props.componentId);
-                        }}
-                    />
-                </View>
+                <EmptyState
+                    subtitle={
+                        "Couldn't find what you were looking for.\nThis is terribly awkward."
+                    }>
+                    <View style={{ width: '100%' }}>
+                        <View
+                            style={{
+                                padding: bsl(40),
+                            }}>
+                            <SubmitButton
+                                onPress={() => {
+                                    setStackRootWithoutAnimating('App');
+                                }}>
+                                Back to Home
+                            </SubmitButton>
+                        </View>
+                    </View>
+                </EmptyState>
             </Wrapper>
         );
     }

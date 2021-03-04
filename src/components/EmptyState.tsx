@@ -18,7 +18,8 @@ const EmptyState: React.FC<EmptyStateProps> = (props) => {
                 />
                 <BaseText size={55}>thing to see here.</BaseText>
             </View>
-            <BaseText>{props.subtitle}</BaseText>
+            <BaseText align="center">{props.subtitle}</BaseText>
+            {props.children}
         </View>
     );
 };
