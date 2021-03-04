@@ -8,6 +8,8 @@ import {
 } from '@/util/navigation';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import { Navigation } from 'react-native-navigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { lastShoppingListViewedKey } from '@/util/storage';
 
 interface Props extends ScreenProps {}
 
@@ -27,13 +29,22 @@ const App: Screen<Props> = (props) => {
 
     useEffect(() => {
         if (hasToken === false) {
-            return setStackRootWithoutAnimating('Login');
+            setStackRootWithoutAnimating('Login');
+            return;
         }
 
         if (lists.isFetched) {
-            return setStackRootWithoutAnimating('ShoppingList', {
-                // TODO: What if they have no lists
-                id: lists.data[0].id,
+            AsyncStorage.getItem(lastShoppingListViewedKey).then((val) => {
+                const id = parseInt(val, 10);
+
+                const listId = lists.data?.find((list) => list.id === id)
+                    ? id
+                    : lists.data[0].id;
+
+                setStackRootWithoutAnimating('ShoppingList', {
+                    // TODO: What if they have no lists
+                    id: listId,
+                });
             });
         }
     }, [hasToken, lists]);

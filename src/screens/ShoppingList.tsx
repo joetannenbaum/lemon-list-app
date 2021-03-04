@@ -45,6 +45,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FooterTools from '@/components/FooterTools';
 import FooterForm from '@/components/FooterForm';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { lastShoppingListViewedKey } from '@/util/storage';
 
 export interface ShoppingListProps {
     id: number;
@@ -57,6 +59,10 @@ interface ItemsByStoreTag {
 
 const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
     const queryClient = useQueryClient();
+
+    useEffect(() => {
+        AsyncStorage.setItem(lastShoppingListViewedKey, props.id.toString());
+    }, []);
 
     const me = useMe();
 
