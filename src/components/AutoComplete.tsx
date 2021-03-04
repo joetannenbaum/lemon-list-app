@@ -28,7 +28,9 @@ const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
         fuse.current = new Fuse(props.data, fuseOptions);
     }, [props.data]);
 
-    const results = fuse.current.search(props.query);
+    const results = fuse.current.search(props.query, {
+        limit: 5,
+    });
 
     if (props.query.trim().length < 2 || results.length === 0) {
         return null;
