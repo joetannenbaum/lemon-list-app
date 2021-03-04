@@ -6,15 +6,11 @@ import { AxiosResponse } from 'axios';
 import { View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { ApiResource } from '@/types/ApiResource';
 import { ParsedUrl, ParsedItem } from '@/types/Parsed';
-import Checkbox from '@/components/Checkbox';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import { Formik, FormikHelpers } from 'formik';
 import omit from 'lodash/omit';
 import SubmitButton from '@/components/form/SubmitButton';
 import { Navigation } from 'react-native-navigation';
-import QuantityControlField from '@/components/QuantityControlField';
-import TextField from '@/components/form/TextField';
-import AutoGrowTextField from '@/components/form/AutoGrowTextField';
 import useAddShoppingList from '@/hooks/useAddShoppingList';
 import Header from '@/components/Header';
 import { getColorFromString, yellow100, bsl } from '@/util/style';
@@ -22,8 +18,9 @@ import Wrapper from '@/components/Wrapper';
 import Footer from '@/components/Footer';
 import CancelButton from '@/components/form/CancelButton';
 import FooterForm from '@/components/FooterForm';
-import { showPopup, screenComponent } from '@/util/navigation';
+import { showPopup, setStackRootWithoutAnimating } from '@/util/navigation';
 import IncomingShareListSelection from '@/components/IncomingShareListSelection';
+import { useQueryClient } from 'react-query';
 import ListItem from '@/components/ListItem';
 
 export interface IncomingShareProps {
@@ -52,6 +49,8 @@ const IncomingShare: Screen<IncomingShareProps & ScreenProps> = (props) => {
         Omit<ParsedUrl, 'items'> | undefined
     >();
     const [items, setItems] = useState<ParsedItem[]>([]);
+
+    const queryClient = useQueryClient();
 
     const lists = useShoppingLists();
 
@@ -115,27 +114,42 @@ const IncomingShare: Screen<IncomingShareProps & ScreenProps> = (props) => {
             return;
         }
 
-        const getListVersionId = async () => {
+        const getListIds = async (): Promise<{
+            id: number;
+            versionId: number;
+        }> => {
             if (!values.newListName) {
-                return lists.data?.find((list) => list.id === values.listId)
-                    ?.active_version?.id;
+                return {
+                    id: values.listId,
+                    versionId: lists.data?.find(
+                        (list) => list.id === values.listId,
+                    )?.active_version?.id,
+                };
             }
 
             const newList = await addShoppingList({
                 name: values.newListName,
             });
 
-            return newList?.data.data.active_version.id;
+            return {
+                id: newList.data.id,
+                versionId: newList?.data.data.active_version.id,
+            };
         };
 
-        const listVersionId = await getListVersionId();
+        const { id, versionId } = await getListIds();
 
-        api.post(`shopping-list-versions/${listVersionId}/batch-items`, {
+        api.post(`shopping-list-versions/${versionId}/batch-items`, {
             items: selectedItems,
         })
             .then((res) => {
-                form.setSubmitting(false);
-                form.resetForm();
+                queryClient.invalidateQueries(['shopping-list', id]);
+
+                setStackRootWithoutAnimating('ShoppingList', {
+                    id,
+                });
+
+                Navigation.dismissModal(props.componentId);
             })
             .catch((error) => {
                 // form.setSubmitting(false);
