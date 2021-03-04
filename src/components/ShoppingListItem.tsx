@@ -1,19 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
-import BaseText from './BaseText';
-import {
-    View,
-    TouchableOpacity,
-    Animated,
-    StyleSheet,
-    Image,
-} from 'react-native';
+import { Animated, StyleSheet } from 'react-native';
 import debounce from 'lodash/debounce';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
 import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import Checkbox from './Checkbox';
-import ShoppingListItemQuantityControl from './ShoppingListItemQuantityControl';
 import {
     centeredRow,
     bsl,

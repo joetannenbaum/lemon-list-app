@@ -23,8 +23,22 @@ import ShoppingListStoreSelect from '@/screens/ShoppingListStoreSelect';
 import Store from '@/screens/Store';
 import IncomingShareImportList from '@/screens/IncomingShareImportList';
 import EditIncomingShareItem from '@/screens/EditIncomingShareItem';
+import { persistQueryClient } from 'react-query/persistQueryClient-experimental';
+import AsyncStoragePersistor from '@/util/AsyncStoragePersistor';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            cacheTime: Infinity,
+            // cacheTime: 1000 * 60 * 60 * 24, // 24 hours
+        },
+    },
+});
+
+persistQueryClient({
+    queryClient,
+    persistor: AsyncStoragePersistor,
+});
 
 const screens = {
     AcceptShare,
