@@ -9,7 +9,6 @@ import api from '@/api';
 import {
     View,
     TouchableOpacity,
-    Button,
     Alert,
     StyleSheet,
     Image,
@@ -18,7 +17,6 @@ import {
 import useStores from '@/hooks/useStores';
 import { StoreTag } from '@/types/StoreTag';
 import { Store } from '@/types/Store';
-import { Navigation } from 'react-native-navigation';
 import { showPopup, setStackRootWithoutAnimating } from '@/util/navigation';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import Pusher from 'pusher-js/react-native';
