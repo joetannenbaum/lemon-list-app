@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { bsl } from '@/util/style';
+import { bsl, yellow200 } from '@/util/style';
 
 export interface FooterProps {
     color: string;
@@ -15,7 +15,6 @@ const Footer: React.FC<FooterProps> = (props) => {
             style={[
                 styles.footer,
                 {
-                    backgroundColor: props.color,
                     paddingBottom: bottom,
                 },
             ]}>
@@ -27,6 +26,7 @@ const Footer: React.FC<FooterProps> = (props) => {
 const styles = StyleSheet.create({
     footer: {
         paddingHorizontal: bsl(20),
+        backgroundColor: yellow200,
     },
 });
 

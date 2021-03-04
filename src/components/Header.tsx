@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import MenuButton from './MenuButton';
 import BaseText from './BaseText';
-import { flexCenter, bsl } from '@/util/style';
+import { flexCenter, bsl, yellow200 } from '@/util/style';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export interface HeaderProps {
@@ -19,7 +19,6 @@ const Header: React.FC<HeaderProps> = (props) => {
                 styles.headerWrapper,
                 {
                     paddingTop: top,
-                    backgroundColor: props.color,
                 },
             ]}>
             {!props.hideMenu && (
@@ -53,6 +52,7 @@ const styles = StyleSheet.create({
         shadowRadius: bsl(3),
         shadowOpacity: 0.1,
         zIndex: 50,
+        backgroundColor: yellow200,
     },
     header: {
         paddingHorizontal: bsl(80),
