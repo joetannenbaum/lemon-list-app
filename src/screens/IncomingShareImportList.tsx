@@ -9,10 +9,17 @@ import Divider from '@/components/Divider';
 import ArrowButton from '@/components/ArrowButton';
 import { ShoppingList } from '@/types/ShoppingList';
 import { ModalScreenProps } from '@/types/navigation';
+import { Formik, FormikHelpers } from 'formik';
+import SubmitButton from '@/components/form/SubmitButton';
 
 export interface IncomingShareImportListProps {
+    name: string;
     onSelect: (listId: number) => void;
     onNewName: (name: string) => void;
+}
+
+interface FormValues {
+    name: string;
 }
 
 const IncomingShareImportList: Screen<
@@ -33,7 +40,13 @@ const IncomingShareImportList: Screen<
         [],
     );
 
-    // TODO: Handle text field for new name
+    const onSubmit = useCallback(
+        (values: FormValues, form: FormikHelpers<FormValues>) => {
+            props.onNewName(values.name);
+            props.dismiss();
+        },
+        [],
+    );
 
     return (
         <View>
@@ -45,7 +58,22 @@ const IncomingShareImportList: Screen<
                 renderItem={renderItem}
             />
 
-            {/* <TextField name="newNameField" /> */}
+            <Formik
+                onSubmit={onSubmit}
+                initialValues={{
+                    name: props.name,
+                }}>
+                {({ handleSubmit, isSubmitting }) => (
+                    <>
+                        <TextField name="name" placeholder="New List" />
+                        <SubmitButton
+                            onPress={handleSubmit}
+                            processing={isSubmitting}>
+                            Add List
+                        </SubmitButton>
+                    </>
+                )}
+            </Formik>
 
             <CancelButton onPress={props.dismiss} />
         </View>

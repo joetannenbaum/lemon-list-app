@@ -24,7 +24,7 @@ const IncomingShareListSelection: React.FC<IncomingShareListSelectionProps> = (
         );
     }
 
-    if (newName.value.trim() !== '') {
+    if (newName.value && newName.value.trim() !== '') {
         return (
             <BaseText>
                 Importing into: <BaseText bold={true}>{newName.value}</BaseText>

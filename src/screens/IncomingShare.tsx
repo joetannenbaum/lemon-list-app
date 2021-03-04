@@ -132,7 +132,7 @@ const IncomingShare: Screen<IncomingShareProps & ScreenProps> = (props) => {
             });
 
             return {
-                id: newList.data.id,
+                id: newList.data.data.id,
                 versionId: newList?.data.data.active_version.id,
             };
         };
