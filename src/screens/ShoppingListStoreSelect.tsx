@@ -44,11 +44,7 @@ const ShoppingListStoreSelect: Screen<
                 keyExtractor={(item) =>
                     item.id === null ? 'none' : item.id.toString()
                 }
-                ItemSeparatorComponent={() => (
-                    <View style={styles.divider}>
-                        <Divider />
-                    </View>
-                )}
+                ItemSeparatorComponent={() => <Divider margin={20} />}
                 renderItem={renderItem}
             />
             <CancelButton onPress={props.dismiss} />
@@ -66,9 +62,6 @@ const styles = StyleSheet.create({
     textWrapper: {
         flex: 1,
         paddingRight: bsl(20),
-    },
-    divider: {
-        marginVertical: bsl(20),
     },
 });
 
