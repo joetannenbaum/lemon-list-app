@@ -25,6 +25,7 @@ import {
 import { showPopup } from '@/util/navigation';
 import SwipeDelete from './SwipeDelete';
 import SwipeMove from './SwipeMove';
+import ListItem from './ListItem';
 
 interface Props {
     listId: number;
@@ -109,44 +110,16 @@ const ShoppingListItem: React.FC<Props> = (props) => {
             <Swipeable
                 renderRightActions={renderRightActions}
                 renderLeftActions={renderLeftActions}>
-                <View style={styles.wrapper}>
-                    <View style={styles.rowContent}>
-                        <View style={styles.checkboxWrapper}>
-                            <Checkbox
-                                checked={checkedOff}
-                                onPress={toggleCheck}
-                            />
-                        </View>
-                        <TouchableOpacity
-                            style={styles.itemButton}
-                            onPress={showEditModal}>
-                            <BaseText
-                                style={
-                                    checkedOff
-                                        ? styles.checkedOffText
-                                        : styles.itemText
-                                }>
-                                {props.item.item.name}
-                            </BaseText>
-                            {props.item.note !== null && (
-                                <View style={styles.noteWrapper}>
-                                    <Image
-                                        source={require('@images/word-bubble.png')}
-                                        style={styles.noteIcon}
-                                    />
-                                    <BaseText color={grey500}>
-                                        {props.item.note}
-                                    </BaseText>
-                                </View>
-                            )}
-                        </TouchableOpacity>
-                        <ShoppingListItemQuantityControl
-                            quantity={props.item.quantity}
-                            onChange={onQuantityChange}
-                            disabled={checkedOff}
-                        />
-                    </View>
-                </View>
+                <ListItem
+                    name={props.item.item.name}
+                    note={props.item.note}
+                    quantity={props.item.quantity}
+                    onPress={showEditModal}
+                    onQuantityChange={onQuantityChange}
+                    checkedOff={checkedOff}
+                    toggleCheck={toggleCheck}
+                    disableChecked={true}
+                />
             </Swipeable>
         </>
     );

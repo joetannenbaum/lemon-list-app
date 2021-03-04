@@ -16,6 +16,10 @@ const App: Screen<Props> = (props) => {
     const lists = useShoppingLists(hasToken === true);
 
     useEffect(() => {
+        Navigation.showOverlay(screenComponent('ListenForIncomingShare'));
+    }, []);
+
+    useEffect(() => {
         getAccessTokenFromKeychain().then((token) => {
             setHasToken(token !== false);
         });
@@ -28,6 +32,7 @@ const App: Screen<Props> = (props) => {
 
         if (lists.isFetched) {
             return setStackRootWithoutAnimating('ShoppingList', {
+                // TODO: What if they have no lists
                 id: lists.data[0].id,
             });
         }

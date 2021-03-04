@@ -13,6 +13,7 @@ import EditShoppingList from '@/screens/EditShoppingList';
 import EditShoppingListItem from '@/screens/EditShoppingListItem';
 import EditStore from '@/screens/EditStore';
 import IncomingShare from '@/screens/IncomingShare';
+import ListenForIncomingShare from '@/screens/ListenForIncomingShare';
 import Login from '@/screens/Login';
 import Menu from '@/screens/Menu';
 import Register from '@/screens/Register';
@@ -20,6 +21,8 @@ import ShareShoppingList from '@/screens/ShareShoppingList';
 import ShoppingList from '@/screens/ShoppingList';
 import ShoppingListStoreSelect from '@/screens/ShoppingListStoreSelect';
 import Store from '@/screens/Store';
+import IncomingShareImportList from '@/screens/IncomingShareImportList';
+import EditIncomingShareItem from '@/screens/EditIncomingShareItem';
 
 const queryClient = new QueryClient();
 
@@ -31,6 +34,7 @@ const screens = {
     EditShoppingListItem,
     EditStore,
     IncomingShare,
+    ListenForIncomingShare,
     Login,
     Menu,
     Register,
@@ -38,9 +42,13 @@ const screens = {
     ShoppingList,
     ShoppingListStoreSelect,
     Store,
+    IncomingShareImportList,
+    EditIncomingShareItem,
 };
 
-const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
+const SafeareaWrappedComponent = (
+    ScreenComponent: React.ComponentType<any>,
+) => {
     return (props: any) => {
         return (
             <SafeAreaProvider>
@@ -48,6 +56,16 @@ const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
                     <ScreenComponent {...props} />
                 </QueryClientProvider>
             </SafeAreaProvider>
+        );
+    };
+};
+
+const WrappedComponent = (ScreenComponent: React.ComponentType<any>) => {
+    return (props: any) => {
+        return (
+            <QueryClientProvider client={queryClient}>
+                <ScreenComponent {...props} />
+            </QueryClientProvider>
         );
     };
 };
@@ -60,20 +78,26 @@ export type screenComponentName =
     | 'EditShoppingListItem'
     | 'EditStore'
     | 'IncomingShare'
+    | 'ListenForIncomingShare'
     | 'Login'
     | 'Register'
     | 'ShareShoppingList'
     | 'ShoppingList'
+    | 'EditIncomingShareItem'
+    | 'IncomingShareImportList'
     | 'ShoppingListStoreSelect'
     | 'Store';
 
-const enhance = flowRight(gestureHandlerRootHOC, WrappedComponent);
+const enhance = flowRight(gestureHandlerRootHOC, SafeareaWrappedComponent);
+const enhanceOverlay = flowRight(WrappedComponent);
 
 export const registerScreens = () => {
     for (const screenName in screens) {
         Navigation.registerComponent(getScreenName(screenName), () =>
             hoistNonReactStatics(
-                enhance(screens[screenName]),
+                screenName === 'ListenForIncomingShare'
+                    ? enhanceOverlay(screens[screenName])
+                    : enhance(screens[screenName]),
                 screens[screenName],
             ),
         );

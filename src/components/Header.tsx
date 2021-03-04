@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export interface HeaderProps {
     color: string;
+    hideMenu?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
@@ -21,17 +22,21 @@ const Header: React.FC<HeaderProps> = (props) => {
                     backgroundColor: props.color,
                 },
             ]}>
-            <View
-                style={[
-                    styles.menuButtonWrapper,
-                    {
-                        top: bsl(45) + top,
-                    },
-                ]}>
-                <MenuButton />
-            </View>
+            {!props.hideMenu && (
+                <View
+                    style={[
+                        styles.menuButtonWrapper,
+                        {
+                            top: bsl(45) + top,
+                        },
+                    ]}>
+                    <MenuButton />
+                </View>
+            )}
             <View style={styles.header}>
-                <BaseText size={50}>{props.children}</BaseText>
+                <BaseText size={50} align="center">
+                    {props.children}
+                </BaseText>
             </View>
         </View>
     );

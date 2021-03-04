@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
-import SafeAreaView from 'react-native-safe-area-view';
 import Loading from '@/components/Loading';
 import api from '@/api';
 import { AxiosResponse } from 'axios';
-import { View, ScrollView, Button } from 'react-native';
+import { View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { ApiResource } from '@/types/ApiResource';
 import { ParsedUrl, ParsedItem } from '@/types/Parsed';
 import Checkbox from '@/components/Checkbox';
-import BaseText from '@/components/BaseText';
 import useShoppingLists from '@/hooks/useShoppingLists';
-import Select from '@/components/form/Select';
-import { Formik, FieldArray, FormikHelpers } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import omit from 'lodash/omit';
 import SubmitButton from '@/components/form/SubmitButton';
 import { Navigation } from 'react-native-navigation';
@@ -19,6 +16,15 @@ import QuantityControlField from '@/components/QuantityControlField';
 import TextField from '@/components/form/TextField';
 import AutoGrowTextField from '@/components/form/AutoGrowTextField';
 import useAddShoppingList from '@/hooks/useAddShoppingList';
+import Header from '@/components/Header';
+import { getColorFromString, yellow100, bsl } from '@/util/style';
+import Wrapper from '@/components/Wrapper';
+import Footer from '@/components/Footer';
+import CancelButton from '@/components/form/CancelButton';
+import FooterForm from '@/components/FooterForm';
+import { showPopup, screenComponent } from '@/util/navigation';
+import IncomingShareListSelection from '@/components/IncomingShareListSelection';
+import ListItem from '@/components/ListItem';
 
 export interface IncomingShareProps {
     text: string | null;
@@ -137,127 +143,121 @@ const IncomingShare: Screen<IncomingShareProps & ScreenProps> = (props) => {
             });
     };
 
+    const title = urlData?.title ? urlData.title : 'Importing Ingredients';
+
+    const color = getColorFromString(title);
+
+    if (items.length === 0) {
+        return <Loading />;
+    }
+
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            {items.length === 0 && <Loading />}
-            {items.length !== 0 && (
-                <View style={{ flex: 1 }}>
-                    <Formik
-                        onSubmit={onSubmit}
-                        initialValues={initialFormValues}>
-                        {({
-                            values,
-                            setFieldValue,
-                            handleSubmit,
-                            isSubmitting,
-                        }) => (
-                            <>
-                                <ScrollView style={{ flex: 1 }}>
-                                    <View style={{ padding: 20 }}>
-                                        {urlData?.title ? (
-                                            <>
-                                                <BaseText align="center">
-                                                    Importing Ingredients from
-                                                </BaseText>
-                                                <BaseText
-                                                    align="center"
-                                                    bold={true}>
-                                                    {urlData.title}
-                                                    {/* {urlData.url} */}
-                                                </BaseText>
-                                                <BaseText
-                                                    numberOfLines={1}
-                                                    align="center">
-                                                    {urlData.url}
-                                                </BaseText>
-                                                <BaseText align="center">
-                                                    into list:
-                                                </BaseText>
-                                            </>
-                                        ) : (
-                                            <BaseText align="center">
-                                                Importing Ingredients into list:
-                                            </BaseText>
-                                        )}
-                                        <Select
-                                            name="listId"
-                                            items={lists.data?.map((list) => ({
-                                                label: list.name,
-                                                value: list.id,
-                                            }))}
-                                        />
-                                        <BaseText align="center">or</BaseText>
-                                        <TextField
-                                            name="newListName"
-                                            placeholder="New List"
-                                        />
-                                    </View>
-                                    {values.items.map((item, index) => (
-                                        <View key={item.id.toString()}>
-                                            <View
-                                                style={[
-                                                    {
-                                                        padding: 10,
-                                                        flexDirection: 'row',
-                                                        justifyContent:
-                                                            'space-between',
-                                                        backgroundColor: '#fff',
-                                                    },
-                                                ]}>
-                                                <Checkbox
-                                                    checked={item.selected}
-                                                    onPress={() => {
-                                                        setFieldValue(
-                                                            `items.${index}.selected`,
-                                                            !item.selected,
-                                                        );
-                                                    }}
-                                                />
-                                                <View
-                                                    style={{
-                                                        flex: 1,
-                                                        opacity: item.selected
-                                                            ? 1
-                                                            : 0.25,
-                                                    }}>
-                                                    <TextField
-                                                        name={`items.${index}.name`}
-                                                        placeholder="Name"
-                                                        editable={item.selected}
-                                                    />
-                                                    <AutoGrowTextField
-                                                        name={`items.${index}.note`}
-                                                        placeholder="Note"
-                                                        editable={item.selected}
-                                                    />
-                                                </View>
-                                                <QuantityControlField
-                                                    name={`items.${index}.quantity`}
-                                                />
-                                            </View>
-                                        </View>
-                                    ))}
-                                </ScrollView>
-                                <SubmitButton
-                                    onPress={handleSubmit}
-                                    processing={isSubmitting}>
-                                    Add Items
-                                </SubmitButton>
-                                <Button
-                                    title="Cancel"
+        <Wrapper forceInset={{ top: 'never', bottom: 'never' }}>
+            <View style={{ flex: 1 }}>
+                <Formik onSubmit={onSubmit} initialValues={initialFormValues}>
+                    {({
+                        values,
+                        setFieldValue,
+                        handleSubmit,
+                        isSubmitting,
+                    }) => (
+                        <>
+                            <Header color={color} hideMenu={true}>
+                                {title}
+                            </Header>
+                            <TouchableOpacity
+                                style={styles.selectListButton}
+                                onPress={() =>
+                                    showPopup('IncomingShareImportList', {
+                                        onSelect: (listId: number) => {
+                                            setFieldValue('listId', listId);
+                                            setFieldValue('newListName', '');
+                                        },
+                                        onNewName: (name: string) => {
+                                            setFieldValue('listId', null);
+                                            setFieldValue('newListName', name);
+                                        },
+                                    })
+                                }>
+                                <IncomingShareListSelection />
+                            </TouchableOpacity>
+                            <ScrollView style={styles.scrollView}>
+                                {values.items.map((item, index) => (
+                                    <ListItem
+                                        key={item.id.toString()}
+                                        name={values.items[index].name}
+                                        note={values.items[index].note}
+                                        quantity={values.items[index].quantity}
+                                        onPress={() => {
+                                            showPopup('EditIncomingShareItem', {
+                                                name: values.items[index].name,
+                                                note: values.items[index].note,
+                                                onUpdate({ name, note }) {
+                                                    setFieldValue(
+                                                        `items.${index}.name`,
+                                                        name,
+                                                    );
+                                                    setFieldValue(
+                                                        `items.${index}.note`,
+                                                        note,
+                                                    );
+                                                },
+                                            });
+                                        }}
+                                        onQuantityChange={(newQuantity) => {
+                                            setFieldValue(
+                                                `items.${index}.quantity`,
+                                                newQuantity,
+                                            );
+                                        }}
+                                        checkedOff={
+                                            values.items[index].selected
+                                        }
+                                        toggleCheck={() => {
+                                            setFieldValue(
+                                                `items.${index}.selected`,
+                                                !values.items[index].selected,
+                                            );
+                                        }}
+                                    />
+                                ))}
+                            </ScrollView>
+                            <Footer color={color}>
+                                <FooterForm>
+                                    <SubmitButton
+                                        onPress={handleSubmit}
+                                        processing={isSubmitting}>
+                                        Add Items
+                                    </SubmitButton>
+                                </FooterForm>
+                                <CancelButton
                                     onPress={() => {
                                         Navigation.dismissModal(
                                             props.componentId,
                                         );
                                     }}
                                 />
-                            </>
-                        )}
-                    </Formik>
-                </View>
-            )}
-        </SafeAreaView>
+                            </Footer>
+                        </>
+                    )}
+                </Formik>
+            </View>
+        </Wrapper>
     );
 };
+
+const styles = StyleSheet.create({
+    selectListButton: {
+        backgroundColor: yellow100,
+        paddingHorizontal: bsl(20),
+        paddingVertical: bsl(20),
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    scrollView: {
+        flex: 1,
+    },
+});
 
 export default IncomingShare;

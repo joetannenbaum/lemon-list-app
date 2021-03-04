@@ -7,7 +7,8 @@ export interface ParsedUrl {
 }
 
 export interface ParsedItem {
-    id: number;
+    id: string;
+    item_id: number;
     aisle: string;
     name: string;
     original: string;

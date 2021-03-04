@@ -180,7 +180,7 @@ Menu.options = {
         componentBackgroundColor: 'transparent',
     },
     overlay: {
-        interceptTouchOutside: true,
+        interceptTouchOutside: false,
         handleKeyboardEvents: true,
     },
 };
