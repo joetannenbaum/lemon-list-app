@@ -357,27 +357,29 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         <Wrapper forceInset={{ top: 'never', bottom: 'never' }}>
             <Header color={listColor}>{list.data?.name}</Header>
 
-            <View>
-                <TouchableOpacity
-                    style={styles.changeStoresButton}
-                    onPress={() =>
-                        showPopup('ShoppingListStoreSelect', {
-                            onSelect: (storeId: number | null) => {
-                                setActiveStoreId(storeId);
-                            },
-                        })
-                    }>
-                    <Image
-                        style={styles.changeStoresIcon}
-                        source={require('@images/shopping-cart.png')}
-                    />
-                    <BaseText>
-                        {stores.data?.find(
-                            (store) => store.id === activeStoreId,
-                        )?.name || 'Select Store'}
-                    </BaseText>
-                </TouchableOpacity>
-            </View>
+            {stores.data?.length > 0 && (
+                <View>
+                    <TouchableOpacity
+                        style={styles.changeStoresButton}
+                        onPress={() =>
+                            showPopup('ShoppingListStoreSelect', {
+                                onSelect: (storeId: number | null) => {
+                                    setActiveStoreId(storeId);
+                                },
+                            })
+                        }>
+                        <Image
+                            style={styles.changeStoresIcon}
+                            source={require('@images/shopping-cart.png')}
+                        />
+                        <BaseText>
+                            {stores.data?.find(
+                                (store) => store.id === activeStoreId,
+                            )?.name || 'Select Store'}
+                        </BaseText>
+                    </TouchableOpacity>
+                </View>
+            )}
             <View style={styles.listWrapper}>
                 {listData.length === 0 && (
                     <EmptyState subtitle="Add the first item to your list below!" />
