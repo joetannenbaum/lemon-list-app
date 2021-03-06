@@ -6,7 +6,7 @@ import { flexCenter, bsl, yellow200 } from '@/util/style';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export interface HeaderProps {
-    color: string;
+    color?: string;
     hideMenu?: boolean;
 }
 

@@ -5,7 +5,7 @@ import { bsl, yellow200 } from '@/util/style';
 import KeyboardBottomBuffer from './KeyboardBottomBuffer';
 
 export interface FooterProps {
-    color: string;
+    color?: string;
 }
 
 const Footer: React.FC<FooterProps> = (props) => {
