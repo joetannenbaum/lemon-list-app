@@ -10,7 +10,7 @@ import useMe from '@/hooks/useMe';
 import useShoppingLists from '@/hooks/useShoppingLists';
 import useStores from '@/hooks/useStores';
 import { setStackRootWithoutAnimating } from '@/util/navigation';
-import { bsl, yellow100 } from '@/util/style';
+import { bsl, yellow200 } from '@/util/style';
 import ArrowButton from '@/components/ArrowButton';
 import LogoutButton from '@/components/LogoutButton';
 import BaseText from '@/components/BaseText';
@@ -19,7 +19,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Navigation } from 'react-native-navigation';
 import CreateStoreForm from '@/components/CreateStoreForm';
 import CreateListForm from '@/components/CreateListForm';
-import { ScrollView } from 'react-native-gesture-handler';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export interface MenuProps {}
 
@@ -84,7 +84,8 @@ const Menu: Screen<MenuProps & ScreenProps> = (props) => {
                         <LogoutButton onLogout={closeMenu} />
                     </View>
                 </View>
-                <ScrollView
+                <KeyboardAwareScrollView
+                    keyboardShouldPersistTaps="handled"
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}>
                     <View style={styles.section}>
@@ -134,7 +135,7 @@ const Menu: Screen<MenuProps & ScreenProps> = (props) => {
                             <CreateStoreForm />
                         </View>
                     </View>
-                </ScrollView>
+                </KeyboardAwareScrollView>
             </Animated.View>
         </>
     );
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, .5)',
     },
     headerWrapper: {
-        backgroundColor: yellow100,
+        backgroundColor: yellow200,
         marginHorizontal: bsl(-20),
     },
     header: {

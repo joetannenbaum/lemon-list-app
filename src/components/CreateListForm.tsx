@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik, FormikHelpers } from 'formik';
-import { View } from 'react-native';
+import { View, Keyboard } from 'react-native';
 import * as Yup from 'yup';
 import TextField from './form/TextField';
 import useAddShoppingList from '@/hooks/useAddShoppingList';
@@ -25,6 +25,8 @@ const CreateListForm: React.FC<Props> = (props) => {
     });
 
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
+        Keyboard.dismiss();
+
         addShoppingList({
             name: values.name,
         })

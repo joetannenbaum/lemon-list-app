@@ -378,7 +378,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                     </BaseText>
                 </TouchableOpacity>
             </View>
-            <View style={{ flex: 1 }}>
+            <View style={styles.listWrapper}>
                 {listData.length === 0 && (
                     <EmptyState subtitle="Add the first item to your list below!" />
                 )}
@@ -492,11 +492,8 @@ const styles = StyleSheet.create({
         paddingVertical: bsl(20),
         backgroundColor: grey100,
     },
-    listScrollView: {
+    listWrapper: {
         flex: 1,
-    },
-    listScrollViewContent: {
-        padding: bsl(20),
     },
     changeStoresButton: {
         backgroundColor: yellow100,
