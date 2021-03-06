@@ -309,7 +309,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
 
         Alert.alert(
             `Leave ${list.data?.name}?`,
-            'If you leave this list you will have to re-add it again to gain access later.',
+            'If you leave this list the owner will have to re-add you again if you want access later.',
             [
                 {
                     text: 'Cancel',
