@@ -97,7 +97,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
 
         const channel = pusher.subscribe(`shopping-list-${props.id}`);
 
-        channel.bind('App\\Events\\ShoppingListUpdated', function (data) {
+        channel.bind('App\\Events\\ShoppingListUpdated', (data) => {
             if (me.data?.id !== data.user.id) {
                 // If I am the one that made the change, we don't need to invalidate the query,
                 // it'll happen anyway from the mutate
