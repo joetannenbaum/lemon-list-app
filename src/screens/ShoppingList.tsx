@@ -416,16 +416,18 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                 </FooterForm>
 
                 <FooterTools>
-                    <FooterToolButton
-                        onPress={() =>
-                            showPopup('ShareShoppingList', {
-                                id: list.data?.id,
-                            })
-                        }
-                        icon={require('@images/share.png')}
-                        iconWidth={68}>
-                        Share
-                    </FooterToolButton>
+                    {list.data?.is_owner && (
+                        <FooterToolButton
+                            onPress={() =>
+                                showPopup('ShareShoppingList', {
+                                    id: list.data?.id,
+                                })
+                            }
+                            icon={require('@images/share.png')}
+                            iconWidth={68}>
+                            Share
+                        </FooterToolButton>
+                    )}
 
                     {canAddFromOtherLists && (
                         <FooterToolButton

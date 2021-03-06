@@ -146,29 +146,25 @@ const Store: Screen<Props> = (props) => {
                         <CreateStoreTagForm storeId={props.id} />
                     </FooterForm>
                     <FooterTools center={true}>
-                        <View style={styles.footerToolWrapper}>
-                            <FooterToolButton
-                                onPress={() =>
-                                    showPopup('EditStore', {
-                                        id: props.id,
-                                    })
-                                }
-                                icon={require('@images/pencil.png')}
-                                iconWidth={78}
-                                iconHeight={79}>
-                                Edit
-                            </FooterToolButton>
-                        </View>
+                        <FooterToolButton
+                            onPress={() =>
+                                showPopup('EditStore', {
+                                    id: props.id,
+                                })
+                            }
+                            icon={require('@images/pencil.png')}
+                            iconWidth={78}
+                            iconHeight={79}>
+                            Edit
+                        </FooterToolButton>
 
-                        <View style={styles.footerToolWrapper}>
-                            <FooterToolButton
-                                onPress={onDeleteShoppingListPress}
-                                icon={require('@images/trash.png')}
-                                iconWidth={61}
-                                iconHeight={68}>
-                                Delete
-                            </FooterToolButton>
-                        </View>
+                        <FooterToolButton
+                            onPress={onDeleteShoppingListPress}
+                            icon={require('@images/trash.png')}
+                            iconWidth={61}
+                            iconHeight={68}>
+                            Delete
+                        </FooterToolButton>
                     </FooterTools>
                 </View>
             </Footer>
@@ -179,9 +175,6 @@ const Store: Screen<Props> = (props) => {
 const styles = StyleSheet.create({
     list: {
         flex: 1,
-    },
-    footerToolWrapper: {
-        marginHorizontal: bsl(40),
     },
 });
 

@@ -7,13 +7,29 @@ export interface FooterToolsProps {
 }
 
 const FooterTools: React.FC<FooterToolsProps> = (props) => {
+    const validKids = props.children.filter((item) => item !== false);
+
+    const aFewKids = validKids.length < 4;
+
     return (
         <View
             style={[
                 styles.toolsWrapper,
-                props.center ? { justifyContent: 'center' } : null,
+                aFewKids ? { justifyContent: 'center' } : null,
             ]}>
-            {props.children}
+            {validKids.map((kid, index) => {
+                if (aFewKids) {
+                    return (
+                        <View
+                            style={styles.footerToolWrapper}
+                            key={index.toString()}>
+                            {kid}
+                        </View>
+                    );
+                }
+
+                return kid;
+            })}
         </View>
     );
 };
@@ -24,6 +40,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: bsl(40),
         paddingVertical: bsl(20),
         justifyContent: 'space-between',
+    },
+    footerToolWrapper: {
+        marginHorizontal: bsl(40),
     },
 });
 
