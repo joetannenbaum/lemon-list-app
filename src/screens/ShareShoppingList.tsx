@@ -27,12 +27,12 @@ const ShareShoppingList: Screen<ShareShoppingListProps & ModalScreenProps> = (
 
         const link = await dynamicLinks().buildShortLink({
             link: `${Config.API_URL}/list/${list.data?.uuid}`,
-            domainUriPrefix: 'https://lemonlistlocal.page.link',
+            domainUriPrefix: `https://${Config.DYNAMIC_LINK_URL}`,
         });
 
         Share.open({
             title: `Share ${list.data?.name}`,
-            message: `Join my list on the Grocery List app: ${link}`,
+            message: `I want to share my list with you on Lemon List: ${link}`,
             url: link,
         })
             .then((res) => {

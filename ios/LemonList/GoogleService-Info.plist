@@ -3,21 +3,21 @@
 <plist version="1.0">
 	<dict>
 		<key>CLIENT_ID</key>
-		<string>602092013416-q99the34q7jqumhb4k8sk25d4hq19gcm.apps.googleusercontent.com</string>
+		<string>931944660700-jeqsv4ksnqes9qmn8ikc15gi206moqdl.apps.googleusercontent.com</string>
 		<key>REVERSED_CLIENT_ID</key>
-		<string>com.googleusercontent.apps.602092013416-q99the34q7jqumhb4k8sk25d4hq19gcm</string>
+		<string>com.googleusercontent.apps.931944660700-jeqsv4ksnqes9qmn8ikc15gi206moqdl</string>
 		<key>API_KEY</key>
-		<string>AIzaSyDV-UH8JU-uLlAiB7owKK_PNNV5DMFX23Q</string>
+		<string>AIzaSyA9wuskHjgGis_SgSXfUI0sO_s7X3Faf1w</string>
 		<key>GCM_SENDER_ID</key>
-		<string>602092013416</string>
+		<string>931944660700</string>
 		<key>PLIST_VERSION</key>
 		<string>1</string>
 		<key>BUNDLE_ID</key>
 		<string>com.lemonlistapp.app.local</string>
 		<key>PROJECT_ID</key>
-		<string>grocery-list-local</string>
+		<string>lemon-list-local</string>
 		<key>STORAGE_BUCKET</key>
-		<string>grocery-list-local.appspot.com</string>
+		<string>lemon-list-local.appspot.com</string>
 		<key>IS_ADS_ENABLED</key>
 		<false></false>
 		<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,6 @@
 		<key>IS_SIGNIN_ENABLED</key>
 		<true></true>
 		<key>GOOGLE_APP_ID</key>
-		<string>1:602092013416:ios:3afdf303c6f6bbb1d1f8dd</string>
-		<key>DATABASE_URL</key>
-		<string>https://grocery-list-local.firebaseio.com</string>
+		<string>1:931944660700:ios:cd2e0f0a59e5e0752dbe19</string>
 	</dict>
 </plist>
