@@ -52,6 +52,7 @@ const CreateListForm: React.FC<Props> = (props) => {
                         name="name"
                         placeholder="New List"
                         hideError={true}
+                        onSubmitEditing={handleSubmit}
                     />
 
                     <MiniAddButton

@@ -9,10 +9,12 @@ import flowRight from 'lodash/flowRight';
 import AcceptShare from '@/screens/AcceptShare';
 import AddItemsFromListsStart from '@/screens/AddItemsFromListsStart';
 import App from '@/screens/App';
+import EditIncomingShareItem from '@/screens/EditIncomingShareItem';
 import EditShoppingList from '@/screens/EditShoppingList';
 import EditShoppingListItem from '@/screens/EditShoppingListItem';
 import EditStore from '@/screens/EditStore';
 import IncomingShare from '@/screens/IncomingShare';
+import IncomingShareImportList from '@/screens/IncomingShareImportList';
 import ListenForIncomingShare from '@/screens/ListenForIncomingShare';
 import Login from '@/screens/Login';
 import Menu from '@/screens/Menu';
@@ -21,8 +23,7 @@ import ShareShoppingList from '@/screens/ShareShoppingList';
 import ShoppingList from '@/screens/ShoppingList';
 import ShoppingListStoreSelect from '@/screens/ShoppingListStoreSelect';
 import Store from '@/screens/Store';
-import IncomingShareImportList from '@/screens/IncomingShareImportList';
-import EditIncomingShareItem from '@/screens/EditIncomingShareItem';
+import Welcome from '@/screens/Welcome';
 import { persistQueryClient } from 'react-query/persistQueryClient-experimental';
 import AsyncStoragePersistor from '@/util/AsyncStoragePersistor';
 
@@ -44,10 +45,12 @@ const screens = {
     AcceptShare,
     AddItemsFromListsStart,
     App,
+    EditIncomingShareItem,
     EditShoppingList,
     EditShoppingListItem,
     EditStore,
     IncomingShare,
+    IncomingShareImportList,
     ListenForIncomingShare,
     Login,
     Menu,
@@ -56,8 +59,7 @@ const screens = {
     ShoppingList,
     ShoppingListStoreSelect,
     Store,
-    IncomingShareImportList,
-    EditIncomingShareItem,
+    Welcome,
 };
 
 const SafeareaWrappedComponent = (
@@ -88,19 +90,20 @@ export type screenComponentName =
     | 'AcceptShare'
     | 'AddItemsFromListsStart'
     | 'App'
+    | 'EditIncomingShareItem'
     | 'EditShoppingList'
     | 'EditShoppingListItem'
     | 'EditStore'
     | 'IncomingShare'
+    | 'IncomingShareImportList'
     | 'ListenForIncomingShare'
     | 'Login'
     | 'Register'
     | 'ShareShoppingList'
     | 'ShoppingList'
-    | 'EditIncomingShareItem'
-    | 'IncomingShareImportList'
     | 'ShoppingListStoreSelect'
-    | 'Store';
+    | 'Store'
+    | 'Welcome';
 
 const enhance = flowRight(gestureHandlerRootHOC, SafeareaWrappedComponent);
 const enhanceOverlay = flowRight(WrappedComponent);

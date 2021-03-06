@@ -39,10 +39,13 @@ const App: Screen<Props> = (props) => {
 
                 const listId = lists.data?.find((list) => list.id === id)
                     ? id
-                    : lists.data[0].id;
+                    : lists.data[0]?.id;
+
+                if (!listId) {
+                    return setStackRootWithoutAnimating('Welcome');
+                }
 
                 setStackRootWithoutAnimating('ShoppingList', {
-                    // TODO: What if they have no lists
                     id: listId,
                 });
             });

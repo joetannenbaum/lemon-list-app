@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { TouchableOpacity, StyleSheet, Image, Insets } from 'react-native';
 import { bsl, sizeImage } from '@/util/style';
 import Processing from './Processing';
 
@@ -10,11 +10,19 @@ export interface MiniAddButtonProps {
 }
 
 const MiniAddButton: React.FC<MiniAddButtonProps> = (props) => {
+    const hitSlop: Insets = {
+        top: bsl(20),
+        bottom: bsl(20),
+        right: bsl(20),
+        left: bsl(20),
+    };
+
     return (
         <TouchableOpacity
             style={styles.addButton}
             onPress={props.onPress}
-            disabled={props.disabled}>
+            disabled={props.disabled}
+            hitSlop={hitSlop}>
             {props.submitting ? (
                 <Processing />
             ) : (
