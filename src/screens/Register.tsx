@@ -59,7 +59,11 @@ const Register: Screen<Props> = (props) => {
     };
 
     const renderForm = useCallback(
-        ({ handleSubmit, isSubmitting }: FormikProps<FormikValues>) => (
+        ({
+            handleSubmit,
+            isSubmitting,
+            isValid,
+        }: FormikProps<FormikValues>) => (
             <View style={styles.form}>
                 <View style={styles.formFieldsWrapper}>
                     <View style={styles.formFieldsInner}>
@@ -88,6 +92,7 @@ const Register: Screen<Props> = (props) => {
 
                         <View style={styles.inputWrapper}>
                             <SubmitButton
+                                disabled={!isValid}
                                 processing={isSubmitting}
                                 onPress={handleSubmit}>
                                 Register
