@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Keyboard, Platform } from 'react-native';
+import { View, Keyboard, Platform, KeyboardEvent } from 'react-native';
 
 export interface KeyboardBottomBufferProps {}
 
@@ -11,13 +11,21 @@ const KeyboardBottomBuffer: React.FC<KeyboardBottomBufferProps> = (props) => {
             return;
         }
 
-        Keyboard.addListener('keyboardWillShow', (e) => {
+        const onShow = (e: KeyboardEvent) => {
             setKeyboardPaddingHeight(e.endCoordinates.height);
-        });
+        };
 
-        Keyboard.addListener('keyboardWillHide', (e) => {
+        const onHide = () => {
             setKeyboardPaddingHeight(0);
-        });
+        };
+
+        Keyboard.addListener('keyboardWillShow', onShow);
+        Keyboard.addListener('keyboardWillHide', onHide);
+
+        return () => {
+            Keyboard.removeListener('keyboardWillShow', onShow);
+            Keyboard.removeListener('keyboardWillHide', onHide);
+        };
     }, []);
 
     if (Platform.OS === 'android') {
