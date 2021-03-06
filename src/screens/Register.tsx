@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import SafeAreaView from 'react-native-safe-area-view';
 import { Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 import TextField from '@/components/form/TextField';
 import EmailField from '@/components/form/EmailField';
@@ -13,7 +13,7 @@ import logger from '@/util/logger';
 import { requestAccessToken } from '@/api/token';
 import BaseText from '@/components/BaseText';
 import { setStackRootWithoutAnimating } from '@/util/navigation';
-import { bsl, flexCenter } from '@/util/style';
+import { bsl, flexCenter, blue400 } from '@/util/style';
 
 interface Props extends ScreenProps {}
 
@@ -96,14 +96,17 @@ const Register: Screen<Props> = (props) => {
                     </View>
                 </View>
 
-                <View>
-                    <BaseText align="center">Already have an account?</BaseText>
-                    <Button
-                        title="Login"
-                        onPress={() => {
-                            setStackRootWithoutAnimating('Login');
-                        }}
-                    />
+                <View style={styles.footer}>
+                    <BaseText align="center">
+                        Already have an account?{' '}
+                        <BaseText
+                            color={blue400}
+                            onPress={() => {
+                                setStackRootWithoutAnimating('Login');
+                            }}>
+                            Login
+                        </BaseText>
+                    </BaseText>
                 </View>
             </View>
         ),
@@ -139,6 +142,9 @@ const styles = StyleSheet.create({
     },
     formFieldsInner: {
         width: '100%',
+    },
+    footer: {
+        paddingVertical: bsl(40),
     },
 });
 

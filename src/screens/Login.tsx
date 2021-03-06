@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { ScreenProps, Screen } from '@/types/navigation';
 import SafeAreaView from 'react-native-safe-area-view';
 import { Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, StyleSheet, Keyboard, KeyboardAvoidingView } from 'react-native';
 import * as Yup from 'yup';
 import EmailField from '@/components/form/EmailField';
 import PasswordField from '@/components/form/PasswordField';
@@ -11,8 +11,7 @@ import logger from '@/util/logger';
 import { requestAccessToken } from '@/api/token';
 import BaseText from '@/components/BaseText';
 import { setStackRootWithoutAnimating } from '@/util/navigation';
-import { flexCenter, bsl } from '@/util/style';
-import Divider from '@/components/Divider';
+import { flexCenter, bsl, blue400 } from '@/util/style';
 
 interface Props extends ScreenProps {}
 
@@ -34,6 +33,8 @@ const Login: Screen<Props> = (props) => {
 
     const handleSubmit = useCallback(
         (values: FormValues, form: FormikHelpers<FormValues>) => {
+            Keyboard.dismiss();
+
             requestAccessToken(values.email, values.password)
                 .then((res) => {
                     setStackRootWithoutAnimating('App');
@@ -51,7 +52,11 @@ const Login: Screen<Props> = (props) => {
     }, []);
 
     const renderForm = useCallback(
-        ({ handleSubmit, isSubmitting }: FormikProps<FormikValues>) => (
+        ({
+            handleSubmit,
+            isSubmitting,
+            isValid,
+        }: FormikProps<FormikValues>) => (
             <View style={styles.form}>
                 <View style={styles.formFieldsWrapper}>
                     <View style={styles.formFieldsInner}>
@@ -68,6 +73,7 @@ const Login: Screen<Props> = (props) => {
 
                         <View style={styles.inputWrapper}>
                             <SubmitButton
+                                disabled={!isValid}
                                 processing={isSubmitting}
                                 onPress={handleSubmit}>
                                 Login
@@ -75,9 +81,13 @@ const Login: Screen<Props> = (props) => {
                         </View>
                     </View>
                 </View>
-                <View>
-                    <BaseText align="center">Don't have an account?</BaseText>
-                    <Button title="Register" onPress={onRegisterPress} />
+                <View style={styles.footer}>
+                    <BaseText align="center">
+                        Don't have an account?{' '}
+                        <BaseText color={blue400} onPress={onRegisterPress}>
+                            Register
+                        </BaseText>
+                    </BaseText>
                 </View>
             </View>
         ),
@@ -86,12 +96,14 @@ const Login: Screen<Props> = (props) => {
 
     return (
         <SafeAreaView style={styles.safearea}>
-            <Formik
-                initialValues={initialFormValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}>
-                {renderForm}
-            </Formik>
+            <KeyboardAvoidingView style={styles.form}>
+                <Formik
+                    initialValues={initialFormValues}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSubmit}>
+                    {renderForm}
+                </Formik>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 };
@@ -113,6 +125,9 @@ const styles = StyleSheet.create({
     },
     formFieldsInner: {
         width: '100%',
+    },
+    footer: {
+        paddingVertical: bsl(40),
     },
 });
 
