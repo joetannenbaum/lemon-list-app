@@ -28,7 +28,7 @@ import {
     getColorFromString,
     bsl,
     sizeImage,
-    yellow100,
+    green600,
     grey100,
 } from '@/util/style';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -372,7 +372,7 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
                             style={styles.changeStoresIcon}
                             source={require('@images/shopping-cart.png')}
                         />
-                        <BaseText>
+                        <BaseText color="#fff">
                             {stores.data?.find(
                                 (store) => store.id === activeStoreId,
                             )?.name || 'Select Store'}
@@ -500,7 +500,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     changeStoresButton: {
-        backgroundColor: yellow100,
+        backgroundColor: green600,
         paddingHorizontal: bsl(20),
         paddingVertical: bsl(20),
         flexDirection: 'row',
@@ -512,6 +512,7 @@ const styles = StyleSheet.create({
             height: 30,
         }),
         marginRight: bsl(10),
+        tintColor: '#fff',
     },
 });
 
