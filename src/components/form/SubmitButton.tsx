@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
     TouchableOpacity,
     TouchableOpacityProps,
     StyleSheet,
+    Animated,
+    Image,
+    View,
 } from 'react-native';
 import BaseText from '../BaseText';
-import { bsl, grey400, grey200, yellow100 } from '@/util/style';
+import {
+    bsl,
+    grey400,
+    grey200,
+    yellow100,
+    sizeImage,
+    black,
+} from '@/util/style';
 
 interface Props extends TouchableOpacityProps {
     processing?: boolean;
@@ -14,18 +24,43 @@ interface Props extends TouchableOpacityProps {
 const SubmitButton: React.FC<Props> = (props) => {
     const disabled = props.disabled || props.processing;
 
-    // const animatedValue = useRef(new Animated.Value(0))
+    const animatedValue = useRef(new Animated.Value(0));
 
-    // useEffect(() => {
-
-    // }, [disabled])
+    useEffect(() => {
+        if (props.processing) {
+            Animated.loop(
+                Animated.timing(animatedValue.current, {
+                    toValue: 1,
+                    useNativeDriver: true,
+                    duration: 2000,
+                }),
+            ).start();
+        }
+    }, [props.processing]);
 
     const renderButtonContent = () => {
         if (props.processing) {
             return (
-                <BaseText size={30} letterSpacing={1.25} align="center">
-                    ONE SEC...
-                </BaseText>
+                <View style={styles.loadingIconWrapper}>
+                    <Animated.Image
+                        source={require('@images/lemon-slice.png')}
+                        style={[
+                            styles.loadingIcon,
+                            {
+                                transform: [
+                                    {
+                                        rotate: animatedValue.current.interpolate(
+                                            {
+                                                inputRange: [0, 1],
+                                                outputRange: ['0deg', '360deg'],
+                                            },
+                                        ),
+                                    },
+                                ],
+                            },
+                        ]}
+                    />
+                </View>
             );
         }
 
@@ -72,6 +107,14 @@ const styles = StyleSheet.create({
     },
     disabled: {
         backgroundColor: grey200,
+    },
+    loadingIconWrapper: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loadingIcon: {
+        ...sizeImage(10, 10, { width: 38 }),
+        tintColor: black,
     },
 });
 
