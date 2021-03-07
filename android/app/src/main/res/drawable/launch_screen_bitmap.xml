@@ -1,0 +1,6 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+    <item android:drawable="@color/splash_bg" />
+    <item>
+        <bitmap android:src="@mipmap/lemonlogo" android:gravity="center" />
+    </item>
+</layer-list>
