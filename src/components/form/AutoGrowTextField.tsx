@@ -1,8 +1,8 @@
 import React from 'react';
 import TextField, { TextFieldProps } from './TextField';
 import { useField } from 'formik';
-import { bsl, paddingX, paddingY } from '@/util/style';
-import BaseText from '../BaseText';
+import { bsl } from '@/util/style';
+import BaseText from '@/components/BaseText';
 import { StyleSheet, View } from 'react-native';
 
 const AutoGrowTextField: React.FC<TextFieldProps> = (props) => {
@@ -24,7 +24,11 @@ const AutoGrowTextField: React.FC<TextFieldProps> = (props) => {
 
     return (
         <>
-            <TextField multiline={true} {...props} />
+            <TextField
+                multiline={true}
+                {...props}
+                additionalStyles={styles.input}
+            />
             {renderMaxLength()}
         </>
     );
@@ -36,6 +40,9 @@ const styles = StyleSheet.create({
         paddingRight: bsl(20),
         flexDirection: 'row',
         justifyContent: 'flex-end',
+    },
+    input: {
+        maxHeight: bsl(150),
     },
 });
 
