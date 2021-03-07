@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
 import BaseText from '@/components/BaseText';
-import { View, Alert } from 'react-native';
+import { View, Alert, ScrollView, StyleSheet } from 'react-native';
 import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
 import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
 import { Formik, FormikHelpers } from 'formik';
@@ -18,6 +18,7 @@ import { bsl, grey300 } from '@/util/style';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import asModal from '@/components/asModal';
 import { Screen, ModalScreenProps } from '@/types/navigation';
+import Divider from '@/components/Divider';
 
 export interface EditShoppingListItemProps {
     listId: number;
@@ -116,19 +117,15 @@ const EditShoppingListItem: Screen<
             onSubmit={onSubmit}>
             {({ handleSubmit, isSubmitting, values }) => (
                 <View>
-                    <View style={{ paddingBottom: bsl(20) }}>
+                    <View style={styles.deleteWrapper}>
                         <TouchableOpacity onPress={onDeletePress}>
                             <BaseText align="right" color="red">
                                 Delete
                             </BaseText>
                         </TouchableOpacity>
                     </View>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                        }}>
-                        <View style={{ flex: 1 }}>
+                    <View style={styles.topFormRow}>
+                        <View style={styles.nameWrapper}>
                             <AutoGrowTextField
                                 required={true}
                                 name="name"
@@ -137,49 +134,42 @@ const EditShoppingListItem: Screen<
                             />
                         </View>
 
-                        <View
-                            style={{
-                                paddingLeft: bsl(20),
-                            }}>
+                        <View style={styles.quantityWrapper}>
                             <QuantityControlField name="quantity" />
                         </View>
                     </View>
-                    <View style={{ paddingVertical: bsl(20) }}>
+                    <View style={styles.notesWrapper}>
                         <AutoGrowTextField
                             name="note"
                             maxLength={100}
                             placeholder="Add a note"
                         />
                     </View>
-                    <View style={{ paddingBottom: bsl(20) }}>
-                        {storesWithTags.map((store, i) => (
-                            <View
-                                style={[
-                                    {
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-between',
-                                        paddingVertical: bsl(20),
-                                    },
-                                    i + 1 < storesWithTags.length && {
-                                        borderBottomWidth: bsl(3),
-                                        borderBottomColor: grey300,
-                                    },
-                                ]}
-                                key={store.id.toString()}>
-                                <BaseText bold={true}>{store.name}</BaseText>
-                                <Select
-                                    name={`store_tags.${store.id}`}
-                                    items={sortBy(store.tags, 'name').map(
-                                        (tag) => ({
-                                            label: tag.name,
-                                            value: tag.id,
-                                        }),
-                                    )}
-                                />
-                            </View>
-                        ))}
-                    </View>
-                    <View style={{ paddingTop: bsl(20) }}>
+                    {storesWithTags.length > 0 && (
+                        <ScrollView style={styles.storesWrapper}>
+                            {storesWithTags.map((store, i) => (
+                                <React.Fragment key={store.id.toString()}>
+                                    {i !== 0 && <Divider />}
+                                    <View style={styles.storeRow}>
+                                        <BaseText bold={true}>
+                                            {store.name}
+                                        </BaseText>
+                                        <Select
+                                            name={`store_tags.${store.id}`}
+                                            items={sortBy(
+                                                store.tags,
+                                                'name',
+                                            ).map((tag) => ({
+                                                label: tag.name,
+                                                value: tag.id,
+                                            }))}
+                                        />
+                                    </View>
+                                </React.Fragment>
+                            ))}
+                        </ScrollView>
+                    )}
+                    <View style={styles.footer}>
                         <SubmitButton
                             disabled={values.name === ''}
                             onPress={handleSubmit}
@@ -192,5 +182,26 @@ const EditShoppingListItem: Screen<
         </Formik>
     );
 };
+
+const styles = StyleSheet.create({
+    storeRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: bsl(20),
+    },
+    footer: { paddingTop: bsl(20) },
+    quantityWrapper: {
+        paddingLeft: bsl(20),
+    },
+    topFormRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: bsl(20),
+    },
+    nameWrapper: { flex: 1 },
+    deleteWrapper: { paddingBottom: bsl(20) },
+    notesWrapper: { paddingBottom: bsl(20) },
+    storesWrapper: { marginBottom: bsl(20) },
+});
 
 export default asModal(EditShoppingListItem);
