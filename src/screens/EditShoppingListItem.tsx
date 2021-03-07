@@ -146,7 +146,9 @@ const EditShoppingListItem: Screen<
                         />
                     </View>
                     {storesWithTags.length > 0 && (
-                        <ScrollView style={styles.storesWrapper}>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            style={styles.storesWrapper}>
                             {storesWithTags.map((store, i) => (
                                 <React.Fragment key={store.id.toString()}>
                                     {i !== 0 && <Divider />}
@@ -201,7 +203,7 @@ const styles = StyleSheet.create({
     nameWrapper: { flex: 1 },
     deleteWrapper: { paddingBottom: bsl(20) },
     notesWrapper: { paddingBottom: bsl(20) },
-    storesWrapper: { marginBottom: bsl(20) },
+    storesWrapper: { marginBottom: bsl(20), maxHeight: bsl(300) },
 });
 
 export default asModal(EditShoppingListItem);
