@@ -13,3 +13,8 @@ export interface Screen<T extends ScreenProps> extends FunctionComponent<T> {
 export type ModalScreenProps = ScreenProps &
     asModalExportedProps &
     asModalProps;
+
+export interface SelectItem {
+    label: string;
+    value: any;
+}

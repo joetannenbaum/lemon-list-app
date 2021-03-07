@@ -19,6 +19,7 @@ import ListenForIncomingShare from '@/screens/ListenForIncomingShare';
 import Login from '@/screens/Login';
 import Menu from '@/screens/Menu';
 import Register from '@/screens/Register';
+import SelectPopup from '@/screens/SelectPopup';
 import ShareShoppingList from '@/screens/ShareShoppingList';
 import ShoppingList from '@/screens/ShoppingList';
 import ShoppingListStoreSelect from '@/screens/ShoppingListStoreSelect';
@@ -55,6 +56,7 @@ const screens = {
     Login,
     Menu,
     Register,
+    SelectPopup,
     ShareShoppingList,
     ShoppingList,
     ShoppingListStoreSelect,
@@ -99,6 +101,7 @@ export type screenComponentName =
     | 'ListenForIncomingShare'
     | 'Login'
     | 'Register'
+    | 'SelectPopup'
     | 'ShareShoppingList'
     | 'ShoppingList'
     | 'ShoppingListStoreSelect'

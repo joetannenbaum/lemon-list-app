@@ -1,12 +1,11 @@
-import React from 'react';
-import RNPickerSelect from 'react-native-picker-select';
+import React, { useCallback } from 'react';
 import { useField } from 'formik';
 import { TextFieldProps } from './TextField';
-
-interface SelectItem {
-    label: string;
-    value: any;
-}
+import BaseText from '../BaseText';
+import { grey400 } from '@/util/style';
+import { TouchableOpacity } from 'react-native';
+import { SelectItem } from '@/types/navigation';
+import { showPopup } from '@/util/navigation';
 
 export interface SelectProps {
     items: SelectItem[];
@@ -15,18 +14,30 @@ export interface SelectProps {
 const Select: React.FC<SelectProps & TextFieldProps> = (props) => {
     const [field, meta, helpers] = useField(props.name);
 
-    return (
-        <RNPickerSelect
-            value={field.value}
-            onValueChange={(val) => {
-                if (val === null) {
+    const onPress = useCallback(() => {
+        showPopup('SelectPopup', {
+            items: props.items,
+            selected: field.value,
+            onSelect(item: SelectItem | null) {
+                if (item === null) {
                     helpers.setValue('');
                 } else {
-                    helpers.setValue(val);
+                    helpers.setValue(item.value);
                 }
-            }}
-            items={props.items}
-        />
+            },
+        });
+    }, [field.value]);
+
+    const selected = props.items.find((item) => item.value === field.value);
+
+    return (
+        <TouchableOpacity onPress={onPress}>
+            {typeof selected === 'undefined' ? (
+                <BaseText color={grey400}>Select an item</BaseText>
+            ) : (
+                <BaseText>{selected.label}</BaseText>
+            )}
+        </TouchableOpacity>
     );
 };
 
