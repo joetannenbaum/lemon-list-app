@@ -29,10 +29,11 @@ const TextComponent: React.FC<TextComponentProps> = (props) => {
             {...props}
             style={[
                 {
-                    fontFamily: props.fontFamily || 'Karla-Regular',
+                    fontFamily: props.bold
+                        ? 'Karla-Bold'
+                        : props.fontFamily || 'Karla-Regular',
                     color: props.color || black,
                     fontSize: bsl(props.size || defaultFontSize),
-                    fontWeight: props.bold ? '700' : '400',
                     textAlign: props.align,
                     lineHeight:
                         typeof props.lineHeight !== 'undefined'
