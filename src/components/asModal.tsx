@@ -8,6 +8,7 @@ import {
 import { bsl } from '@/util/style';
 import { Screen, ScreenProps } from '@/types/navigation';
 import { Navigation } from 'react-native-navigation';
+import CancelButton from './form/CancelButton';
 
 export interface asModalProps {
     onDismiss: () => void;
@@ -40,7 +41,7 @@ const asModal: (component: React.FC) => Screen<asModalProps & ScreenProps> = (
     };
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.flex}>
             <Animated.View
                 style={[
                     styles.overlay,
@@ -53,7 +54,7 @@ const asModal: (component: React.FC) => Screen<asModalProps & ScreenProps> = (
                 ]}
             />
             <TouchableWithoutFeedback onPress={dismiss}>
-                <View style={{ flex: 1 }} />
+                <View style={styles.flex} />
             </TouchableWithoutFeedback>
             <Animated.View
                 style={[
@@ -70,12 +71,16 @@ const asModal: (component: React.FC) => Screen<asModalProps & ScreenProps> = (
                     },
                 ]}>
                 <BaseComponent {...props} dismiss={dismiss} />
+                <CancelButton onPress={dismiss} />
             </Animated.View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    flex: {
+        flex: 1,
+    },
     overlay: {
         ...StyleSheet.absoluteFillObject,
         backgroundColor: 'rgba(0, 0, 0, .4)',

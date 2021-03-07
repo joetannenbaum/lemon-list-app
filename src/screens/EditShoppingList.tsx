@@ -60,7 +60,6 @@ const EditShoppingList: Screen<EditShoppingListProps & ModalScreenProps> = (
                         processing={isSubmitting}>
                         Update
                     </SubmitButton>
-                    <CancelButton onPress={props.dismiss} />
                 </View>
             )}
         </Formik>

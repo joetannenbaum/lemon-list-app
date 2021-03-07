@@ -47,7 +47,6 @@ const ShoppingListStoreSelect: Screen<
                 ItemSeparatorComponent={() => <Divider margin={20} />}
                 renderItem={renderItem}
             />
-            <CancelButton onPress={props.dismiss} />
         </>
     );
 };

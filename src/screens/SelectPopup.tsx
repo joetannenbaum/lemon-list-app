@@ -51,7 +51,6 @@ const SelectPopup: Screen<SelectPopupProps & ModalScreenProps> = (props) => {
                 ))}
             </ScrollView>
             <Divider />
-            <CancelButton onPress={props.dismiss} />
         </View>
     );
 };

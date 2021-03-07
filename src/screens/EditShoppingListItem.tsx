@@ -187,7 +187,6 @@ const EditShoppingListItem: Screen<
                             processing={isSubmitting}>
                             Update
                         </SubmitButton>
-                        <CancelButton onPress={props.dismiss} />
                     </View>
                 </View>
             )}

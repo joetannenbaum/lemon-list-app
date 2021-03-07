@@ -47,7 +47,6 @@ const AddItemsFromListsStart: Screen<
                     addToListId={props.addToListId}
                     dismiss={props.dismiss}
                 />
-                <CancelButton onPress={props.dismiss} />
             </>
         );
     }
@@ -70,16 +69,13 @@ const AddItemsFromListsStart: Screen<
     );
 
     return (
-        <>
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                data={lists}
-                keyExtractor={(item) => item.id.toString()}
-                ItemSeparatorComponent={() => <View style={styles.divider} />}
-                renderItem={renderItem}
-            />
-            <CancelButton onPress={props.dismiss} />
-        </>
+        <FlatList
+            showsVerticalScrollIndicator={false}
+            data={lists}
+            keyExtractor={(item) => item.id.toString()}
+            ItemSeparatorComponent={() => <View style={styles.divider} />}
+            renderItem={renderItem}
+        />
     );
 };
 

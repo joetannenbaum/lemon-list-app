@@ -55,7 +55,6 @@ const ShareShoppingList: Screen<ShareShoppingListProps & ModalScreenProps> = (
                 <SubmitButton processing={processing} onPress={onSharePress}>
                     Share List
                 </SubmitButton>
-                <CancelButton onPress={props.dismiss} />
             </View>
         </View>
     );

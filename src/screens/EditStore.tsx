@@ -58,7 +58,6 @@ const EditStore: Screen<EditStoreProps & ModalScreenProps> = (props) => {
                         processing={isSubmitting}>
                         Update
                     </SubmitButton>
-                    <CancelButton onPress={props.dismiss} />
                 </View>
             )}
         </Formik>
