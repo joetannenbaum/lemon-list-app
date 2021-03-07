@@ -43,7 +43,7 @@ const SubmitButton: React.FC<Props> = (props) => {
             return (
                 <View style={styles.loadingIconWrapper}>
                     <Animated.Image
-                        source={require('@images/lemon-slice.png')}
+                        source={require('@images/lemon-slice-small.png')}
                         style={[
                             styles.loadingIcon,
                             {
