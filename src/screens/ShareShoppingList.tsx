@@ -45,7 +45,7 @@ const ShareShoppingList: Screen<ShareShoppingListProps & ModalScreenProps> = (
     };
 
     return (
-        <View style={{ padding: 20 }}>
+        <View>
             <BaseText align="center">
                 Sharing a list means that anyone with the link to the list can
                 contribute or check off items in a list.
