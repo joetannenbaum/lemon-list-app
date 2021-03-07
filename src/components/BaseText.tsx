@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, TextProps } from 'react-native';
+import { Text, TextProps, View } from 'react-native';
 import { bsl, black } from '@/util/style';
 
-export interface BaseTextProps extends TextProps {
+export interface BaseTextProps {
     color?: string;
     align?: 'left' | 'center' | 'right';
     size?: number;
@@ -12,50 +12,14 @@ export interface BaseTextProps extends TextProps {
     fontFamily?: string;
 }
 
-const BaseText: React.FC<BaseTextProps> = (props) => {
+type TextComponentProps = BaseTextProps & TextProps;
+
+export interface LetterProps {
+    isFirst: boolean;
+}
+
+const TextComponent: React.FC<TextComponentProps> = (props) => {
     const defaultFontSize = 30;
-
-    const getTextStyle = () => {
-        const textStyle = [];
-
-        textStyle.push({ fontFamily: props.fontFamily || 'Karla-Regular' });
-
-        textStyle.push({ color: props.color || black });
-
-        if (props.align) {
-            textStyle.push({ textAlign: props.align });
-        }
-
-        textStyle.push({ fontSize: bsl(props.size || defaultFontSize) });
-
-        if (typeof props.lineHeight !== 'undefined') {
-            textStyle.push({
-                lineHeight: bsl(props.lineHeight),
-            });
-        } else {
-            textStyle.push({
-                lineHeight: bsl(1.25 * (props.size || defaultFontSize)),
-            });
-        }
-
-        if (props.bold) {
-            textStyle.push({ fontWeight: '700' });
-        }
-
-        if (typeof props.letterSpacing !== 'undefined') {
-            textStyle.push({ letterSpacing: bsl(props.letterSpacing) });
-        }
-
-        if (props.style) {
-            textStyle.push(props.style);
-        }
-
-        if (textStyle.length === 1) {
-            return textStyle[0];
-        }
-
-        return textStyle;
-    };
 
     return (
         <Text
@@ -63,10 +27,68 @@ const BaseText: React.FC<BaseTextProps> = (props) => {
             allowFontScaling={false}
             onPress={props.onPress}
             {...props}
-            style={getTextStyle()}>
+            style={[
+                {
+                    fontFamily: props.fontFamily || 'Karla-Regular',
+                    color: props.color || black,
+                    fontSize: bsl(props.size || defaultFontSize),
+                    fontWeight: props.bold ? '700' : '400',
+                    textAlign: props.align,
+                    lineHeight:
+                        typeof props.lineHeight !== 'undefined'
+                            ? bsl(props.lineHeight)
+                            : bsl(1.25 * (props.size || defaultFontSize)),
+                },
+                props.style,
+            ]}>
             {props.children}
         </Text>
     );
+};
+
+const Letter: React.FC<TextComponentProps & LetterProps> = (props) => {
+    return (
+        <TextComponent
+            {...props}
+            style={[
+                props.style,
+                { paddingLeft: props.isFirst ? 0 : bsl(props.letterSpacing) },
+            ]}>
+            {props.children}
+        </TextComponent>
+    );
+};
+
+const BaseText: React.FC<TextComponentProps> = (props) => {
+    if (
+        typeof props.letterSpacing !== 'undefined' &&
+        typeof props.children === 'string'
+    ) {
+        return (
+            <View
+                style={[
+                    { flexDirection: 'row' },
+                    typeof props.align !== 'undefined' &&
+                        props.align !== 'left' && {
+                            justifyContent:
+                                props.align === 'center'
+                                    ? 'center'
+                                    : 'flex-end',
+                        },
+                ]}>
+                {props.children.split('').map((letter, index) => (
+                    <Letter
+                        key={index.toString()}
+                        isFirst={index === 0}
+                        {...props}>
+                        {letter}
+                    </Letter>
+                ))}
+            </View>
+        );
+    }
+
+    return <TextComponent {...props}>{props.children}</TextComponent>;
 };
 
 export default BaseText;
