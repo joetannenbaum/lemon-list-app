@@ -4,7 +4,6 @@ import asModal from '@/components/asModal';
 import { ModalScreenProps } from '@/types/navigation';
 import { View, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import BaseText from '@/components/BaseText';
-import CancelButton from '@/components/form/CancelButton';
 import { bsl } from '@/util/style';
 import Divider from '@/components/Divider';
 

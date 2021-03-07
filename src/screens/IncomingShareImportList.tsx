@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { ScreenProps, Screen } from '@/types';
+import { Screen } from '@/types/navigation';
 import asModal from '@/components/asModal';
 import { View, FlatList } from 'react-native';
 import TextField from '@/components/form/TextField';

@@ -8,7 +8,6 @@ import Config from 'react-native-config';
 import asModal from '@/components/asModal';
 import SubmitButton from '@/components/form/SubmitButton';
 import { bsl } from '@/util/style';
-import CancelButton from '@/components/form/CancelButton';
 import { Screen, ModalScreenProps } from '@/types/navigation';
 
 export interface ShareShoppingListProps {

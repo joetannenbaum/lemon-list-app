@@ -1,22 +1,11 @@
 import React from 'react';
-import { ShoppingListItem as ShoppingListItemType } from '@/types/ShoppingListItem';
-import BaseText from '@/components/BaseText';
-import { View, Alert } from 'react-native';
-import useUpdateShoppingListItem from '@/hooks/useUpdateShoppingListItem';
-import useDeleteShoppingListItem from '@/hooks/useDeleteShoppingListItem';
+import { View } from 'react-native';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import SubmitButton from '@/components/form/SubmitButton';
-import Select from '@/components/form/Select';
-import useStores from '@/hooks/useStores';
-import sortBy from 'lodash/sortBy';
-import useUpdateItem from '@/hooks/useUpdateItem';
-import omit from 'lodash/omit';
 import AutoGrowTextField from '@/components/form/AutoGrowTextField';
-import QuantityControlField from '@/components/QuantityControlField';
-import { bsl, grey300 } from '@/util/style';
+import { bsl } from '@/util/style';
 import CancelButton from '@/components/form/CancelButton';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import asModal from '@/components/asModal';
 import { Screen, ModalScreenProps } from '@/types/navigation';
 

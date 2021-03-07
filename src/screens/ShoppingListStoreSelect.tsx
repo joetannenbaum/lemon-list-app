@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList } from 'react-native';
 import asModal from '@/components/asModal';
-import CancelButton from '@/components/form/CancelButton';
-import { bsl, sizeImage } from '@/util/style';
 import Divider from '@/components/Divider';
 import useStores from '@/hooks/useStores';
 import ArrowButton from '@/components/ArrowButton';
@@ -50,18 +48,5 @@ const ShoppingListStoreSelect: Screen<
         </>
     );
 };
-
-const styles = StyleSheet.create({
-    button: {
-        paddingVertical: bsl(20),
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    carat: sizeImage(16, 24, { width: 16 }),
-    textWrapper: {
-        flex: 1,
-        paddingRight: bsl(20),
-    },
-});
 
 export default asModal(ShoppingListStoreSelect);

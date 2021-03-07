@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import BaseText from '@/components/BaseText';
 import asModal from '@/components/asModal';
-import CancelButton from '@/components/form/CancelButton';
 import AddItemsFromList from '@/components/AddItemsFromList';
 import { bsl, sizeImage, grey300, grey400 } from '@/util/style';
 import { Screen, ModalScreenProps } from '@/types/navigation';

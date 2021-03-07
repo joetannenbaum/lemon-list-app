@@ -6,7 +6,6 @@ import * as Yup from 'yup';
 import { Screen, ModalScreenProps } from '@/types/navigation';
 import SubmitButton from '@/components/form/SubmitButton';
 import asModal from '@/components/asModal';
-import CancelButton from '@/components/form/CancelButton';
 import { bsl } from '@/util/style';
 import useStore from '@/hooks/useStore';
 import useUpdateStore from '@/hooks/useUpdateStore';

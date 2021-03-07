@@ -15,7 +15,6 @@ import omit from 'lodash/omit';
 import AutoGrowTextField from '@/components/form/AutoGrowTextField';
 import QuantityControlField from '@/components/QuantityControlField';
 import { bsl, grey300 } from '@/util/style';
-import CancelButton from '@/components/form/CancelButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import asModal from '@/components/asModal';
 import { Screen, ModalScreenProps } from '@/types/navigation';
