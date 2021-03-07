@@ -6,6 +6,7 @@ import {
     StyleProp,
     TextStyle,
     StyleSheet,
+    Platform,
 } from 'react-native';
 import { useField } from 'formik';
 import { ErrorMessage } from 'formik';
@@ -76,8 +77,11 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: bsl(3),
         borderColor: grey300,
-        ...paddingY(20), // Keep this this way, multiline won't pad the top correctly otherwise
-        ...paddingX(20),
+        paddingVertical: Platform.select({
+            android: bsl(14),
+            ios: bsl(20),
+        }), // Keep this this way, multiline won't pad the top correctly otherwise on iOS
+        paddingHorizontal: bsl(20),
         fontFamily: 'Karla-Regular',
         fontSize: bsl(30),
         backgroundColor: '#fff',
