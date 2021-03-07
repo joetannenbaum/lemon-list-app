@@ -1,19 +1,11 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import {
     TouchableOpacity,
     TouchableOpacityProps,
     StyleSheet,
-    Animated,
 } from 'react-native';
 import BaseText from '../BaseText';
-import {
-    paddingX,
-    paddingY,
-    bsl,
-    grey400,
-    grey200,
-    yellow100,
-} from '@/util/style';
+import { bsl, grey400, grey200, yellow100 } from '@/util/style';
 
 interface Props extends TouchableOpacityProps {
     processing?: boolean;
@@ -42,7 +34,7 @@ const SubmitButton: React.FC<Props> = (props) => {
                 <BaseText
                     color={disabled ? grey400 : undefined}
                     size={30}
-                    letterSpacing={1.25}
+                    letterSpacing={3}
                     align="center">
                     {props.children.toUpperCase()}
                 </BaseText>
@@ -57,7 +49,6 @@ const SubmitButton: React.FC<Props> = (props) => {
             style={[
                 styles.button,
                 props.processing && styles.processing,
-                ,
                 disabled && !props.processing && styles.disabled,
             ]}
             testID={props.testID}
@@ -73,8 +64,7 @@ const SubmitButton: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
     button: {
         backgroundColor: yellow100,
-        ...paddingX(20),
-        ...paddingY(20),
+        padding: bsl(20),
         borderRadius: bsl(50),
     },
     processing: {
