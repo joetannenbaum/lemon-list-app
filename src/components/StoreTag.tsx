@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseText from './BaseText';
-import { View, TouchableOpacity, Animated, StyleSheet } from 'react-native';
+import { View, Animated, StyleSheet } from 'react-native';
 import api from '@/api';
 import { useMutation, useQueryClient } from 'react-query';
 import { StoreTag as StoreTagType } from '@/types/StoreTag';
@@ -8,13 +8,14 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import SwipeDelete from './SwipeDelete';
 import SwipeMove from './SwipeMove';
 import { grey200, bsl } from '@/util/style';
+import { MoveDirection } from '@/util';
 
 interface Props {
     item: StoreTagType;
     isFirst: boolean;
     isLast: boolean;
     index: number;
-    onMove: (index: number, direction: number) => void;
+    onMove: (index: number, direction: MoveDirection) => void;
 }
 
 const StoreTag: React.FC<Props> = (props) => {

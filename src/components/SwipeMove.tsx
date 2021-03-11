@@ -1,20 +1,52 @@
 import React from 'react';
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { sizeImage, bsl, blue400 } from '@/util/style';
+import { MoveDirection } from '@/util';
 
 export interface SwipeMoveProps {
-    onMove: (direction: 1 | -1) => void;
+    onMove: (direction: MoveDirection) => void;
     isFirst: boolean;
     isLast: boolean;
 }
 
 const SwipeMove: React.FC<SwipeMoveProps> = (props) => {
+    const alertMoveToTop = () => {
+        Alert.alert('Move to top?', undefined, [
+            {
+                text: 'Yes',
+                onPress() {
+                    props.onMove(-2);
+                },
+            },
+            {
+                text: 'Cancel',
+                style: 'cancel',
+            },
+        ]);
+    };
+
+    const alertMoveToBottom = () => {
+        Alert.alert('Move to bottom?', undefined, [
+            {
+                text: 'Yes',
+                onPress() {
+                    props.onMove(2);
+                },
+            },
+            {
+                text: 'Cancel',
+                style: 'cancel',
+            },
+        ]);
+    };
+
     return (
         <View style={styles.moveWrapper}>
             {!props.isFirst && (
                 <TouchableOpacity
                     style={styles.moveButton}
-                    onPress={() => props.onMove(-1)}>
+                    onPress={() => props.onMove(-1)}
+                    onLongPress={alertMoveToTop}>
                     <Image
                         source={require('@images/arrow-down.png')}
                         style={[styles.moveIcon, styles.moveUpIcon]}
@@ -24,7 +56,8 @@ const SwipeMove: React.FC<SwipeMoveProps> = (props) => {
             {!props.isLast && (
                 <TouchableOpacity
                     style={styles.moveButton}
-                    onPress={() => props.onMove(1)}>
+                    onPress={() => props.onMove(1)}
+                    onLongPress={alertMoveToBottom}>
                     <Image
                         source={require('@images/arrow-down.png')}
                         style={styles.moveIcon}

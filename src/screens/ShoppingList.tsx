@@ -46,6 +46,7 @@ import FooterForm from '@/components/FooterForm';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { lastShoppingListViewedKey } from '@/util/storage';
 import SubmitButton from '@/components/form/SubmitButton';
+import { MoveDirection, reorderState } from '@/util';
 
 export interface ShoppingListProps {
     id: number;
@@ -209,16 +210,10 @@ const ShoppingList: Screen<ShoppingListProps & ScreenProps> = (props) => {
         [],
     );
 
-    const onItemMove = (index: number, direction: number) => {
-        setListData((state) => {
-            const newState = move(state, index, index + direction);
-
-            debouncedReorder({
-                order: newState.map((item) => item.id),
-            });
-
-            return newState;
-        });
+    const onItemMove = (index: number, direction: MoveDirection) => {
+        setListData((state) =>
+            reorderState(state, index, direction, debouncedReorder),
+        );
     };
 
     // TODO: Fix the isLast property for sectioned data

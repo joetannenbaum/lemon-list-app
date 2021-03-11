@@ -17,6 +17,7 @@ import FooterToolButton from '@/components/FooterToolButton';
 import { showPopup, setStackRootWithoutAnimating } from '@/util/navigation';
 import FooterTools from '@/components/FooterTools';
 import FooterForm from '@/components/FooterForm';
+import { reorderState, MoveDirection } from '@/util';
 
 interface Props extends ScreenProps {
     id: number;
@@ -75,16 +76,10 @@ const Store: Screen<Props> = (props) => {
         [],
     );
 
-    const onItemMove = (index: number, direction: number) => {
-        setTagData((state) => {
-            const newState = move(state, index, index + direction);
-
-            debouncedReorder({
-                order: newState.map((item) => item.id),
-            });
-
-            return newState;
-        });
+    const onItemMove = (index: number, direction: MoveDirection) => {
+        setTagData((state) =>
+            reorderState(state, index, direction, debouncedReorder),
+        );
     };
 
     const renderItem = useCallback(
