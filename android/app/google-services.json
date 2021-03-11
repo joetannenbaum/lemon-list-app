@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "931944660700",
-    "project_id": "lemon-list-local",
-    "storage_bucket": "lemon-list-local.appspot.com"
+    "project_number": "170521488094",
+    "project_id": "lemon-list-67205",
+    "storage_bucket": "lemon-list-67205.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:931944660700:android:122e19b157f25a0e2dbe19",
+        "mobilesdk_app_id": "1:170521488094:android:036ccb7555342aa232704f",
         "android_client_info": {
-          "package_name": "com.lemonlistapp.app.local"
+          "package_name": "com.lemonlistapp.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "931944660700-pft1hpvcrsom82nj1hp589ub80pdc1nn.apps.googleusercontent.com",
+          "client_id": "170521488094-7ttq8cb5l5kv8g81uqc34dodmhccnrv3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB57o1ckr3imXaKBc6dpZQJ4YuKpXHSvNI"
+          "current_key": "AIzaSyCQ6dywVuw2ctz-3y1RAhD9O5v8EfQm_OI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "931944660700-pft1hpvcrsom82nj1hp589ub80pdc1nn.apps.googleusercontent.com",
+              "client_id": "170521488094-7ttq8cb5l5kv8g81uqc34dodmhccnrv3.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "931944660700-jeqsv4ksnqes9qmn8ikc15gi206moqdl.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.lemonlistapp.app.local",
-                "app_store_id": "123123123"
-              }
             }
           ]
         }
