@@ -9,7 +9,8 @@
     "test": "jest",
     "lint": "eslint .",
     "pod-install": "cd ios && pod install && cd ..",
-    "android-emulator": "emulator @Pixel_3_XL_API_30 -dns-server 1.1.1.1 -partition-size 1024"
+    "android-emulator": "emulator @Pixel_3_XL_API_30 -dns-server 1.1.1.1 -partition-size 1024",
+    "fastlane:production:android": "cd android && bundle exec fastlane android internal --env production"
   },
   "dependencies": {
     "@bugsnag/react-native": "7.8.0",
