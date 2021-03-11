@@ -96,6 +96,7 @@ const CreateItemForm: React.FC<Props> = (props) => {
                                         handleSubmit();
                                     }
                                 }}
+                                blurOnSubmit={false}
                                 additionalStyles={{
                                     borderWidth: 0,
                                 }}
