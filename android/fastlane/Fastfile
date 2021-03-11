@@ -102,7 +102,7 @@ platform :android do
     # increment_version_name(app_project_dir: './android/app', bump_type: 'minor')
     increment_version_code(app_project_dir: './app')
 
-    git_commit(path: './android/app/build.gradle', message: 'Bump build (Android)')
+    git_commit(path: './app/build.gradle', message: 'Bump build (Android)')
 
     push_to_git_remote
 
