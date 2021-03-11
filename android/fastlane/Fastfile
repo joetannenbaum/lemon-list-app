@@ -60,6 +60,13 @@ platform :android do
 
   desc "Submit a new Beta Build to Play Store"
   lane :internal do
+    ensure_git_branch(branch: ENV['FASTLANE_GIT_BRANCH'])
+    ensure_git_status_clean
+
+    Dir.chdir('../..') do
+      sh('yarn')
+    end
+
     prep_release_type
 
     increment_version_code(app_project_dir: './app')
@@ -79,9 +86,26 @@ platform :android do
       }
     )
 
-    # upload_to_play_store(
-    #   track: 'internal'
-    # )
+    upload_to_play_store(
+      track: 'internal'
+    )
+
+    # Reset all of the temporary stuff we just did (identifier, app icon, etc)
+    reset_git_repo(
+      skip_clean: true,
+      force: true
+    )
+
+    # Re-increment the build number so it matches
+    # Going to do this manually for now, figure out a plan for later
+    # increment_version_name(app_project_dir: './android/app', bump_type: 'minor')
+    increment_version_code(app_project_dir: './app')
+
+    git_commit(path: './android/app/build.gradle', message: 'Bump build (Android)')
+
+    push_to_git_remote
+
+    send_build_to_bugsnag
   end
 
   desc "Deploy a new version to the Google Play"

@@ -4,3 +4,4 @@
 
 gem 'fastlane-plugin-android_versioning'
 gem 'fastlane-plugin-badge'
+gem 'fastlane-plugin-bugsnag'
