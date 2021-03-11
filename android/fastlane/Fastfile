@@ -87,7 +87,8 @@ platform :android do
     )
 
     upload_to_play_store(
-      track: 'internal'
+      track: 'internal',
+      release_status: 'draft',
     )
 
     # Reset all of the temporary stuff we just did (identifier, app icon, etc)
