@@ -15,32 +15,76 @@
 
 default_platform(:android)
 
+app_id = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+new_app_id = app_id
+
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
+
+  desc 'Updates the app identifier, display name and icon for alpha, beta, and production releases'
+  lane :prep_release_type do
+    releaseType = ENV['RN_RELEASE_TYPE'] || 'production'
+
+      # update android suffix back to neutral
+      set_value_in_build(
+        app_project_dir: './android/app',
+        key: 'applicationIdSuffix',
+        value: ''
+      )
+
+    if releaseType != 'production'
+      suffix = ENV['BUNDLE_SUFFIX'] || releaseType
+      new_app_id = "#{new_app_id}.#{suffix}"
+      # update android suffix
+      set_value_in_build(
+        app_project_dir: './android/app',
+        key: 'applicationIdSuffix',
+        value: ".#{suffix}"
+      )
+    end
+
+    UI.message "\n\nSetting app identifier to: #{new_app_id}"
+
+    # If we're doing a prod build, no need to change icons and such
+    # TODO: Remove this once we're out of Beta
+    # next if releaseType == 'production'
+
+    # See all available options at: https://github.com/HazAT/badge
+    UI.message "\n\nUpdating app icon with #{releaseType} badge"
+
+    # android badge
+    add_badge(
+      custom: "#{Dir.pwd}/beta-badge-light@3x.png",
+      glob: '/android/app/src/main/res/mipmap**/*.{png,PNG}', # note no dot in path
+      alpha: releaseType == 'alpha',
+    )
   end
 
   desc "Submit a new Beta Build to Play Store"
-  lane :beta do
-    store_password = prompt(text: "Signing Store Password: ", secure_text: true)
-    key_password = prompt(text: "Alias Key Password: ", secure_text: true)
-    releaseFilePath = File.join(Dir.pwd, "..", "lemon-list-release-key.jks")
+  lane :internal do
+    prep_release_type
+
+    increment_version_code(app_project_dir: './android/app')
+
     gradle(task: 'clean')
+
     gradle(
-      task: 'assemble',
+      project_dir: './android',
+      print_command: false, # Let's not print the passwords to command line, thanks
+      task: 'bundle',
       build_type: 'Release',
-      print_command: false,
       properties: {
-        "android.injected.signing.store.file" => releaseFilePath,
-        "android.injected.signing.store.password" => store_password,
-        "android.injected.signing.key.alias" => "my-key-alias",
-        "android.injected.signing.key.password" => key_password,
+        'android.injected.signing.store.file' => ENV['ANDROID_KEYSTORE_FILE'],
+        'android.injected.signing.store.password' => ENV['ANDROID_KEYSTORE_PASSWORD'],
+        'android.injected.signing.key.alias' => ENV['ANDROID_KEYSTORE_ALIAS'],
+        'android.injected.signing.key.password' => ENV['ANDROID_KEYSTORE_ALIAS_PASSWORD'],
+        'manifestPlaceholders.urlScheme' => "lemonlist#{ENV['BUNDLE_SUFFIX'] || ''}"
       }
     )
-    upload_to_play_store(
-      track: 'internal'
-    )
+
+    # upload_to_play_store(
+    #   track: 'internal'
+    # )
+  end
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
