@@ -115,7 +115,8 @@ platform :android do
 
     bugsnag_sourcemaps_upload(
       api_key: ENV['BUGSNAG_KEY'],
-      app_version: versionName
+      app_version: versionName,
+      platform: 'android',
     )
   end
 
