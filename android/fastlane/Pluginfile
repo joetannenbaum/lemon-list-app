@@ -5,3 +5,5 @@
 gem 'fastlane-plugin-android_versioning'
 gem 'fastlane-plugin-badge'
 gem 'fastlane-plugin-bugsnag'
+gem 'fastlane-plugin-bugsnag_sourcemaps_upload'
+gem 'fastlane-plugin-get_version_name'
