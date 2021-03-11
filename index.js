@@ -19,8 +19,8 @@ Navigation.setDefaultOptions({
         style: 'dark',
     },
     layout: {
-        backgroundColor: '#fff',
-        componentBackgroundColor: '#fff',
+        backgroundColor: yellow100,
+        componentBackgroundColor: yellow100,
     },
 });
 
