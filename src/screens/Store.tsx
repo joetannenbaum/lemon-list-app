@@ -71,7 +71,7 @@ const Store: Screen<Props> = (props) => {
     );
 
     const debouncedReorder = useCallback(
-        debounce((params) => () => reorder(params), 1000),
+        debounce((params) => reorder(params), 1000),
         [],
     );
 
