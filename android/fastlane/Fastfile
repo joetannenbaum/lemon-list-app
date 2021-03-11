@@ -54,7 +54,6 @@ platform :android do
     add_badge(
       custom: "#{Dir.pwd}/beta-badge-light@3x.png",
       glob: "/app/src/main/res/mipmap**/{ic_launcher_foreground,ic_launcher_round,ic_launcher}.{png,PNG}", # note no dot in path
-      # glob: "#{Dir.pwd}/../app/src/main/res/mipmap**/*.{png,PNG}", # note no dot in path
       alpha: releaseType == 'alpha',
     )
   end
