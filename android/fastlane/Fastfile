@@ -118,6 +118,8 @@ platform :android do
       app_version: versionName,
       platform: 'android',
     )
+
+    UI.message "\n\nhttps://play.google.com/console/u/1/developers/5335141050908790168/app/4973342249025252110/tracks/internal-testing"
   end
 
   desc "Deploy a new version to the Google Play"
@@ -125,6 +127,4 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
-
-  UI.message "\n\nhttps://play.google.com/console/u/0/developers/5335141050908790168/app/4973342249025252110/tracks/internal-testing"
 end
