@@ -1,19 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import {
-    ScrollView,
-    View,
-    Button,
-    TouchableOpacity,
-    FlatList,
-    StyleSheet,
-} from 'react-native';
+import { View, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import useShoppingList from '@/hooks/useShoppingList';
 import Checkbox from '@/components/Checkbox';
 import BaseText from '@/components/BaseText';
 import { useQueryClient, useMutation } from 'react-query';
 import api from '@/api';
-import { Navigation } from 'react-native-navigation';
-import { bsl, grey300 } from '@/util/style';
+import { bsl } from '@/util/style';
 import SubmitButton from './form/SubmitButton';
 import Divider from './Divider';
 
@@ -86,7 +78,7 @@ const AddItemsFromList: React.FC<AddItemsFromListProps> = (props) => {
                 </View>
             </TouchableOpacity>
         ),
-        [],
+        [selected],
     );
 
     return (
@@ -106,12 +98,14 @@ const AddItemsFromList: React.FC<AddItemsFromListProps> = (props) => {
                 data={list.data?.active_version?.items}
                 renderItem={renderItem}
             />
-            <SubmitButton
-                processing={processing}
-                disabled={selected.length === 0}
-                onPress={onAddToListPress}>
-                {`Add to ${addToList.data?.name} List`}
-            </SubmitButton>
+            <View style={styles.buttonWrapper}>
+                <SubmitButton
+                    processing={processing}
+                    disabled={selected.length === 0}
+                    onPress={onAddToListPress}>
+                    {`Add to ${addToList.data?.name} List`}
+                </SubmitButton>
+            </View>
         </>
     );
 };
@@ -119,6 +113,9 @@ const AddItemsFromList: React.FC<AddItemsFromListProps> = (props) => {
 const styles = StyleSheet.create({
     list: {
         paddingVertical: bsl(20),
+    },
+    buttonWrapper: {
+        paddingTop: bsl(20),
     },
     row: {
         flexDirection: 'row',

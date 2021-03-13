@@ -27,6 +27,23 @@ const AddItemsFromListsStart: Screen<
         (list) => list.id !== props.addToListId && list.total_items > 0,
     );
 
+    const renderItem = useCallback(
+        ({ item }) => (
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setListId(item.id)}>
+                <View style={styles.textWrapper}>
+                    <BaseText>{item.name}</BaseText>
+                </View>
+                <Image
+                    source={require('@images/carat-right.png')}
+                    style={styles.carat}
+                />
+            </TouchableOpacity>
+        ),
+        [],
+    );
+
     if (listId !== null) {
         return (
             <>
@@ -49,23 +66,6 @@ const AddItemsFromListsStart: Screen<
             </>
         );
     }
-
-    const renderItem = useCallback(
-        ({ item }) => (
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => setListId(item.id)}>
-                <View style={styles.textWrapper}>
-                    <BaseText>{item.name}</BaseText>
-                </View>
-                <Image
-                    source={require('@images/carat-right.png')}
-                    style={styles.carat}
-                />
-            </TouchableOpacity>
-        ),
-        [],
-    );
 
     return (
         <FlatList
