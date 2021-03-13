@@ -40,12 +40,13 @@ const CreateStoreTagForm: React.FC<CreateStoreTagFormProps> = (props) => {
     });
 
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
+        form.setSubmitting(false);
+        form.resetForm();
+
         mutateAsync({
             name: values.name,
         })
             .then((res) => {
-                form.setSubmitting(false);
-                form.resetForm();
                 inputRef.current?.focus();
             })
             .catch((error) => {
@@ -74,6 +75,7 @@ const CreateStoreTagForm: React.FC<CreateStoreTagFormProps> = (props) => {
                         additionalStyles={{
                             borderWidth: 0,
                         }}
+                        blurOnSubmit={false}
                         hideError={true}
                     />
                     <MiniAddButton
