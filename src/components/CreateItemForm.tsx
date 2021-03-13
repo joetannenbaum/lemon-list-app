@@ -58,13 +58,14 @@ const CreateItemForm: React.FC<Props> = (props) => {
     });
 
     const onSubmit = (values: FormValues, form: FormikHelpers<FormValues>) => {
+        form.resetForm();
+        inputRef.current?.focus();
+
         mutateAsync({
             name: values.name,
         })
             .then((res) => {
                 form.setSubmitting(false);
-                form.resetForm();
-                inputRef.current?.focus();
             })
             .catch((error) => {
                 form.setSubmitting(false);
