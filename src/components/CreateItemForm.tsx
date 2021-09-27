@@ -115,14 +115,14 @@ const CreateItemForm: React.FC<Props> = (props) => {
                         data={itemsData}
                         onSelect={(val) => {
                             setSubmitting(true);
+                            resetForm();
+                            inputRef.current?.focus();
 
                             mutateAsync({
                                 item_id: val.value,
                             })
                                 .then((res) => {
                                     setSubmitting(false);
-                                    resetForm();
-                                    inputRef.current?.focus();
                                 })
                                 .catch((error) => {
                                     setSubmitting(false);
