@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import BaseText from '@/components/BaseText';
 import Fuse from 'fuse.js';
 import { bsl, grey100 } from '@/util/style';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface AutoCompleteData {
     label: string;
