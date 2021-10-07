@@ -9,6 +9,7 @@ import asModal from '@/components/asModal';
 import SubmitButton from '@/components/form/SubmitButton';
 import { bsl } from '@/util/style';
 import { Screen, ModalScreenProps } from '@/types/navigation';
+import { getBundleId } from 'react-native-device-info';
 
 export interface ShareShoppingListProps {
     id: number;
@@ -27,6 +28,9 @@ const ShareShoppingList: Screen<ShareShoppingListProps & ModalScreenProps> = (
         const link = await dynamicLinks().buildShortLink({
             link: `${Config.API_URL}/list/${list.data?.uuid}`,
             domainUriPrefix: `https://${Config.DYNAMIC_LINK_URL}`,
+            android: {
+                packageName: getBundleId(),
+            },
         });
 
         Share.open({
